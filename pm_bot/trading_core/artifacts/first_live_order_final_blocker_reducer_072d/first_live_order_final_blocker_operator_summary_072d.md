@@ -13,29 +13,27 @@
 
 ### credentials/auth
 
-- status: `unknown_artifact_evidence`
-- remaining blockers: `2`
+- status: `blocked_remaining_first_live_order_final_blockers`
+- remaining blockers: `1`
 - `credentials_auth_not_live_authorization` - Credentials/auth artifacts are commit-safe readiness evidence only and do not authorize live execution.
-- `local_real_check_auth_evidence_unknown` - The local real-check bundle is missing, so auth-side final checks remain unknown.
 
 ### account/balance
 
-- status: `blocked_remaining_first_live_order_final_blockers`
+- status: `unknown_artifact_evidence`
 - remaining blockers: `2`
 - `account_state_not_confirmed` - Read-only account-state artifact did not report a successful live-blocked probe; no account data is inferred.
 - `account_balance_values_not_execution_authorization` - Account/balance values are not emitted by this reducer and do not authorize a live order.
 
 ### signer
 
-- status: `blocked_remaining_first_live_order_final_blockers`
+- status: `unknown_artifact_evidence`
 - remaining blockers: `1`
 - `signer_diagnostic_not_ok` - Guarded signer diagnostic has not completed with diagnostic_ok.
 
 ### token selection
 
 - status: `unknown_artifact_evidence`
-- remaining blockers: `2`
-- `order_prep_packet_missing` - The order prep packet artifact is missing; token selection cannot be reduced to a final reviewed target.
+- remaining blockers: `1`
 - `token_selection_not_final` - Token selection evidence does not show an explicit format-valid token target.
 
 ### signed payload dry-run
@@ -52,20 +50,19 @@
 
 ### live execution authorization
 
-- status: `unknown_artifact_evidence`
-- remaining blockers: `4`
+- status: `blocked_remaining_first_live_order_final_blockers`
+- remaining blockers: `3`
 - `allowed_for_live_false` - allowed_for_live remains false across the 072D reducer output.
 - `separate_live_execution_authorization_missing` - No separate operator-approved live execution authorization artifact is present or consumed.
 - `submit_cancel_signing_forbidden` - This task does not submit, cancel, sign, instantiate a signer, connect a wallet, or make trading calls.
-- `upstream_evidence_unknown` - One or more upstream prep/check artifacts are missing or unreadable; unknown evidence remains unknown.
 
 ## Input Artifact Evidence
 
-- `order_prep_packet` exists=false parsed=false status=`unknown_artifact_evidence`
-- `local_real_check_bundle` exists=false parsed=false status=`unknown_artifact_evidence`
+- `order_prep_packet` exists=true parsed=true status=`blocked_order_prep_packet_not_ready`
+- `local_real_check_bundle` exists=true parsed=true status=`local_real_check_bundle_completed_with_blockers_live_blocked`
 - `credentials_auth` exists=true parsed=true status=`blocked`
 - `account_state` exists=true parsed=true status=`blocked_missing_l2_credentials`
-- `signer_diagnostic` exists=true parsed=true status=`blocked_diagnostic_not_requested`
+- `signer_diagnostic` exists=true parsed=true status=`blocked_missing_private_key`
 - `token_selection` exists=true parsed=true status=`blocked_missing_token_id`
 - `signed_payload_dry_run` exists=true parsed=true status=`blocked_non_executable_signed_order_payload_dry_run_no_submit`
 - `approval_contract` exists=true parsed=true status=`approval_contract_defined_execution_blocked`

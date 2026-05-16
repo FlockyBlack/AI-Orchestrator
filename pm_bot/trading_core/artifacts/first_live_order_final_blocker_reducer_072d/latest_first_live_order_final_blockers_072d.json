@@ -39,10 +39,7 @@
   "local_artifact_read_only": true,
   "market": "BTC",
   "market_symbol": "BTC",
-  "missing_or_unreadable_artifact_keys": [
-    "order_prep_packet",
-    "local_real_check_bundle"
-  ],
+  "missing_or_unreadable_artifact_keys": [],
   "mnemonic_read": false,
   "mode": "first live order final blocker reducer / dry-run / no execution",
   "network_trading_call_performed": false,
@@ -85,7 +82,7 @@
   "real_order_cancelled": false,
   "real_order_submitted": false,
   "reducer_only": true,
-  "remaining_blocker_count": 13,
+  "remaining_blocker_count": 10,
   "required_group_ids": [
     "credentials_auth",
     "account_balance",
@@ -117,9 +114,9 @@
   "task_id": "ORCH-PMBOT-TRADING-MVP-072D-FIRST-LIVE-ORDER-FINAL-BLOCKER-REDUCER-NO-EXECUTION",
   "unknown_group_count": 3,
   "unknown_group_ids": [
-    "credentials_auth",
-    "token_selection",
-    "live_execution_authorization"
+    "account_balance",
+    "signer",
+    "token_selection"
   ],
   "unknown_remains_unknown": true,
   "wallet_connection_attempted": false,

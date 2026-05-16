@@ -691,7 +691,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "blocked_missing_selected_token",
+      "evidence_status": "blocked_signer_diagnostic_failed",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -2457,7 +2457,7 @@
       "detail": "",
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "blocked_missing_selected_token",
+      "evidence_status": "blocked_signer_diagnostic_failed",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
@@ -3941,7 +3941,7 @@
       "present": true,
       "source_id": "selected_token_payload_readiness_gate_073c",
       "source_safe": true,
-      "status": "blocked_missing_selected_token"
+      "status": "blocked_signer_diagnostic_failed"
     },
     {
       "contract_version": "pmbot_latest_real_local_check_evidence_review_074a.v1",

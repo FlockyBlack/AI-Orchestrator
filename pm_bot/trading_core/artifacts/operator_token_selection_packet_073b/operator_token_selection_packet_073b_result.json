@@ -926,7 +926,7 @@
         "background_worker_added": false,
         "browser_automation_added": false,
         "canary_executable_now": false,
-        "contract_version": "pmbot_public_market_token_discovery_latest_status_071a.v1",
+        "contract_version": "pmbot_public_market_token_discovery_result_071a.v1.outcome_token_candidates",
         "credential_values_printed": false,
         "credential_values_read": false,
         "credential_values_serialized": false,
@@ -969,7 +969,7 @@
         "outcome_resolution_invented": false,
         "paper_only": true,
         "passphrase_read": false,
-        "path": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json",
+        "path": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json",
         "polymarket_api_calls_performed": 0,
         "preflight_only": true,
         "private_key_read": false,
@@ -995,7 +995,7 @@
         "signing_attempted": false,
         "signing_enabled": false,
         "source_id": "public_market_token_discovery_071a",
-        "status": "source_backed_candidates_ready",
+        "status": "available",
         "token_id_generated": false,
         "token_id_generation_enabled": false,
         "token_selection_executable": false,
@@ -1109,7 +1109,7 @@
           "public_market_token_discovery_071a"
         ],
         "source_paths": [
-          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
         ],
         "source_token_candidate_id": "public-market-token-outcome-candidate-071a-5ca054c11cde2de0",
         "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",
@@ -1229,7 +1229,7 @@
           "public_market_token_discovery_071a"
         ],
         "source_paths": [
-          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
         ],
         "source_token_candidate_id": "public-market-token-outcome-candidate-071a-752ee70523d79b98",
         "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",
@@ -2647,7 +2647,7 @@
           "public_market_token_discovery_071a"
         ],
         "source_paths": [
-          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
         ],
         "source_token_candidate_id": "public-market-token-outcome-candidate-071a-5ca054c11cde2de0",
         "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",
@@ -2767,7 +2767,7 @@
           "public_market_token_discovery_071a"
         ],
         "source_paths": [
-          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+          "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
         ],
         "source_token_candidate_id": "public-market-token-outcome-candidate-071a-752ee70523d79b98",
         "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",
@@ -3153,7 +3153,7 @@
       "background_worker_added": false,
       "browser_automation_added": false,
       "canary_executable_now": false,
-      "contract_version": "pmbot_public_market_token_discovery_latest_status_071a.v1",
+      "contract_version": "pmbot_public_market_token_discovery_result_071a.v1.outcome_token_candidates",
       "credential_values_printed": false,
       "credential_values_read": false,
       "credential_values_serialized": false,
@@ -3196,7 +3196,7 @@
       "outcome_resolution_invented": false,
       "paper_only": true,
       "passphrase_read": false,
-      "path": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json",
+      "path": "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json",
       "polymarket_api_calls_performed": 0,
       "preflight_only": true,
       "private_key_read": false,
@@ -3222,7 +3222,7 @@
       "signing_attempted": false,
       "signing_enabled": false,
       "source_id": "public_market_token_discovery_071a",
-      "status": "source_backed_candidates_ready",
+      "status": "available",
       "token_id_generated": false,
       "token_id_generation_enabled": false,
       "token_selection_executable": false,
@@ -3336,7 +3336,7 @@
         "public_market_token_discovery_071a"
       ],
       "source_paths": [
-        "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+        "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
       ],
       "source_token_candidate_id": "public-market-token-outcome-candidate-071a-5ca054c11cde2de0",
       "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",
@@ -3456,7 +3456,7 @@
         "public_market_token_discovery_071a"
       ],
       "source_paths": [
-        "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_market_token_discovery_071a_result.json"
+        "pm_bot/trading_core/artifacts/public_market_token_discovery_071a/public_outcome_token_candidates_071a.json"
       ],
       "source_token_candidate_id": "public-market-token-outcome-candidate-071a-752ee70523d79b98",
       "task_id": "ORCH-PMBOT-TRADING-MVP-073B-OPERATOR-TOKEN-SELECTION-PACKET-NO-TRADING",

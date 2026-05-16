@@ -18,6 +18,8 @@ STATUS_BLOCKED_MISSING_SELECTED_TOKEN = "blocked_missing_selected_token"
 STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN = "blocked_unverified_selected_token"
 STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC = "blocked_missing_signer_diagnostic"
 STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK = "blocked_signer_diagnostic_not_ok"
+STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE = "blocked_missing_signer_diagnostic_evidence"
+STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED = "blocked_signer_diagnostic_failed"
 STATUS_BLOCKED_MISSING_APPROVAL_CONTRACT = "blocked_missing_approval_contract"
 STATUS_BLOCKED_APPROVAL_CONTRACT_NOT_READY = "blocked_approval_contract_not_ready"
 STATUS_BLOCKED_MISSING_SIGNED_PAYLOAD_DRY_RUN = "blocked_missing_signed_payload_dry_run"
@@ -44,6 +46,8 @@ ALLOWED_STATUSES = frozenset(
         STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN,
         STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC,
         STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK,
+        STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE,
+        STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED,
         STATUS_BLOCKED_MISSING_APPROVAL_CONTRACT,
         STATUS_BLOCKED_APPROVAL_CONTRACT_NOT_READY,
         STATUS_BLOCKED_MISSING_SIGNED_PAYLOAD_DRY_RUN,
@@ -54,7 +58,12 @@ ALLOWED_STATUSES = frozenset(
 
 REQUIRED_FALSE_FLAGS = (
     "allowed_for_live",
+    "live",
     "selected_token_payload_ready_for_submit",
+    "signing_by_default",
+    "signer_ready_for_live",
+    "order_submit_ready",
+    "full_signed_payload_output",
     "live_execution_approved",
     "live_execution_allowed",
     "live_execution_performed",
@@ -205,6 +214,10 @@ class SelectedTokenPayloadReadinessSafetySnapshot:
             "default_mode_signs_payload": False,
             "default_mode_builds_executable_payload": False,
             "selected_token_payload_ready_for_submit": False,
+            "signing_by_default": False,
+            "signer_ready_for_live": False,
+            "order_submit_ready": False,
+            "full_signed_payload_output": False,
             "future_signed_payload_diagnostic_requires_separate_operator_task": True,
             "full_signed_payload_output_allowed": False,
             "raw_private_key_output_allowed": False,
@@ -230,7 +243,12 @@ def selected_token_payload_readiness_safety_flags() -> dict[str, Any]:
         "local_artifact_read_only": True,
         "readiness_gate_only": True,
         "allowed_for_live": False,
+        "live": False,
         "selected_token_payload_ready_for_submit": False,
+        "signing_by_default": False,
+        "signer_ready_for_live": False,
+        "order_submit_ready": False,
+        "full_signed_payload_output": False,
         "live_execution_approved": False,
         "live_execution_allowed": False,
         "live_execution_performed": False,

@@ -4,10 +4,10 @@
 - Scope: `pm_bot`
 - Mode: `static / review-only`
 - Strict: `false`
-- Artifacts included: `true`
-- Scanned files: `373`
+- Artifacts included: `false`
+- Scanned files: `372`
 - Critical findings: `0`
-- Warnings: `165`
+- Warnings: `9`
 - Allowed references: `0`
 
 ## Safety Invariants
@@ -34,32 +34,14 @@
 ## Findings
 
 - `warning` `credential_name_reference` `pm_bot/llm/manual_packet_batch/692258_packet.v1.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/authenticated_clob_preflight_057/authenticated_clob_preflight_057_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/authenticated_clob_preflight_057/authenticated_clob_preflight_057_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/authenticated_clob_preflight_057/redacted_l2_credential_presence_057.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/authenticated_clob_preflight_057/redacted_l2_credential_presence_057.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_base_url_config_058.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_base_url_config_058.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_l2_marker_preflight_058_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_l2_marker_preflight_058_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_l2_marker_preflight_058_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/clob_l2_marker_preflight_058_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/redacted_l2_marker_presence_058.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/clob_l2_marker_preflight_058/redacted_l2_marker_presence_058.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-- `warning` `credential_name_reference` `pm_bot/trading_core/artifacts/paper_canary_drill_052/paper_canary_drill_052_result.json` - private key, API secret, passphrase, mnemonic, or seed field name detected
-
-- 140 additional findings are in the JSON artifact.
+- `warning` `credential_name_reference` `pm_bot/operator_runner/telegram_operator_control_bot.py`:740 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/operator_runner/telegram_operator_control_bot.py`:753 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/live_credentials_auth_boundary.py`:708 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/live_credentials_auth_boundary.py`:710 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/live_credentials_boundary.py`:556 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/live_credentials_boundary.py`:558 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/secret_boundary_policy.py`:1516 - private key, API secret, passphrase, mnemonic, or seed variable name detected
+- `warning` `credential_name_reference` `pm_bot/trading_core/secret_boundary_policy.py`:1518 - private key, API secret, passphrase, mnemonic, or seed variable name detected
 
 ## Operator Action
 

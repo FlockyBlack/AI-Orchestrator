@@ -14,7 +14,7 @@ import pm_bot.trading_core.selected_token_verification_bridge as bridge_module
 import pm_bot.trading_core.selected_token_verification_models as models_module
 from pm_bot.trading_core.selected_token_payload_readiness_gate import run_selected_token_payload_readiness_gate
 from pm_bot.trading_core.selected_token_payload_readiness_models import (
-    STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC,
+    STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE,
     STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN,
 )
 from pm_bot.trading_core.selected_token_verification_bridge import (
@@ -296,7 +296,7 @@ def test_readiness_gate_consumes_verification_bridge_and_progresses_to_next_bloc
         operator_token_selection_packet_path=selection_path,
         selected_token_verification_bridge_path=selected_token_verification_artifact_paths(tmp_path / "bridge_out")["result"],
         first_order_market_token_contract_path=tmp_path / "missing_resolver.json",
-        signer_diagnostic_status_path=tmp_path / "missing_signer.json",
+        signer_diagnostic_evidence_path=tmp_path / "missing_signer_evidence.json",
         approval_contract_status_path=tmp_path / "missing_approval.json",
         signed_payload_dry_run_status_path=tmp_path / "missing_dry_run.json",
         signed_payload_diagnostic_adapter_status_path=tmp_path / "missing_adapter.json",
@@ -306,7 +306,7 @@ def test_readiness_gate_consumes_verification_bridge_and_progresses_to_next_bloc
     selected_token = result["readiness_summaries"]["selected_token"]
 
     assert bridge["status"] == STATUS_SELECTED_TOKEN_VERIFIED_FOR_PAYLOAD_DRY_RUN
-    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC
+    assert result["status"] == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE
     assert result["status"] != STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN
     assert selected_token["selected_token_verified"] is True
     assert selected_token["selected_token_verification_bridge_verified"] is True

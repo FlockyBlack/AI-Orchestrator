@@ -1,0 +1,239 @@
+{
+  "contract_version": "orch_pmbot_trading_mvp_076v_integration_result.v1",
+  "task_id": "ORCH-PMBOT-TRADING-MVP-076V-INTEGRATE-076C-SIGNER-DIAGNOSTIC-BRIDGE-INTO-MASTER",
+  "status": "validated_pending_commit_push_verify",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "worktree": "C:/oc076v_integrate_076c_signer_diagnostic_bridge_into_master",
+  "head_before": "ead61656533da57e4fd65d6bfd9d2cc7d407bb53",
+  "head_after": "pending_final_commit_hash_reported_after_commit",
+  "head_after_note": "Embedding this result artifact commit's own SHA in the committed JSON would change that SHA; final local and remote master heads are reported in the operator final report.",
+  "source_branch": "pmbot/trading-mvp-076c-signer-diagnostic-evidence-bridge-no-live",
+  "source_head": "a24855e94c092e937e7d1e503c42733c30f8fe9c",
+  "source_base": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "source_head_remote_verified": true,
+  "accepted_master_head_remote_verified": true,
+  "duplicate_076a_handling": {
+    "076a_source_commit_seen": "d1fd1356bd209b95387995a82450716e5d049565",
+    "076a_replayed": false,
+    "reason": "Current master already contained the 076B integration of 076A selected-token verification.",
+    "preserved_behavior": "selected_token_payload_readiness_gate still reports selected_token_verified=true before evaluating signer evidence."
+  },
+  "replay_method": {
+    "method": "Applied only 076C commit patches from b689c30dddeb650d2c743f347e7d270261456be0 plus the source 076C result artifact commit a24855e94c092e937e7d1e503c42733c30f8fe9c.",
+    "commands": [
+      "git show --format= --binary b689c30dddeb650d2c743f347e7d270261456be0 | git apply --3way --whitespace=nowarn",
+      "git show --format= --binary a24855e94c092e937e7d1e503c42733c30f8fe9c | git apply --3way --whitespace=nowarn"
+    ],
+    "conflicts": [],
+    "conflict_resolutions": []
+  },
+  "temporary_short_drive_mapping": {
+    "used": true,
+    "drive": "O:",
+    "target": "C:/oc076v_integrate_076c_signer_diagnostic_bridge_into_master",
+    "reason": "Full pytest from the long C: path hit Windows MAX_PATH on a tracked saved evidence fixture whose resolved path length was 260 characters.",
+    "cleanup_status": "removed_after_successful_full_test_rerun"
+  },
+  "implementation_summary": [
+    "Integrated the signer diagnostic evidence bridge that reads guarded signer diagnostic artifacts and emits redacted 076C readiness evidence.",
+    "Updated selected_token_payload_readiness_gate to consume 076C signer diagnostic evidence by default.",
+    "Preserved selected-token verification from 076B and did not replay duplicate 076A source changes.",
+    "Preserved 076U Telegram Product UX code and regression tests.",
+    "Kept PMBOT paper-only and no-live: allowed_for_live, signer_ready_for_live, order_submit_ready, selected_token_payload_ready_for_submit, and full_signed_payload_output remain false."
+  ],
+  "changed_files_summary": {
+    "core": [
+      "pm_bot/trading_core/signer_diagnostic_evidence_models.py",
+      "pm_bot/trading_core/signer_diagnostic_evidence_bridge.py",
+      "pm_bot/trading_core/selected_token_payload_readiness_models.py",
+      "pm_bot/trading_core/selected_token_payload_readiness_gate.py",
+      "pm_bot/trading_core/signed_payload_diagnostic_adapter.py"
+    ],
+    "operator_runners": [
+      "pm_bot/operator_runner/signer_diagnostic_evidence_bridge.py",
+      "pm_bot/operator_runner/selected_token_payload_readiness_gate.py"
+    ],
+    "tests": [
+      "pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "pm_bot/tests/test_selected_token_verification_bridge_076a.py"
+    ],
+    "artifacts": [
+      "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/",
+      "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/",
+      "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/",
+      "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/",
+      "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/",
+      "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/",
+      "pm_bot/trading_core/artifacts/risk_engine_v2_074d/",
+      "pm_bot/trading_core/artifacts/first_live_order_final_blocker_reducer_072d/",
+      "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/"
+    ],
+    "docs": [
+      "docs/ORCH_PMBOT_TRADING_MVP_076C_SIGNER_DIAGNOSTIC_EVIDENCE_BRIDGE_NO_LIVE_RESULT.json",
+      "docs/ORCH_PMBOT_TRADING_MVP_076V_INTEGRATE_076C_SIGNER_DIAGNOSTIC_BRIDGE_INTO_MASTER_RESULT.json"
+    ]
+  },
+  "validation_commands": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_guarded_signer_diagnostic_smoke_069a.py pm_bot/tests/test_signed_order_payload_dry_run_070a.py pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py pm_bot/tests/test_signer_boundary_preflight_060.py pm_bot/tests/test_signer_smoke_contract_068a.py pm_bot/tests/test_wallet_signing_boundary_049.py pm_bot/tests/test_live_order_boundary_contract_065b.py pm_bot/tests/test_live_order_submission_boundary_041.py pm_bot/tests/test_wallet_execution_boundary_027.py pm_bot/tests/test_signed_order_payload_validation_gate_050.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "107 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py pm_bot/tests/test_risk_engine_v2_074d.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "37 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py pm_bot/tests/test_telegram_single_message_product_menu_069c.py pm_bot/tests/test_telegram_forbidden_live_controls_063a.py pm_bot/tests/test_telegram_operator_token_selection_074b.py pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "passed",
+      "summary": "38 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2238 passed in 776.30s from O:/ short-path mapping; first C:/ run reached 2234 passed and failed 4 MAX_PATH-sensitive fixture assertions"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py pm_bot/tests/test_selected_token_verification_bridge_076a.py pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py pm_bot/tests/test_operator_token_selection_packet_073b.py pm_bot/tests/test_risk_engine_v2_074d.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "65 passed after runner artifact refresh"
+    }
+  ],
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.guarded_signer_diagnostic_smoke --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "result": "passed",
+      "summary": "status=blocked_missing_private_key; diagnostic_requested=true; private_key_read=true in explicit diagnostic path; diagnostic_challenge_signed=false; no raw key or signed payload emitted; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.signer_diagnostic_evidence_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_failed; source_diagnostic_status=missing_private_key; evidence_ok_for_payload_dry_run=false; signer_ready_for_live=false; order_submit_ready=false; full_signed_payload_output=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selection_required; source_backed_candidates=2; selected_token_id_present=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "result": "passed",
+      "summary": "status=selected_candidate_artifact_recorded; selected_by_operator=true; source_backed=true; selected_candidate_executable_for_live=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_verification_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selected_token_verified_for_payload_dry_run; token_hash_match=true; known_073b_candidate_match=true; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_failed; selected_token_verified=true; signer_diagnostic_evidence_status=blocked_signer_diagnostic_failed; signed_payload_dry_run_status=ready; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_risk_engine_v2_review; gate_count=14; blockers=14; unknown_blockers=7; allowed_for_live=false; first_supervised_tiny_order_blocked=true"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; unknown_groups=3; signing/order submission/order cancellation blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "status=passed_with_warnings; critical_findings=0; warnings=9; live execution, order submission, signing, and wallet blocked"
+    }
+  ],
+  "expected_chain_observed": {
+    "selected_token_remains_verified": true,
+    "signer_diagnostic_bridge_reports_honest_status": "blocked_signer_diagnostic_failed from source missing_private_key",
+    "readiness_gate_status": "blocked_signer_diagnostic_failed",
+    "ok_signer_evidence_progression_covered_by_tests": "blocked_signed_payload_dry_run_not_ready",
+    "submit_live_remain_false": true
+  },
+  "telegram_product_ux_preservation": {
+    "tests_passed": true,
+    "preserved_language_only_first_launch": true,
+    "preserved_product_description": true,
+    "preserved_product_main_menu": true,
+    "preserved_same_message_navigation": true,
+    "preserved_no_engineering_labels_in_primary_menu": true
+  },
+  "manual_safety_scan": {
+    "status": "passed_before_commit",
+    "added_line_risk_term_matches": 394,
+    "true_live_or_trading_request_flag_matches": 0,
+    "summary": "Added-line matches are deny-list strings, false safety flags, blocked status text, redaction tests, and operator-report text. No added executable live trading, submit/cancel, signing-by-default, signer instantiation by default, wallet UI, secret output, full signed payload output, fake execution data, scheduler/daemon/background loop, live-allowed true flag, or trading-requested true flag path was found."
+  },
+  "safety_flags": {
+    "pmbot_remains_not_live_autonomous_trader": true,
+    "paper_only": true,
+    "no_wallet_private_keys": true,
+    "no_real_orders": true,
+    "no_trading_endpoints": true,
+    "no_order_submission": true,
+    "no_order_cancellation": true,
+    "no_signing_by_default": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_connection_ui": true,
+    "no_in_chat_secret_collection": true,
+    "no_private_key_raw_output": true,
+    "no_api_key_secret_passphrase_raw_output": true,
+    "no_full_signed_payload_output": true,
+    "no_fake_balances_orders_fills_pnl_order_ids_tx_hashes": true,
+    "no_scheduler_daemon_background_autonomous_loop": true,
+    "allowed_for_live": false,
+    "selected_token_payload_ready_for_submit": false,
+    "order_submit_ready": false,
+    "signer_ready_for_live": false,
+    "full_signed_payload_output": false
+  },
+  "remote_verification": {
+    "status": "pending_final_commit_push_verify"
+  },
+  "remaining_risks": [
+    "The actual guarded signer diagnostic did not produce OK evidence because POLYMARKET_PRIVATE_KEY was not available to the diagnostic environment; the integration fails closed and does not fake OK evidence.",
+    "The OK signer-evidence path is covered by deterministic tests using safe synthetic evidence.",
+    "Static safety scan reports warnings for deny-list terms in blocked states/tests/artifacts, with zero critical findings."
+  ]
+}

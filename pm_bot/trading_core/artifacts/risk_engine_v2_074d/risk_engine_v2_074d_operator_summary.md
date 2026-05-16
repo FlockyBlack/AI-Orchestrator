@@ -17,7 +17,7 @@
 - `source_backed_token_candidate` passed=false status=`selection_required`
 - `account_readonly_evidence` passed=false status=`blocked_first_supervised_tiny_order_not_ready`
 - `signer_diagnostic_evidence` passed=false status=`blocked_first_supervised_tiny_order_not_ready`
-- `selected_token_payload_readiness` passed=false status=`blocked_missing_selected_token`
+- `selected_token_payload_readiness` passed=false status=`blocked_signer_diagnostic_failed`
 - `exposure_cap` passed=false status=`unknown_evidence`
 - `per_market_cap` passed=false status=`unknown_evidence`
 - `daily_loss_cap` passed=false status=`unknown_evidence`
@@ -57,7 +57,7 @@
 
 - `local_real_check_snapshot_073a` present=true status=`local_real_check_snapshot_recorded_live_blocked`
 - `operator_token_selection_packet_073b` present=true status=`selection_required`
-- `selected_token_payload_readiness_gate_073c` present=true status=`blocked_missing_selected_token`
+- `selected_token_payload_readiness_gate_073c` present=true status=`blocked_signer_diagnostic_failed`
 - `real_local_check_evidence_review_074a` present=true status=`blocked_first_supervised_tiny_order_not_ready`
 
 ## Safety Statement

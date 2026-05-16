@@ -25,7 +25,9 @@
   "execution_mode": "preflight",
   "full_signed_order_emitted": false,
   "full_signed_payload_emitted": false,
+  "full_signed_payload_output": false,
   "generated_at": "2026-05-11T00:00:00Z",
+  "live": false,
   "live_execution_allowed": false,
   "live_execution_approved": false,
   "live_execution_performed": false,
@@ -63,6 +65,7 @@
   "order_submission_attempted": false,
   "order_submission_enabled": false,
   "order_submission_performed": false,
+  "order_submit_ready": false,
   "order_submitted": false,
   "paper_only": true,
   "passphrase_read": false,
@@ -147,15 +150,20 @@
     },
     "signer_diagnostic": {
       "available": true,
-      "contract_version": "pmbot_latest_guarded_signer_diagnostic_status_069a.v1",
-      "diagnostic_challenge_status": "not_signed",
+      "contract_version": "pmbot_latest_signer_diagnostic_evidence_bridge_076c_status.v1",
+      "diagnostic_challenge_status": "not_available",
       "diagnostic_ok": false,
-      "diagnostic_status": "diagnostic_not_requested",
+      "diagnostic_status": "missing_private_key",
       "errors": [],
-      "path": "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/latest_guarded_signer_diagnostic_status_069a.json",
+      "evidence_ok_for_payload_dry_run": false,
+      "evidence_status": "blocked_signer_diagnostic_failed",
+      "path": "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/latest_signer_diagnostic_evidence_076c_status.json",
       "raw_secret_values_emitted": false,
+      "signer_diagnostic_evidence_bridge_available": true,
+      "signer_diagnostic_evidence_bridge_status": "blocked_signer_diagnostic_failed",
+      "source_kind": "signer_diagnostic_evidence_bridge_076c",
       "source_safety_flags_ok": true,
-      "status": "blocked_diagnostic_not_requested"
+      "status": "blocked_signer_diagnostic_failed"
     }
   },
   "real_execution_available": false,
@@ -181,7 +189,9 @@
   "signed_payload_submit_attempted": false,
   "signed_payload_submit_enabled": false,
   "signed_payload_submitted": false,
+  "signer_ready_for_live": false,
   "signing_attempted": false,
+  "signing_by_default": false,
   "signing_enabled": false,
   "source_artifacts": {
     "first_live_order_approval_contract_065d": {
@@ -201,15 +211,6 @@
       "path": "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/first_order_market_token_contract_070b.json",
       "payload_values_embedded": false,
       "status": "blocked_missing_token_id"
-    },
-    "guarded_signer_diagnostic_smoke_069a": {
-      "available": true,
-      "contract_version": "pmbot_latest_guarded_signer_diagnostic_status_069a.v1",
-      "errors": [],
-      "label": "guarded signer diagnostic smoke 069A",
-      "path": "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/latest_guarded_signer_diagnostic_status_069a.json",
-      "payload_values_embedded": false,
-      "status": "blocked_diagnostic_not_requested"
     },
     "operator_token_selection_packet_073b": {
       "available": true,
@@ -255,9 +256,18 @@
       "path": "pm_bot/trading_core/artifacts/signed_payload_diagnostic_adapter_072e/latest_signed_payload_diagnostic_adapter_status_072e.json",
       "payload_values_embedded": false,
       "status": "blocked_selected_token_candidate_not_ready"
+    },
+    "signer_diagnostic_evidence_bridge_076c": {
+      "available": true,
+      "contract_version": "pmbot_latest_signer_diagnostic_evidence_bridge_076c_status.v1",
+      "errors": [],
+      "label": "signer diagnostic evidence bridge 076C",
+      "path": "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/latest_signer_diagnostic_evidence_076c_status.json",
+      "payload_values_embedded": false,
+      "status": "blocked_signer_diagnostic_failed"
     }
   },
-  "status": "blocked_signer_diagnostic_not_ok",
+  "status": "blocked_signer_diagnostic_failed",
   "strategy_name": "tiny-momentum",
   "submit_call_performed": false,
   "task_id": "ORCH-PMBOT-TRADING-MVP-073C-SELECTED-TOKEN-SIGNED-PAYLOAD-READINESS-GATE-NO-SUBMIT",

@@ -22,7 +22,9 @@ from pm_bot.trading_core.selected_token_payload_readiness_models import (
     STATUS_BLOCKED_MISSING_SELECTED_TOKEN,
     STATUS_BLOCKED_MISSING_SIGNED_PAYLOAD_DRY_RUN,
     STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC,
+    STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE,
     STATUS_BLOCKED_SIGNED_PAYLOAD_DRY_RUN_NOT_READY,
+    STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED,
     STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK,
     STATUS_BLOCKED_SOURCE_SAFETY_NOT_READY,
     STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN,
@@ -34,6 +36,9 @@ from pm_bot.trading_core.selected_token_payload_readiness_models import (
 )
 from pm_bot.trading_core.selected_token_verification_models import (
     STATUS_SELECTED_TOKEN_VERIFIED_FOR_PAYLOAD_DRY_RUN,
+)
+from pm_bot.trading_core.signer_diagnostic_evidence_models import (
+    STATUS_SIGNER_DIAGNOSTIC_EVIDENCE_OK_FOR_PAYLOAD_DRY_RUN,
 )
 
 DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c")
@@ -55,8 +60,15 @@ DEFAULT_SELECTED_TOKEN_VERIFICATION_BRIDGE_PATHS = (
 DEFAULT_FIRST_ORDER_MARKET_TOKEN_CONTRACT_PATH = Path(
     "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/first_order_market_token_contract_070b.json"
 )
-DEFAULT_SIGNER_DIAGNOSTIC_STATUS_PATH = Path(
-    "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/latest_guarded_signer_diagnostic_status_069a.json"
+DEFAULT_SIGNER_DIAGNOSTIC_EVIDENCE_PATHS = (
+    Path(
+        "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/"
+        "latest_signer_diagnostic_evidence_076c_status.json"
+    ),
+    Path(
+        "pm_bot/trading_core/artifacts/signer_diagnostic_evidence_bridge_076c/"
+        "signer_diagnostic_evidence_076c_result.json"
+    ),
 )
 DEFAULT_APPROVAL_CONTRACT_STATUS_PATH = Path(
     "pm_bot/trading_core/artifacts/first_live_order_approval_contract_065d/latest_first_live_order_approval_contract_status_065d.json"
@@ -122,6 +134,7 @@ def run_selected_token_payload_readiness_gate(
     operator_token_selection_packet_path: str | Path | None = None,
     selected_token_verification_bridge_path: str | Path | None = None,
     first_order_market_token_contract_path: str | Path | None = None,
+    signer_diagnostic_evidence_path: str | Path | None = None,
     signer_diagnostic_status_path: str | Path | None = None,
     approval_contract_status_path: str | Path | None = None,
     signed_payload_dry_run_status_path: str | Path | None = None,
@@ -149,6 +162,10 @@ def run_selected_token_payload_readiness_gate(
         explicit_path=selected_token_verification_bridge_path,
         default_paths=DEFAULT_SELECTED_TOKEN_VERIFICATION_BRIDGE_PATHS,
     )
+    signer_evidence_path = _select_first_existing_path(
+        explicit_path=signer_diagnostic_evidence_path or signer_diagnostic_status_path,
+        default_paths=DEFAULT_SIGNER_DIAGNOSTIC_EVIDENCE_PATHS,
+    )
     source_artifacts = {
         "selected_candidate_artifact_075d": _load_source_artifact(
             selected_candidate_path,
@@ -168,11 +185,9 @@ def run_selected_token_payload_readiness_gate(
             else DEFAULT_FIRST_ORDER_MARKET_TOKEN_CONTRACT_PATH,
             "first order market token resolver 070B",
         ),
-        "guarded_signer_diagnostic_smoke_069a": _load_source_artifact(
-            Path(signer_diagnostic_status_path)
-            if signer_diagnostic_status_path
-            else DEFAULT_SIGNER_DIAGNOSTIC_STATUS_PATH,
-            "guarded signer diagnostic smoke 069A",
+        "signer_diagnostic_evidence_bridge_076c": _load_source_artifact(
+            signer_evidence_path,
+            "signer diagnostic evidence bridge 076C",
         ),
         "first_live_order_approval_contract_065d": _load_source_artifact(
             Path(approval_contract_status_path)
@@ -203,7 +218,7 @@ def run_selected_token_payload_readiness_gate(
         strategy_name=strategy_name,
     )
     signer_diagnostic = _summarize_signer_diagnostic(
-        source_artifacts["guarded_signer_diagnostic_smoke_069a"]
+        source_artifacts["signer_diagnostic_evidence_bridge_076c"]
     )
     approval_contract = _summarize_approval_contract(
         source_artifacts["first_live_order_approval_contract_065d"]
@@ -303,12 +318,12 @@ def render_selected_token_payload_readiness_cli_summary(status: Mapping[str, Any
             f"Status: {clean_text(value.get('status'))}",
             f"Selected token: {clean_text(value.get('selected_token_status'))}",
             f"Selected token verified: {str(value.get('selected_token_verified') is True).lower()}",
-            f"Signer diagnostic: {clean_text(value.get('signer_diagnostic_status'))}",
+            f"Signer diagnostic evidence: {clean_text(value.get('signer_diagnostic_evidence_status') or value.get('signer_diagnostic_status'))}",
             f"Approval contract: {clean_text(value.get('approval_contract_status'))}",
             f"Signed payload dry-run: {clean_text(value.get('signed_payload_dry_run_status'))}",
             f"Ready for signed payload diagnostic: {str(value.get('ready_for_signed_payload_diagnostic') is True).lower()}",
             "Selected token payload ready for submit: false",
-            "Signing by default: blocked",
+            "Signing by default: false",
             "Order submission: blocked",
             "Order cancellation: blocked",
             "Trading writes: blocked",
@@ -340,7 +355,8 @@ def render_selected_token_payload_readiness_markdown(result: Mapping[str, Any]) 
         f"- selected_token_fingerprint_sha256: `{latest.get('selected_token_fingerprint_sha256') or 'missing'}`",
         f"- selected_token_verification_bridge_status: `{latest.get('selected_token_verification_bridge_status') or 'missing'}`",
         f"- selected_token_verification_bridge_verified: `{str(latest.get('selected_token_verification_bridge_verified') is True).lower()}`",
-        f"- signer_diagnostic_status: `{latest.get('signer_diagnostic_status')}`",
+        f"- signer_diagnostic_evidence_status: `{latest.get('signer_diagnostic_evidence_status')}`",
+        f"- signer_diagnostic_evidence_ok_for_payload_dry_run: `{str(latest.get('signer_diagnostic_evidence_ok_for_payload_dry_run') is True).lower()}`",
         f"- approval_contract_status: `{latest.get('approval_contract_status')}`",
         f"- signed_payload_dry_run_status: `{latest.get('signed_payload_dry_run_status')}`",
         f"- diagnostic_adapter_status: `{latest.get('diagnostic_adapter_status')}`",
@@ -352,6 +368,7 @@ def render_selected_token_payload_readiness_markdown(result: Mapping[str, Any]) 
         "- no private key, seed phrase, API secret, passphrase, wallet file, or browser wallet is read",
         "- no payload is signed or generated by this gate",
         "- no signed payload or signed order is printed, stored, or fingerprinted by this gate",
+        "- signer_ready_for_live, order_submit_ready, signing_by_default, and full_signed_payload_output remain false",
         "- no submit, cancel, authenticated trading write, scheduler, daemon, or background worker is available",
         "- readiness for a future diagnostic is not readiness for submit",
         "",
@@ -686,11 +703,30 @@ def _summarize_selected_token(
 
 def _summarize_signer_diagnostic(source: Mapping[str, Any]) -> dict[str, Any]:
     payload = dict(source.get("payload", {})) if isinstance(source.get("payload"), Mapping) else {}
-    diagnostic_status = clean_text(payload.get("diagnostic_status") or payload.get("status")) or "missing"
+    evidence_status = clean_text(payload.get("signer_diagnostic_evidence_status") or payload.get("status")) or "missing"
+    diagnostic_status = clean_text(
+        payload.get("source_diagnostic_status")
+        or payload.get("diagnostic_status")
+        or evidence_status
+    ) or "missing"
+    is_evidence_bridge = (
+        payload.get("signer_diagnostic_evidence_ok_for_payload_dry_run") is not None
+        or evidence_status in {
+            STATUS_SIGNER_DIAGNOSTIC_EVIDENCE_OK_FOR_PAYLOAD_DRY_RUN,
+            STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE,
+            STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED,
+        }
+    )
     source_safety_flags_ok = _source_false_flags_ok(
         payload,
         (
             "allowed_for_live",
+            "selected_token_payload_ready_for_submit",
+            "signer_ready_for_live",
+            "order_submit_ready",
+            "full_signed_payload_output",
+            "signing_by_default",
+            "live",
             "order_payload_signing_enabled",
             "order_payload_signing_attempted",
             "order_submission_enabled",
@@ -702,22 +738,52 @@ def _summarize_signer_diagnostic(source: Mapping[str, Any]) -> dict[str, Any]:
             "full_diagnostic_signature_emitted",
             "authenticated_trading_enabled",
             "authenticated_trading_call_performed",
+            "signer_instantiated",
+            "signer_instantiation_attempted",
+            "signer_diagnostic_executed_by_bridge",
         ),
     )
-    diagnostic_ok = (
-        source.get("available") is True
-        and diagnostic_status == SIGNER_OK_STATUS
-        and payload.get("diagnostic_challenge_signed") is True
-        and source_safety_flags_ok
-    )
+    if is_evidence_bridge:
+        diagnostic_ok = (
+            source.get("available") is True
+            and evidence_status == STATUS_SIGNER_DIAGNOSTIC_EVIDENCE_OK_FOR_PAYLOAD_DRY_RUN
+            and payload.get("signer_diagnostic_evidence_ok_for_payload_dry_run") is True
+            and payload.get("signer_ready_for_live") is False
+            and payload.get("order_submit_ready") is False
+            and payload.get("full_signed_payload_output") is False
+            and payload.get("allowed_for_live") is False
+            and source_safety_flags_ok
+        )
+        source_kind = "signer_diagnostic_evidence_bridge_076c"
+        challenge_status = clean_text(
+            dict(payload.get("evidence_summary", {})).get("safe_non_order_challenge_evidence_status")
+        ) or "not_available"
+    else:
+        diagnostic_ok = (
+            source.get("available") is True
+            and diagnostic_status == SIGNER_OK_STATUS
+            and payload.get("diagnostic_challenge_signed") is True
+            and source_safety_flags_ok
+        )
+        source_kind = "guarded_signer_diagnostic_smoke_069a_legacy_direct"
+        challenge_status = (
+            "signed_diagnostic_challenge"
+            if payload.get("diagnostic_challenge_signed") is True
+            else "not_signed"
+        )
     return {
         "available": source.get("available") is True,
         "path": clean_text(source.get("path")),
         "contract_version": clean_text(payload.get("contract_version")),
+        "source_kind": source_kind,
         "status": clean_text(payload.get("status")) or "missing",
+        "evidence_status": evidence_status,
         "diagnostic_status": diagnostic_status,
         "diagnostic_ok": diagnostic_ok,
-        "diagnostic_challenge_status": "signed_diagnostic_challenge" if payload.get("diagnostic_challenge_signed") is True else "not_signed",
+        "evidence_ok_for_payload_dry_run": diagnostic_ok,
+        "diagnostic_challenge_status": challenge_status,
+        "signer_diagnostic_evidence_bridge_available": source.get("available") is True and is_evidence_bridge,
+        "signer_diagnostic_evidence_bridge_status": evidence_status if is_evidence_bridge else "legacy_direct_status",
         "source_safety_flags_ok": source_safety_flags_ok,
         "raw_secret_values_emitted": False,
         "errors": [clean_text(item) for item in source.get("errors", [])],
@@ -951,7 +1017,18 @@ def _build_latest_status(
         "selected_token_verification_bridge_safety_flags_ok": selected_token.get("selected_token_verification_bridge_safety_flags_ok") is True,
         "resolver_contract_available": selected_token.get("resolver_contract_available") is True,
         "signer_diagnostic_status": "ok" if signer.get("diagnostic_ok") is True else clean_text(signer.get("diagnostic_status")),
+        "signer_diagnostic_evidence_status": (
+            STATUS_SIGNER_DIAGNOSTIC_EVIDENCE_OK_FOR_PAYLOAD_DRY_RUN
+            if signer.get("diagnostic_ok") is True
+            else clean_text(signer.get("evidence_status") or signer.get("diagnostic_status"))
+        ),
+        "signer_diagnostic_evidence_ok_for_payload_dry_run": signer.get("diagnostic_ok") is True,
         "signer_diagnostic_artifact_available": signer.get("available") is True,
+        "signer_diagnostic_evidence_artifact_available": signer.get("available") is True,
+        "signer_diagnostic_evidence_bridge_available": signer.get("signer_diagnostic_evidence_bridge_available") is True,
+        "signer_ready_for_live": False,
+        "order_submit_ready": False,
+        "full_signed_payload_output": False,
         "approval_contract_status": "defined" if approval.get("approval_contract_defined") is True else clean_text(approval.get("status")),
         "approval_contract_artifact_available": approval.get("available") is True,
         "signed_payload_dry_run_status": "ready" if dry_run.get("dry_run_contract_ready") is True else clean_text(dry_run.get("status")),
@@ -961,7 +1038,7 @@ def _build_latest_status(
         "blocker_count": len(blockers),
         "resolved_blocker_count": 0,
         "live_execution": "blocked",
-        "signing_by_default": "blocked",
+        "signing_by_default": False,
         "order_submission": "blocked",
         "order_cancellation": "blocked",
         "trading_writes": "blocked",
@@ -1012,18 +1089,18 @@ def _build_blockers(
     if signer.get("available") is not True:
         blockers.append(
             _blocker(
-                "signer_diagnostic_missing",
+                "signer_diagnostic_evidence_missing",
                 "signer_diagnostic",
-                "Guarded signer diagnostic status artifact is missing.",
+                "Signer diagnostic evidence bridge 076C artifact is missing.",
                 generated_at=generated_at,
             )
         )
     elif signer.get("diagnostic_ok") is not True:
         blockers.append(
             _blocker(
-                "signer_diagnostic_not_ok",
+                "signer_diagnostic_failed",
                 "signer_diagnostic",
-                "Guarded signer diagnostic is missing, stale, or not diagnostic_ok.",
+                "Signer diagnostic evidence bridge 076C artifact is present but not OK for payload dry-run.",
                 generated_at=generated_at,
             )
         )
@@ -1090,9 +1167,9 @@ def _status_for_summaries(readiness_summaries: Mapping[str, Mapping[str, Any]]) 
     if selected_token.get("selected_token_verified") is not True:
         return STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN
     if signer.get("available") is not True:
-        return STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC
+        return STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE
     if signer.get("diagnostic_ok") is not True:
-        return STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK
+        return STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED
     if approval.get("available") is not True:
         return STATUS_BLOCKED_MISSING_APPROVAL_CONTRACT
     if approval.get("approval_contract_defined") is not True:
@@ -1218,6 +1295,10 @@ def _operator_summary(status: str) -> str:
         return "Readiness is blocked because no selected token is available and no token was invented."
     if status == STATUS_BLOCKED_UNVERIFIED_SELECTED_TOKEN:
         return "Readiness is blocked because the selected token is not operator-verified against resolver evidence."
+    if status == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC_EVIDENCE:
+        return "Readiness is blocked because the 076C signer diagnostic evidence bridge artifact is missing."
+    if status == STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED:
+        return "Readiness is blocked because signer diagnostic evidence is present but not OK for payload dry-run."
     if status == STATUS_BLOCKED_MISSING_SIGNER_DIAGNOSTIC:
         return "Readiness is blocked because the guarded signer diagnostic status artifact is missing."
     if status == STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK:

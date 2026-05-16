@@ -683,7 +683,7 @@
       "cryptographic_signing_performed": false,
       "dry_run_only": true,
       "environment_values_read": false,
-      "evidence_status": "blocked_missing_selected_token",
+      "evidence_status": "blocked_signer_diagnostic_failed",
       "execution_mode": "risk_engine_v2_review",
       "explicit_live_authorization_required": true,
       "external_api_calls_performed": false,
