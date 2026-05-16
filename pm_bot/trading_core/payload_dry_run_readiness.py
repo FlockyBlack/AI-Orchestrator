@@ -951,7 +951,7 @@ def _next_recommended_safe_command(
     if status in {STATUS_BLOCKED_SIGNER_DIAGNOSTIC_NOT_OK, STATUS_BLOCKED_SIGNER_DIAGNOSTIC_FAILED}:
         if signer_bridge_present:
             return f"python -m pm_bot.operator_runner.signer_diagnostic_evidence_bridge {suffix}"
-        return "N/A - 076C signer diagnostic evidence bridge is not present in this branch"
+        return "N/A - 076C signer diagnostic evidence bridge is unavailable in current source artifacts/runtime"
     if status == STATUS_BLOCKED_SIGNED_PAYLOAD_DRY_RUN_NOT_READY:
         return f"python -m pm_bot.operator_runner.selected_token_payload_readiness_gate {suffix}"
     if status == STATUS_BLOCKED_RISK_ENGINE_REVIEW:

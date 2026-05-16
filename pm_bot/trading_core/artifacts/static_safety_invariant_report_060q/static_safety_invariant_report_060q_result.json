@@ -154,7 +154,7 @@
     "real_execution_available": false,
     "real_secrets_handled": false,
     "repo_worktree_only": true,
-    "repository_root": "C:/oc076v_integrate_076c_signer_diagnostic_bridge_into_master",
+    "repository_root": "C:/oc077a_first_supervised_tiny_order_readiness_packet_no_live",
     "resolved_blocker_count": 0,
     "review_only": true,
     "scan_docs_tests": false,
@@ -372,16 +372,16 @@
     "repo_worktree_only": true,
     "resolved_blocker_count": 0,
     "review_only": true,
-    "safe_false_reference_count": 2035,
+    "safe_false_reference_count": 2055,
     "safety_ok": true,
-    "scanned_file_count": 372,
+    "scanned_file_count": 378,
     "scheduler_or_daemon_added": false,
     "scope": "pm_bot",
     "signed_order_generation_enabled": false,
     "signed_payload_generation_enabled": false,
     "signing": "blocked",
     "signing_enabled": false,
-    "skipped_file_count": 1405,
+    "skipped_file_count": 1415,
     "status": "passed_with_warnings",
     "strict": false,
     "task_id": "ORCH-PMBOT-SAFETY-060Q-STATIC-SAFETY-INVARIANT-REPORT",
@@ -403,7 +403,7 @@
   "repo_worktree_only": true,
   "resolved_blocker_count": 0,
   "review_only": true,
-  "safe_false_reference_count": 2035,
+  "safe_false_reference_count": 2055,
   "safety_invariant_confirmation": {
     "allowed_for_live": false,
     "authenticated_polymarket_enabled": false,
@@ -441,8 +441,8 @@
   "safety_ok": true,
   "scan_scope": "pm_bot",
   "scanned_artifact_file_count": 0,
-  "scanned_file_count": 372,
-  "scanned_runtime_file_count": 372,
+  "scanned_file_count": 378,
+  "scanned_runtime_file_count": 378,
   "scheduler_or_daemon_added": false,
   "severity_counts": {
     "allowed_reference": 0,
@@ -452,7 +452,7 @@
   "signed_order_generation_enabled": false,
   "signed_payload_generation_enabled": false,
   "signing_enabled": false,
-  "skipped_file_count": 1405,
+  "skipped_file_count": 1415,
   "skipped_paths": [
     {
       "path": "pm_bot/tests/conftest.py",
@@ -620,6 +620,10 @@
     },
     {
       "path": "pm_bot/tests/test_first_order_market_token_resolver_070b.py",
+      "reason": "docs_tests_excluded_by_default"
+    },
+    {
+      "path": "pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
       "reason": "docs_tests_excluded_by_default"
     },
     {
@@ -804,6 +808,10 @@
     },
     {
       "path": "pm_bot/tests/test_paper_trading_loop_053.py",
+      "reason": "docs_tests_excluded_by_default"
+    },
+    {
+      "path": "pm_bot/tests/test_payload_dry_run_readiness_076d.py",
       "reason": "docs_tests_excluded_by_default"
     },
     {
@@ -4927,6 +4935,22 @@
       "reason": "trading_core_artifacts_require_artifacts_flag"
     },
     {
+      "path": "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/first_supervised_tiny_order_readiness_077a_blockers.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/first_supervised_tiny_order_readiness_077a_operator_summary.md",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/first_supervised_tiny_order_readiness_077a_result.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/latest_first_supervised_tiny_order_readiness_077a_status.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
       "path": "pm_bot/trading_core/artifacts/guarded_signer_diagnostic_smoke_069a/guarded_signer_diagnostic_operator_summary_069a.md",
       "reason": "trading_core_artifacts_require_artifacts_flag"
     },
@@ -5356,6 +5380,22 @@
     },
     {
       "path": "pm_bot/trading_core/artifacts/paper_trading_loop_053/paper_trading_strategy_signal_053.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/latest_payload_dry_run_readiness_076d_status.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_blockers.json",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_operator_summary.md",
+      "reason": "trading_core_artifacts_require_artifacts_flag"
+    },
+    {
+      "path": "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_result.json",
       "reason": "trading_core_artifacts_require_artifacts_flag"
     },
     {
