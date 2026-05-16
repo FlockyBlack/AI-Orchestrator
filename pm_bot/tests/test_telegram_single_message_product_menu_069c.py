@@ -243,7 +243,7 @@ def test_every_product_screen_has_back_button_and_expected_scoped_buttons() -> N
 
     expected = {
         "pmbot:connection": ("➕ Подключить API-ключи", "🔍 Проверить подключение", "📘 Инструкция", "🗑 Удалить подключение", "⬅️ Главное меню"),
-        "pmbot:balance": ("🔄 Обновить", "📌 Позиции", "📜 Ордера", "⬅️ Главное меню"),
+        "pmbot:balance": ("🔄 Обновить", "🔌 Подключение", "⬅️ Главное меню"),
         "pmbot:analytics": ("🔄 Обновить", "📈 Подробнее", "⬅️ Главное меню"),
         "pmbot:launch": ("💵 Лимит на день", "📉 Максимальный убыток", "🎯 Выбор рынков", "▶️ Запустить", "⬅️ Главное меню"),
         "pmbot:panel": ("⬅️ Главное меню",),
@@ -283,8 +283,8 @@ def test_balance_trades_and_pnl_do_not_fake_account_values() -> None:
     pnl = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:pnl")
     combined = "\n".join([balance.text, trades.text, pnl.text]).lower()
 
-    assert "Кошелёк: 0x3006...8989" in balance.text
-    assert "Баланс: нет данных" in balance.text
+    assert "Ключи видны, но проверка аккаунта ещё не выполнена." in balance.text
+    assert "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run" in balance.text
     assert "Live-сделок пока не было." in trades.text
     assert "Открытые ордера: неизвестно" in trades.text
     assert "PnL пока недоступен: live-сделок ещё не было." in pnl.text

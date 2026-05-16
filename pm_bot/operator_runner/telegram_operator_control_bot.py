@@ -7,6 +7,7 @@ from typing import Any, Callable, Mapping, Protocol, Sequence
 
 from pm_bot.operator_runner.telegram_operator_i18n import (
     analytics_product_button_rows,
+    balance_connection_button_rows,
     balance_missing_button_rows,
     balance_product_button_rows,
     connection_product_button_rows,
@@ -63,6 +64,11 @@ from pm_bot.trading_core.telegram_real_check_results_display_073t import (
     normalize_telegram_real_check_results_status_summary,
     render_telegram_real_check_results_status_text,
 )
+from pm_bot.trading_core.telegram_balance_readonly_status_077f import (
+    SAFE_ACCOUNT_PROBE_COMMAND,
+    normalize_telegram_balance_readonly_status_summary,
+    render_telegram_balance_readonly_status_text,
+)
 from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
     STATUS_CONTRACT as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_CONTRACT,
     normalize_telegram_order_prep_packet_status_summary,
@@ -101,6 +107,7 @@ TASK_ID_071E = "ORCH-PMBOT-TELEGRAM-071E-ORDER-PREP-STATUS-SCREEN-NO-LIVE"
 TASK_ID_072B = "ORCH-PMBOT-TELEGRAM-072B-ORDER-PREP-PACKET-SCREEN-NO-LIVE"
 TASK_ID_074B = "ORCH-PMBOT-TELEGRAM-074B-OPERATOR-TOKEN-SELECTION-UX-NO-TRADING"
 TASK_ID_075B = "ORCH-PMBOT-TELEGRAM-075B-RISK-ENGINE-V2-OVERVIEW-NO-LIVE"
+TASK_ID_077F = "ORCH-PMBOT-TELEGRAM-077F-BALANCE-READONLY-ACCOUNT-INTEGRATION-NO-LIVE"
 
 SAFE_ACTION_COMMANDS = tuple(f"/{action.action_id}" for action in SAFE_ACTIONS)
 
@@ -823,50 +830,8 @@ class TelegramOperatorControlBot:
 
     def _render_balance(self) -> str:
         summary = self._summary()
-        connection = _build_connection_product_display_status(summary)
-        if not _balance_connection_available(connection):
-            if self._language() == "ru":
-                return "\n".join(
-                    [
-                        "💰 Баланс",
-                        "Баланс недоступен.",
-                        "Сначала подключите API-ключи и кошелёк Polymarket.",
-                    ]
-                )
-            return "\n".join(
-                [
-                    "💰 Balance",
-                    "Balance is unavailable.",
-                    "Connect Polymarket API keys and wallet first.",
-                ]
-            )
-        status = dict(summary.get("telegram_connection_status_067e_status_summary", {}))
-        wallet = connection.get("wallet_display") or _safe_public_abbrev(clean_text(status.get("wallet_display")))
-        balance = _optional_product_value(status, "balance_display", "balance_status")
-        positions = _optional_product_value(status, "open_positions_display", "open_positions_status")
-        orders = _optional_product_value(status, "open_orders_display", "open_orders_status")
-        last_check = _optional_product_value(status, "last_check_timestamp", "generated_at")
-        if self._language() == "ru":
-            return "\n".join(
-                [
-                    "💰 Баланс",
-                    f"Кошелёк: {wallet or 'не указан'}",
-                    f"Баланс: {balance or 'нет данных'}",
-                    f"Открытые позиции: {positions or 'нет данных'}",
-                    f"Открытые ордера: {orders or 'нет данных'}",
-                    f"Последняя проверка: {last_check or 'нет данных'}",
-                ]
-            )
-        return "\n".join(
-            [
-                "💰 Balance",
-                f"Wallet: {wallet or 'not specified'}",
-                f"Balance: {balance or 'no data'}",
-                f"Open positions: {positions or 'no data'}",
-                f"Open orders: {orders or 'no data'}",
-                f"Last check: {last_check or 'no data'}",
-            ]
-        )
+        status = _balance_status_from_summary(summary)
+        return render_telegram_balance_readonly_status_text(status, language=self._language())
 
     def _render_positions(self) -> str:
         if self._language() == "ru":
@@ -2004,10 +1969,14 @@ class TelegramOperatorControlBot:
             return build_launch_market_keyboard(self._language())
         if command in {"/launch_limit_manual", "/launch_max_loss_manual", "/launch_market_add"}:
             return build_product_screen_keyboard("/launch", self._language())
-        if command == "/balance" and not _balance_connection_available(
-            _build_connection_product_display_status(self._summary())
-        ):
-            return build_balance_missing_keyboard(self._language())
+        if command == "/balance":
+            balance_status = _balance_status_from_summary(self._summary())
+            variant = clean_text(balance_status.get("screen_variant"))
+            if variant == "missing_credentials":
+                return build_balance_missing_keyboard(self._language())
+            if variant == "missing_funder":
+                return build_balance_connection_keyboard(self._language())
+            return build_product_screen_keyboard(command, self._language())
         if command in {"/start", "/language"}:
             return build_language_selection_keyboard()
         if command in {"/ru", "/en"}:
@@ -2082,6 +2051,12 @@ def build_connection_product_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE)
 def build_balance_missing_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
     return _keyboard_from_rows(
         balance_missing_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
+    )
+
+
+def build_balance_connection_keyboard(language: str = DEFAULT_OPERATOR_LANGUAGE) -> TelegramOperatorKeyboard:
+    return _keyboard_from_rows(
+        balance_connection_button_rows(normalize_operator_language(language, fallback=DEFAULT_OPERATOR_LANGUAGE))
     )
 
 
@@ -2392,6 +2367,11 @@ def build_telegram_operator_control_summary(
         context_value.get("telegram_connection_status_067e_status"),
         context_value.get("latest_telegram_wallet_auth_status_067e"),
     )
+    telegram_balance_readonly_status_077f = _first_mapping(
+        context_value.get("telegram_balance_readonly_status_077f_status_summary"),
+        context_value.get("telegram_balance_readonly_status_077f_status"),
+        context_value.get("latest_telegram_balance_readonly_status_077f"),
+    )
     telegram_order_prep_status_071e = _first_mapping(
         context_value.get("telegram_order_prep_status_071e_status_summary"),
         context_value.get("telegram_order_prep_status_071e_status"),
@@ -2467,6 +2447,7 @@ def build_telegram_operator_control_summary(
                 "supervised_tiny_live_enablement_gate": supervised_tiny_live_enablement_gate,
                 "explicit_live_credentials_readiness_gate": explicit_live_credentials_readiness_gate,
                 "telegram_connection_status_067e": telegram_connection_status_067e,
+                "telegram_balance_readonly_status_077f": telegram_balance_readonly_status_077f,
                 "telegram_real_check_results_073t": telegram_real_check_results_073t,
                 "telegram_order_prep_status_071e": telegram_order_prep_status_071e,
                 "telegram_order_prep_packet_status_072b": telegram_order_prep_packet_status_072b,
@@ -2531,6 +2512,9 @@ def build_telegram_operator_control_summary(
         ),
         "telegram_connection_status_067e_status_summary": _normalize_connection_status_067e_summary(
             telegram_connection_status_067e
+        ),
+        "telegram_balance_readonly_status_077f_status_summary": normalize_telegram_balance_readonly_status_summary(
+            telegram_balance_readonly_status_077f
         ),
         "telegram_real_check_results_073t_status_summary": normalize_telegram_real_check_results_status_summary(
             telegram_real_check_results_073t
@@ -3928,6 +3912,53 @@ def _balance_connection_available(status: Mapping[str, Any]) -> bool:
         and status.get("api_secret_connected") is True
         and status.get("passphrase_connected") is True
         and status.get("wallet_address_connected") is True
+    )
+
+
+def _balance_status_from_summary(summary: Mapping[str, Any]) -> dict[str, Any]:
+    status = normalize_telegram_balance_readonly_status_summary(
+        summary.get("telegram_balance_readonly_status_077f_status_summary", {})
+    )
+    if status.get("screen_available") is True:
+        return status
+    connection = _build_connection_product_display_status(summary)
+    credentials_visible = (
+        connection.get("api_key_connected") is True
+        and connection.get("api_secret_connected") is True
+        and connection.get("passphrase_connected") is True
+    )
+    if not credentials_visible:
+        return normalize_telegram_balance_readonly_status_summary(
+            {
+                "status": "balance_unavailable_missing_credentials",
+                "screen_variant": "missing_credentials",
+                "credentials_visible": False,
+                "funder_address_present": connection.get("funder_address_connected") is True,
+                "safe_account_probe_command": SAFE_ACCOUNT_PROBE_COMMAND,
+            }
+        )
+    if connection.get("funder_address_connected") is not True:
+        return normalize_telegram_balance_readonly_status_summary(
+            {
+                "status": "balance_maybe_unavailable_missing_funder",
+                "screen_variant": "missing_funder",
+                "credentials_visible": True,
+                "polymarket_l2_visible": True,
+                "funder_address_present": False,
+                "safe_account_probe_command": SAFE_ACCOUNT_PROBE_COMMAND,
+            }
+        )
+    return normalize_telegram_balance_readonly_status_summary(
+        {
+            "status": "balance_readonly_account_probe_missing",
+            "screen_variant": "missing_account_artifact",
+            "credentials_visible": True,
+            "polymarket_l2_visible": True,
+            "wallet_context_complete": True,
+            "funder_address_present": True,
+            "account_readonly_artifact_available": False,
+            "safe_account_probe_command": SAFE_ACCOUNT_PROBE_COMMAND,
+        }
     )
 
 

@@ -1,0 +1,177 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-077F-BALANCE-READONLY-ACCOUNT-INTEGRATION-NO-LIVE",
+  "status": "implemented",
+  "branch": "pmbot/telegram-077f-balance-readonly-account-integration-no-live",
+  "base": "origin/master",
+  "base_head": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_before": "eb2313c7f292361bf7aa2d686a882062b064309e",
+  "head_after": "recorded_in_final_operator_report_after_commit",
+  "head_after_note": "The final commit SHA is self-referential for committed JSON artifacts, so the exact branch head is reported after commit and remote verification.",
+  "pushed": "recorded_in_final_operator_report",
+  "remote_verified": "recorded_in_final_operator_report",
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_077F_BALANCE_READONLY_ACCOUNT_INTEGRATION_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_product_ux_076t.py",
+    "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "balance_behavior_summary": {
+    "missing_credentials": {
+      "message": "Balance unavailable until connection is completed.",
+      "button": "Go to connection"
+    },
+    "missing_funder_address": {
+      "message": "Balance may be unavailable because POLYMARKET_FUNDER_ADDRESS is missing; check Connection.",
+      "button": "Connection"
+    },
+    "missing_readonly_account_artifact": {
+      "message": "Keys are visible but account check has not been run.",
+      "safe_command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+      "buttons": [
+        "Refresh",
+        "Connection",
+        "Main menu"
+      ]
+    },
+    "present_readonly_account_artifact": {
+      "displayed_fields": [
+        "wallet short address",
+        "USDC balance when present",
+        "open positions count when present",
+        "open orders count when present",
+        "last check timestamp",
+        "last check status"
+      ],
+      "missing_field_policy": "Show no data / not found in latest check; do not invent balances, positions, orders, fills, PnL, order IDs, or transaction hashes."
+    }
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_local_real_check_bundle_072c.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_local_real_check_snapshot_073a.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_readonly_status_aggregator_071b.py",
+      "result": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_l2_auth_readonly_probe_067c.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2274 passed from short P: worktree alias; the direct long C: path exposed Windows MAX_PATH false negatives in unrelated practical evidence fixtures."
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "no compile errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "no compile errors"
+    }
+  ],
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; wallet_integration_added=false; real_orders_submitted=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed_with_expected_blocker",
+      "summary": "status=blocked_missing_private_key; polymarket_l2_visible=false; wallet_context_visible=false; telegram_runtime_visible=true; raw_secret_output=false; signer_instantiated=false; order_submission_enabled=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed_with_expected_blocker",
+      "summary": "status=blocked_missing_l2_credentials; read_only=true; private_key_read=false; signer_instantiated=false; order_submission=blocked; order_cancellation=blocked; wallet_connection=blocked; funder_status=missing"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "result": "passed_with_expected_blockers",
+      "summary": "status=local_real_check_bundle_completed_with_blockers_live_blocked; subchecks_completed=6/6; failed=0; blocked=4; blockers=11; allowed_for_live=false; trading_write_endpoints=blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_snapshot --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed_with_expected_blockers",
+      "summary": "status=local_real_check_snapshot_recorded_live_blocked; sources_present=8/8; allowed_for_live=false; network_calls=false; environment_secret_reads=false; account_readonly=account_config_not_detected"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "critical_findings=0; warnings=9; scanned_files=381; live_execution=blocked; order_submission=blocked; signing=blocked; wallet=blocked"
+    }
+  ],
+  "safety_scan_summary": {
+    "read_only": true,
+    "no_live_trading": true,
+    "no_order_submission": true,
+    "no_order_cancel": true,
+    "no_signing": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_connection_ui": true,
+    "no_raw_secret_output": true,
+    "no_fake_balances_positions_orders_fills_pnl": true,
+    "no_scheduler_daemon_or_autonomous_loop": true,
+    "allowed_for_live_true_added": false,
+    "trading_requested_true_added": false
+  },
+  "remaining_risks": [
+    "The balance screen can only display fields present in local 077C and 070C artifacts; missing credentials or missing funder/account artifacts are intentionally shown as operator prerequisites.",
+    "The full test suite must be run from a short Windows path alias because unrelated practical evidence fixture paths exceed Python's long-path handling from the required C: worktree path."
+  ]
+}

@@ -94,7 +94,7 @@ def build_ru_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "product_screens": {
             "connection": ["➕ Подключить API-ключи", "🔍 Проверить подключение", "📘 Инструкция", "🗑 Удалить подключение", "⬅️ Главное меню"],
             "balance_missing": ["🔌 Перейти к подключению"],
-            "balance": ["🔄 Обновить", "📌 Позиции", "📜 Ордера", "⬅️ Главное меню"],
+            "balance": ["🔄 Обновить", "🔌 Подключение", "⬅️ Главное меню"],
             "analytics": ["🔄 Обновить", "📈 Подробнее", "⬅️ Главное меню"],
             "launch": ["💵 Лимит на день", "📉 Максимальный убыток", "🎯 Выбор рынков", "▶️ Запустить", "⬅️ Главное меню"],
             "stop": ["🚀 Перейти к запуску", "⬅️ Главное меню"],
@@ -122,7 +122,7 @@ def build_en_snapshot(*, generated_at: str = GENERATED_AT) -> dict[str, Any]:
         "product_screens": {
             "connection": ["➕ Connect API keys", "🔍 Check connection", "📘 Guide", "🗑 Delete connection", "⬅️ Main menu"],
             "balance_missing": ["🔌 Go to connection"],
-            "balance": ["🔄 Refresh", "📌 Positions", "📜 Orders", "⬅️ Main menu"],
+            "balance": ["🔄 Refresh", "🔌 Connection", "⬅️ Main menu"],
             "analytics": ["🔄 Refresh", "📈 Details", "⬅️ Main menu"],
             "launch": ["💵 Daily limit", "📉 Max loss", "🎯 Market selection", "▶️ Launch", "⬅️ Main menu"],
             "stop": ["🚀 Go to launch", "⬅️ Main menu"],

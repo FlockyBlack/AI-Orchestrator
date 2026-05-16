@@ -15,6 +15,12 @@ from pm_bot.trading_core.telegram_real_check_results_display_073t import (
     LATEST_STATUS_FILENAME as TELEGRAM_REAL_CHECK_RESULTS_073T_LATEST_STATUS_FILENAME,
     normalize_telegram_real_check_results_status_summary,
 )
+from pm_bot.trading_core.telegram_balance_readonly_status_077f import (
+    ARTIFACT_DIR_NAME as TELEGRAM_BALANCE_READONLY_STATUS_077F_ARTIFACT_DIR_NAME,
+    LATEST_STATUS_FILENAME as TELEGRAM_BALANCE_READONLY_STATUS_077F_LATEST_STATUS_FILENAME,
+    build_telegram_balance_readonly_status,
+    normalize_telegram_balance_readonly_status_summary,
+)
 from pm_bot.trading_core.telegram_order_prep_packet_status_072b import (
     ARTIFACT_DIR_NAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_ARTIFACT_DIR_NAME,
     LATEST_STATUS_FILENAME as TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_LATEST_STATUS_FILENAME,
@@ -48,6 +54,7 @@ TASK_ID_062T = "ORCH-PMBOT-TELEGRAM-062T-PRE-LIVE-TINY-ORDER-GATE-REVIEW-PANEL"
 TASK_ID_063T = "ORCH-PMBOT-TELEGRAM-063T-SUPERVISED-LIVE-ENABLEMENT-REVIEW-PANEL"
 TASK_ID_064T = "ORCH-PMBOT-TELEGRAM-064T-CREDENTIALS-READINESS-REVIEW-PANEL"
 TELEGRAM_CONNECTION_STATUS_067E_FLOW_ID = "telegram_connection_status_067e"
+TELEGRAM_BALANCE_READONLY_STATUS_077F_FLOW_ID = "telegram_balance_readonly_status_077f"
 TELEGRAM_ORDER_PREP_STATUS_071E_FLOW_ID = "telegram_order_prep_status_071e"
 TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID = "telegram_order_prep_packet_status_072b"
 TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID = "telegram_real_check_results_073t"
@@ -410,6 +417,15 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         context_key="telegram_connection_status_067e_status_summary",
         label_en="Connection status 067E",
         label_ru="Подключение 067E",
+    ),
+    TelegramStatusSource(
+        flow_id=TELEGRAM_BALANCE_READONLY_STATUS_077F_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name=TELEGRAM_BALANCE_READONLY_STATUS_077F_ARTIFACT_DIR_NAME,
+        latest_status_filename=TELEGRAM_BALANCE_READONLY_STATUS_077F_LATEST_STATUS_FILENAME,
+        context_key="telegram_balance_readonly_status_077f_status_summary",
+        label_en="Balance read-only status",
+        label_ru="Баланс read-only",
     ),
     TelegramStatusSource(
         flow_id=TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID,
@@ -1723,6 +1739,15 @@ def _build_status_card(
         status_summary.update(normalize_telegram_order_prep_packet_status_summary(payload))
     if source.flow_id == TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID:
         status_summary.update(normalize_telegram_real_check_results_status_summary(payload))
+    balance_explicit_payload_available = False
+    if source.flow_id == TELEGRAM_BALANCE_READONLY_STATUS_077F_FLOW_ID:
+        balance_explicit_payload_available = latest_path is not None and bool(payload) and not load_error
+        if not payload:
+            payload = build_telegram_balance_readonly_status(
+                artifact_root=artifact_root,
+                generated_at=generated_at,
+            )
+        status_summary.update(normalize_telegram_balance_readonly_status_summary(payload))
     if source.flow_id == TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID:
         status_summary.update(normalize_telegram_operator_token_selection_summary(payload))
     risk_engine_explicit_payload_available = False
@@ -1739,6 +1764,11 @@ def _build_status_card(
         available = (
             risk_engine_explicit_payload_available
             or status_summary.get("source_artifact_available") is True
+        )
+    if source.flow_id == TELEGRAM_BALANCE_READONLY_STATUS_077F_FLOW_ID:
+        available = (
+            balance_explicit_payload_available
+            or status_summary.get("account_readonly_artifact_available") is True
         )
     return {
         "contract_version": STATUS_CARD_CONTRACT,
