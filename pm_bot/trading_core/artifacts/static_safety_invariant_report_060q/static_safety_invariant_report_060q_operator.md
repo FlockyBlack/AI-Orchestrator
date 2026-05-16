@@ -5,7 +5,7 @@
 - Mode: `static / review-only`
 - Strict: `false`
 - Artifacts included: `false`
-- Scanned files: `372`
+- Scanned files: `378`
 - Critical findings: `0`
 - Warnings: `9`
 - Allowed references: `0`
