@@ -1,0 +1,254 @@
+{
+  "contract_version": "orch_pmbot_trading_mvp_076b_integration_result.v1",
+  "task_id": "ORCH-PMBOT-TRADING-MVP-076B-INTEGRATE-076A-SELECTED-TOKEN-VERIFICATION-INTO-MASTER",
+  "status": "validated_pending_result_commit_and_push",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base_branch": "master",
+  "worktree": "C:/oc076b_integrate_076a_selected_token_verification_into_master",
+  "validation_worktree_path": "O:/",
+  "temporary_short_drive_mapping": {
+    "used": true,
+    "drive": "O:",
+    "target": "C:/oc076b_integrate_076a_selected_token_verification_into_master",
+    "reason": "Windows MAX_PATH blocked checkout of long tracked artifact paths from master.",
+    "cleanup_status_at_artifact_write": "pending"
+  },
+  "head_before": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "head_after": "d1fd1356bd209b95387995a82450716e5d049565",
+  "head_after_scope": "Local master after fast-forwarding the 076A source branch, before committing this 076B result artifact.",
+  "source_branch": "pmbot/trading-mvp-076a-selected-token-verification-bridge-no-live",
+  "source_head": "d1fd1356bd209b95387995a82450716e5d049565",
+  "source_head_remote_verified": true,
+  "accepted_master_head_remote_verified": true,
+  "merge_replay_method": "git merge --ff-only origin/pmbot/trading-mvp-076a-selected-token-verification-bridge-no-live",
+  "conflicts": [],
+  "conflict_resolutions": [],
+  "changed_files_integrated_from_076a": [
+    "docs/ORCH_PMBOT_TRADING_MVP_076A_SELECTED_TOKEN_VERIFICATION_BRIDGE_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/selected_token_payload_readiness_gate.py",
+    "pm_bot/operator_runner/selected_token_verification_bridge.py",
+    "pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+    "pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/latest_selected_token_payload_readiness_status_073c.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_blockers_073c.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_gate_073c_result.json",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_operator_summary_073c.md",
+    "pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c/selected_token_payload_readiness_sources_073c.json",
+    "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/latest_selected_token_verification_076a_status.json",
+    "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/selected_token_verification_076a_evidence.json",
+    "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/selected_token_verification_076a_operator_summary.md",
+    "pm_bot/trading_core/artifacts/selected_token_verification_bridge_076a/selected_token_verification_076a_result.json",
+    "pm_bot/trading_core/selected_token_payload_readiness_gate.py",
+    "pm_bot/trading_core/selected_token_verification_bridge.py",
+    "pm_bot/trading_core/selected_token_verification_models.py"
+  ],
+  "result_artifact_added_by_076b": "docs/ORCH_PMBOT_TRADING_MVP_076B_INTEGRATE_076A_SELECTED_TOKEN_VERIFICATION_INTO_MASTER_RESULT.json",
+  "validation_commands": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_engine_v2_074d.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_real_local_check_evidence_review_074a.py",
+      "result": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+      "result": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "passed",
+      "summary": "4 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2217 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "compileall completed without errors"
+    }
+  ],
+  "runner_smokes": [
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selection_required; source_backed_candidates=2; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=operator_selection_required; candidate index missing; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "result": "passed",
+      "summary": "status=selected_candidate_artifact_recorded; candidate_index=0; source_backed=true; selected_by_operator=true; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_verification_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=selected_token_verified_for_payload_dry_run; selected_token_verified_for_payload_dry_run=true; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_signer_diagnostic_not_ok; selected_token_verified=true; selected_token_payload_ready_for_submit=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_risk_engine_v2_review; blockers=14; allowed_for_live=false; first supervised tiny order blocked=true"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "status=blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; signing/order submission/order cancellation blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "critical_findings=0; warnings=7; live execution/order submission/signing/wallet blocked"
+    }
+  ],
+  "selected_token_verification_bridge_runner_summary": {
+    "status": "selected_token_verified_for_payload_dry_run",
+    "selected_candidate_artifact_present": true,
+    "selected_candidate_index": 0,
+    "selected_by_operator": true,
+    "source_backed": true,
+    "token_hash_match": true,
+    "known_073b_candidate_match": true,
+    "selected_token_verified_for_payload_dry_run": true,
+    "selected_token_payload_ready_for_submit": false,
+    "allowed_for_live": false,
+    "signing_by_default": "blocked",
+    "order_submission": "blocked",
+    "order_cancellation": "blocked"
+  },
+  "selected_token_payload_readiness_gate_status": {
+    "status": "blocked_signer_diagnostic_not_ok",
+    "selected_token_verified": true,
+    "selected_token_payload_ready_for_submit": false,
+    "allowed_for_live": false,
+    "trading_writes": "blocked"
+  },
+  "risk_engine_v2_status": {
+    "status": "blocked_risk_engine_v2_review",
+    "blockers": 14,
+    "allowed_for_live": false,
+    "risk_engine_v2_executable_for_live": false,
+    "first_supervised_tiny_order_blocked": true
+  },
+  "final_blocker_reducer_status": {
+    "status": "blocked_remaining_first_live_order_final_blockers",
+    "remaining_blockers": 10,
+    "allowed_for_live": false,
+    "live_execution_authorization": "blocked",
+    "signing": "blocked",
+    "order_submission": "blocked",
+    "order_cancellation": "blocked"
+  },
+  "static_safety_report_summary": {
+    "scope": "pm_bot",
+    "critical_findings": 0,
+    "warnings": 7,
+    "live_execution": "blocked",
+    "order_submission": "blocked",
+    "signing": "blocked",
+    "wallet": "blocked"
+  },
+  "manual_safety_scan_summary": {
+    "diff_range": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf..d1fd1356bd209b95387995a82450716e5d049565",
+    "unsafe_true_readiness_flags_found": false,
+    "live_submit_cancel_signer_wallet_execution_path_found": false,
+    "secret_or_full_signed_payload_raw_output_found": false,
+    "fake_balances_orders_fills_pnl_order_ids_or_tx_hashes_found": false,
+    "scheduler_daemon_background_autonomous_loop_found": false,
+    "notes": "Added-line matches were deny-list strings, required false flags, blocked status text, and regression-test assertions; no executable live trading, submit, cancel, signing, wallet, secret-output, fake-data, or scheduler path was added."
+  },
+  "diff_checks_at_artifact_write": [
+    {
+      "command": "git diff --check 8abfdb77df9c30244f66fa0d0dbee9f0717e95cf..HEAD",
+      "result": "passed"
+    }
+  ],
+  "safety_invariants": {
+    "pmbot_remains_live_autonomous_trader": false,
+    "live_trading_added": false,
+    "order_submission_added": false,
+    "order_cancel_added": false,
+    "signing_by_default_added": false,
+    "signer_instantiation_by_default_added": false,
+    "wallet_connection_ui_added": false,
+    "private_key_raw_output_added": false,
+    "api_key_secret_passphrase_raw_output_added": false,
+    "full_signed_payload_output_added": false,
+    "fake_balances_orders_fills_pnl_order_ids_tx_hashes_added": false,
+    "scheduler_daemon_background_autonomous_loop_added": false,
+    "allowed_for_live_true_added": false,
+    "submit_readiness": false,
+    "live_readiness": false
+  },
+  "remote_verification_at_artifact_write": {
+    "status": "pending_final_commit_and_push",
+    "expected_master_push_allowed": true
+  },
+  "final_git_status_at_artifact_write": "pending_result_commit"
+}
