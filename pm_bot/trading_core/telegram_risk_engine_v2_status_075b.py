@@ -148,6 +148,10 @@ def normalize_risk_engine_v2_review_status(status: Mapping[str, Any]) -> dict[st
         or value.get("unknown_group_ids")
         or value.get("unknown_blocker_ids")
     )
+    if not source_path and not top_blockers:
+        top_blockers = ["Risk Engine v2 local status artifact is missing; live remains blocked."]
+    if not source_path and not unknown_groups:
+        unknown_groups = ["risk_engine_v2_latest_status_missing"]
     normalized = {
         "contract_version": clean_text(value.get("contract_version") or "pmbot_latest_risk_engine_v2_review_074d.v1"),
         "task_id": clean_text(value.get("task_id") or RISK_ENGINE_V2_TASK_ID),
@@ -375,6 +379,15 @@ def telegram_risk_engine_v2_safety_flags() -> dict[str, Any]:
     value = dict(risk_engine_v2_safety_flags())
     value.pop("mode", None)
     value.pop("execution_mode", None)
+    for key in (
+        "no_live",
+        "no_submit",
+        "no_cancel",
+        "no_signing",
+        "no_wallet",
+        "no_private_material_reads",
+    ):
+        value.pop(key, None)
     value.update(
         {
             "display_only": True,

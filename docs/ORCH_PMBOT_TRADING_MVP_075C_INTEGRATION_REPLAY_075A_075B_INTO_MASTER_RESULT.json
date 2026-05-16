@@ -1,0 +1,171 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-075C-INTEGRATION-REPLAY-075A-075B-INTO-MASTER",
+  "status": "validated_pending_push",
+  "generated_at": "2026-05-16T06:41:57.7049100+04:00",
+  "worktree": "C:/oc075c_integration_replay_075a_075b_into_master",
+  "base_branch": "master",
+  "head_before": "59f87a32ef0dc2c899611ad0caa198b7da8f2942",
+  "head_after": "89f71e3097fb3fd10e489c75aa2249629cf19e46",
+  "head_after_note": "Recorded after validation and before self-referential result metadata amend; final pushed master head is remote-verified in the operator report.",
+  "source_branch_heads": {
+    "075a": {
+      "branch": "pmbot/trading-mvp-075a-selected-candidate-operator-instruction-packet-no-live",
+      "head": "0d982525eaf87f09c9fc2a781604a48c6590eb8c",
+      "verified_by": "git ls-remote origin refs/heads/pmbot/trading-mvp-075a-selected-candidate-operator-instruction-packet-no-live"
+    },
+    "075b": {
+      "branch": "pmbot/telegram-075b-risk-engine-v2-overview-no-live",
+      "head": "145d88db62da804057b7c31e0cce9fb619cda593",
+      "verified_by": "git ls-remote origin refs/heads/pmbot/telegram-075b-risk-engine-v2-overview-no-live"
+    }
+  },
+  "replay_method": {
+    "075a": "git cherry-pick -x 0d982525eaf87f09c9fc2a781604a48c6590eb8c",
+    "075b": "git cherry-pick -x 145d88db62da804057b7c31e0cce9fb619cda593 with conflict resolution",
+    "integration_fix": "manual patch to keep 075B Telegram display compatible with current 074E Risk Engine v2 contracts"
+  },
+  "conflicts": [
+    {
+      "path": "pm_bot/operator_runner/risk_engine_v2_review.py",
+      "resolution": "kept current master/074E runner importing pm_bot.trading_core.risk_engine_v2"
+    },
+    {
+      "path": "pm_bot/tests/test_risk_engine_v2_074d.py",
+      "resolution": "kept current master/074E regression test"
+    },
+    {
+      "path": "pm_bot/trading_core/risk_engine_v2_review.py",
+      "resolution": "removed older 075B-base core wrapper; 075B display reads current risk_engine_v2_074d latest status artifacts instead"
+    }
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_075B_RISK_ENGINE_V2_OVERVIEW_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_075A_SELECTED_CANDIDATE_OPERATOR_INSTRUCTION_PACKET_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TRADING_MVP_075C_INTEGRATION_REPLAY_075A_075B_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/selected_candidate_instruction_packet.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_selected_candidate_instruction_packet_075a.py",
+    "pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/latest_selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_candidates_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a.md",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_packet_075a_result.json",
+    "pm_bot/trading_core/artifacts/selected_candidate_instruction_packet_075a/selected_candidate_instruction_safety_snapshot_075a.json",
+    "pm_bot/trading_core/selected_candidate_instruction_models.py",
+    "pm_bot/trading_core/selected_candidate_instruction_packet.py",
+    "pm_bot/trading_core/telegram_risk_engine_v2_status_075b.py"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_instruction_packet_075a.py pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_engine_v2_074d.py pm_bot/tests/test_real_local_check_evidence_review_074a.py pm_bot/tests/test_telegram_operator_token_selection_074b.py pm_bot/tests/test_local_real_check_snapshot_073a.py pm_bot/tests/test_operator_token_selection_packet_073b.py pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "68 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py pm_bot/tests/test_telegram_single_message_product_menu_069c.py pm_bot/tests/test_telegram_real_check_results_display_073t.py pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+      "result": "passed",
+      "summary": "26 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2199 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed"
+    }
+  ],
+  "operator_dry_runs": [
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "status": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+      "result": "passed",
+      "status": "local_real_check_bundle_completed_with_blockers_live_blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_real_check_snapshot --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "local_real_check_snapshot_recorded_live_blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "selection_required; selected_token_id_present=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_instruction_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "operator_selection_required; source_backed_candidates=2; selected_token_id_present=false; instruction_packet_executable_for_live=false; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "blocked_missing_selected_token; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.real_local_check_evidence_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "blocked_first_supervised_tiny_order_not_ready; remaining_blockers=12; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "blocked_risk_engine_v2_review; gate_count=14; blockers=14; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_live_order_final_blocker_reducer --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "status": "blocked_remaining_first_live_order_final_blockers; remaining_blockers=10; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "status": "critical_findings=0; warnings=7; live_execution=blocked"
+    }
+  ],
+  "behavior_summary": {
+    "selected_candidate_instruction_runner": "Review-only operator instruction packet is present. It reports operator_selection_required when multiple source-backed candidates exist, does not select a token automatically, does not write selected-candidate artifacts unless an operator candidate is supplied, and keeps allowed_for_live=false.",
+    "telegram_mini_app_risk_engine_v2": "Risk Engine v2 is reachable from Telegram status/details flow via /risk_engine_v2 and pmbot:risk_engine_v2. The primary product menu remains unchanged. The Mini App adds a static Risk Engine v2 card with no forms, inputs, scripts, fetches, wallet connect, submit, or cancel controls.",
+    "risk_engine_v2_runner": "Current 074E Risk Engine v2 runner/core contracts are preserved. The 075B display adapter reads current risk_engine_v2_074d latest status artifacts and falls back closed when artifacts are missing."
+  },
+  "manual_safety_scan": {
+    "result": "passed",
+    "summary": "Search hits were limited to blocked false-valued safety flags, static no-live text, and negative tests. No added enabling path for submit/cancel/order posting, trading writes, signer creation by default, raw secrets, full signed payload output, fake trading data, wallet UI, scheduler/daemon/background loop, or allowed_for_live=true was found."
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "review_only": true,
+    "allowed_for_live": false,
+    "live_trading_enabled": false,
+    "order_submission_enabled": false,
+    "order_cancellation_enabled": false,
+    "signing_enabled": false,
+    "wallet_connection_enabled": false,
+    "fake_trading_data_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_worker_added": false,
+    "autonomous_live_trading_added": false
+  },
+  "remote_verification": {
+    "status": "pending_post_push",
+    "method": "git ls-remote origin refs/heads/master"
+  }
+}
