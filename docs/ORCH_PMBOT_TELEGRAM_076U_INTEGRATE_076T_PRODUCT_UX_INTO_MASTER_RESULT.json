@@ -1,0 +1,252 @@
+{
+  "task_id": "ORCH-PMBOT-TELEGRAM-076U-INTEGRATE-076T-PRODUCT-UX-INTO-MASTER",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "status": "revalidated_after_076b_rebase_pending_commit_push_verify",
+  "worktree": "C:/oc076u_integrate_076t_product_ux_into_master",
+  "short_drive_mapping_used": {
+    "used": true,
+    "mapping": "P: -> C:/oc076u_integrate_076t_product_ux_into_master",
+    "reason": "Initial checkout of master hit Windows MAX_PATH on generated fixture paths.",
+    "cleanup": "P: mapping removed after final push verification."
+  },
+  "base_branch": "master",
+  "old_master_head": "88c68dda8e0aa497fa7cf0dc395708906f01ec84",
+  "head_before": "88c68dda8e0aa497fa7cf0dc395708906f01ec84",
+  "head_after": "pending_final_commit_hash_reported_after_commit",
+  "head_after_note": "Embedding this result artifact commit's own SHA in the committed JSON would change that SHA; final local and remote master heads are reported in the operator final report.",
+  "latest_origin_master_verified_before_start": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "latest_origin_master_verified_before_push_rebase": "88c68dda8e0aa497fa7cf0dc395708906f01ec84",
+  "known_accepted_master_before_076b": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "telegram_ux_source_branch": "origin/pmbot/telegram-076t-product-ux-redesign-no-live",
+  "telegram_ux_source_head": "859b03794580a8dd9c1cdc648c2f571596995bba",
+  "telegram_ux_source_base": "9cdf833ff86329f399c3a4c0f26b52d9b5629b4d",
+  "076a_source_branch": "origin/pmbot/trading-mvp-076a-selected-token-verification-bridge-no-live",
+  "076a_source_head": "d1fd1356bd209b95387995a82450716e5d049565",
+  "076b_076a_master_status": {
+    "076b_already_pushed_to_master": true,
+    "076a_branch_is_ancestor_of_master": true,
+    "test_selected_token_verification_bridge_076a_present": true,
+    "selected_token_verification_bridge_runner_present": true,
+    "handling": "Remote master advanced to 88c68dda during validation; rebased the 076T integration onto that latest master and revalidated the 076A bridge."
+  },
+  "replay_method": {
+    "method": "git cherry-pick 859b03794580a8dd9c1cdc648c2f571596995bba",
+    "result_commit_before_this_artifact": "e1bafb6f7c9c40fe8f1e3863f3b36f0b40c1a8c8",
+    "conflicts_encountered": false,
+    "resolution": "No conflict markers or manual conflict resolutions were required. The 076T delta did not overlap the 075D selected-candidate files added after 9cdf833."
+  },
+  "preserved_progress": {
+    "075d_selected_candidate_artifact": true,
+    "076a_selected_token_verification_bridge": true,
+    "075b_risk_engine_v2_telegram_overview": true,
+    "074b_operator_token_selection_ux": true,
+    "073t_real_check_display": true,
+    "069c_same_message_navigation": true,
+    "selected_token_payload_readiness_gate_status": "blocked_signer_diagnostic_not_ok"
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_069C_SINGLE_MESSAGE_PRODUCT_MENU_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_076T_PRODUCT_UX_REDESIGN_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_TELEGRAM_076U_INTEGRATE_076T_PRODUCT_UX_INTO_MASTER_RESULT.json",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_control_state.py",
+    "pm_bot/operator_runner/telegram_operator_i18n.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_product_ux_067a.py",
+    "pm_bot/operator_runner/telegram_product_ux_068c.py",
+    "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_telegram_mini_app_operator_panel_044.py",
+    "pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py",
+    "pm_bot/tests/test_telegram_mini_app_product_dashboard_068d.py",
+    "pm_bot/tests/test_telegram_mini_app_scaffold_067b.py",
+    "pm_bot/tests/test_telegram_operator_control_bot_043.py",
+    "pm_bot/tests/test_telegram_operator_runtime_045.py",
+    "pm_bot/tests/test_telegram_operator_runtime_ux_smoke_fixes_046e.py",
+    "pm_bot/tests/test_telegram_operator_ux_buttons_046.py",
+    "pm_bot/tests/test_telegram_product_start_language_068c.py",
+    "pm_bot/tests/test_telegram_product_ux_067a.py",
+    "pm_bot/tests/test_telegram_product_ux_076t.py",
+    "pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+    "pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+    "pm_bot/tests/test_telegram_ru_language_mini_app_dev_mode_046g.py",
+    "pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/latest_telegram_mini_app_status_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_067b_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_067b/telegram_mini_app_menu_snapshot_067b.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_order_prep_072f/latest_telegram_mini_app_order_prep_status_072f.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_order_prep_072f/telegram_mini_app_order_prep_072f_result.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_order_prep_072f/telegram_mini_app_order_prep_ui_snapshot_072f.json",
+    "pm_bot/trading_core/artifacts/telegram_mini_app_product_dashboard_068d/telegram_mini_app_product_dashboard_menu_snapshot_068d.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_i18n_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_067a/telegram_product_ux_menu_snapshot_067a.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_en_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_product_ux_fix_068c/telegram_product_ux_ru_menu_snapshot_068c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_069c_result.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_en_snapshot_069c.json",
+    "pm_bot/trading_core/artifacts/telegram_single_message_product_menu_069c/telegram_single_message_product_menu_ru_snapshot_069c.json"
+  ],
+  "telegram_ux_summary": {
+    "before": "Primary Telegram menu exposed engineering-style status/readiness/scaffold flows.",
+    "after_first_launch": "Only language selection is shown first.",
+    "after_language_selection": "Product PMBOT description is shown with one main-menu button.",
+    "after_main_menu": "Primary menu is product-level: Connection, Balance, Analytics, Launch, Stop, Mini App, Settings.",
+    "connection": "Shows status and setup guidance without raw secret output or chat secret collection.",
+    "balance": "Routes missing connection to Connection and avoids fake balances, positions, orders, PnL, IDs, or hashes.",
+    "analytics": "Uses product no-data state without fake PnL or trades.",
+    "launch": "Stores local no-live limits and market selection, then blocks real trading start.",
+    "stop": "Records only local no-live stop state and does not claim a live runtime was stopped.",
+    "mini_app": "Static dashboard placeholders only; no wallet connect, secret forms, submit, cancel, sign controls, scripts, or network fetch code added."
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "passed",
+      "summary": "12 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_real_check_results_display_073t.py",
+      "result": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_operator_token_selection_074b.py",
+      "result": "passed",
+      "summary": "5 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_risk_engine_v2_status_075b.py",
+      "result": "passed",
+      "summary": "4 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_candidate_artifact_075d.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_verification_bridge_076a.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "result": "passed",
+      "summary": "13 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_operator_token_selection_packet_073b.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_risk_engine_v2_074d.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2231 passed in 660.99s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "compile completed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "compile completed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.operator_token_selection_packet --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "selection_required; selected_token_id_present=false; allowed_for_live=false; order payload/signing/submission/cancellation blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+      "result": "passed",
+      "summary": "selected_candidate_artifact_recorded; selected candidate source-backed; allowed_for_live=false; submit-ready=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_verification_bridge --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "selected_token_verified_for_payload_dry_run; selected candidate artifact present=true; token hash match=true; allowed_for_live=false; signing/submission/cancellation blocked"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.selected_token_payload_readiness_gate --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "blocked_signer_diagnostic_not_ok; selected token verified=true; submit/signing/trading writes blocked; allowed_for_live=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.risk_engine_v2_review --market BTC --strategy tiny-momentum --dry-run",
+      "result": "passed",
+      "summary": "blocked_risk_engine_v2_review; 14 blockers; allowed_for_live=false; first supervised tiny order blocked=true"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "0 critical findings; 9 warnings; live execution, order submission, signing, and wallet blocked"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "summary": "No whitespace errors before adding this result artifact; final diff checks rerun before commit."
+    }
+  ],
+  "manual_safety_scan_summary": {
+    "scan_scope": "Added diff lines from origin/master to the final 076U integration diff.",
+    "allowed_for_live_true_found": false,
+    "trading_requested_true_found": false,
+    "post_or_fetch_network_code_added": false,
+    "mini_app_script_or_fetch_added": false,
+    "wallet_connect_or_connect_wallet_control_added": false,
+    "submit_cancel_sign_controls_added": false,
+    "raw_secret_output_added": false,
+    "fake_balances_orders_fills_pnl_ids_hashes_added": false,
+    "scheduler_daemon_background_autonomous_loop_added": false,
+    "notes": "Matches for API secret, passphrase, wallet, order, submit, cancel, and signing occur in redacted status labels, setup guidance, false/blocked safety flags, or tests asserting forbidden controls are absent."
+  },
+  "safety_flags": {
+    "pmbot_remains_not_live_autonomous_trader": true,
+    "no_live_trading": true,
+    "no_order_submission": true,
+    "no_order_cancel": true,
+    "no_signing_by_default": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_connection_ui": true,
+    "no_private_key_raw_output": true,
+    "no_api_key_secret_passphrase_raw_output": true,
+    "no_full_signed_payload_output": true,
+    "no_fake_balance_order_fill_pnl_ids_hashes": true,
+    "no_scheduler_daemon_background_loop": true,
+    "no_allowed_for_live_true": true,
+    "no_in_chat_secret_collection": true
+  },
+  "remaining_risks_or_blockers": [
+    "Selected token verification is present after rebasing onto 076B, but payload readiness remains blocked_signer_diagnostic_not_ok because signer diagnostic is not approved.",
+    "Mini App remains a static placeholder dashboard and intentionally does not fetch live account data."
+  ]
+}
