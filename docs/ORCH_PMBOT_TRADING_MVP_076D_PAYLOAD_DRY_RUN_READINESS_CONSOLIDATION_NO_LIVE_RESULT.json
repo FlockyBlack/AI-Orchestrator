@@ -1,0 +1,106 @@
+{
+  "task_id": "ORCH-PMBOT-TRADING-MVP-076D-PAYLOAD-DRY-RUN-READINESS-CONSOLIDATION-NO-LIVE",
+  "branch": "pmbot/trading-mvp-076d-payload-dry-run-readiness-consolidation-no-live",
+  "base": "origin/master",
+  "base_head": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "head_before": "8abfdb77df9c30244f66fa0d0dbee9f0717e95cf",
+  "head_after": "recorded in final operator report after commit because committing this JSON changes HEAD",
+  "selected_token_verification_bridge_076a": {
+    "present": true,
+    "source": "cherry-picked remote feature commit d1fd1356bd209b95387995a82450716e5d049565 because origin/master did not yet contain 076A",
+    "status": "selected_token_verified_for_payload_dry_run"
+  },
+  "signer_diagnostic_evidence_bridge_076c": {
+    "present": false,
+    "remote_branch_found": false,
+    "local_module_found": false,
+    "status": "missing_or_blocked"
+  },
+  "payload_dry_run_readiness_review": {
+    "status": "blocked_signer_diagnostic_not_ok",
+    "market": "BTC",
+    "strategy": "tiny-momentum",
+    "selected_candidate_status": "selected_candidate_artifact_recorded",
+    "selected_token_verification_status": "selected_token_verified_for_payload_dry_run",
+    "signer_diagnostic_status": "missing_signer_diagnostic_evidence_bridge_076c",
+    "payload_dry_run_status": "selected_token_payload_readiness_not_ready:blocked_signer_diagnostic_not_ok",
+    "risk_status": "blocked_risk_engine_or_final_reducer",
+    "final_blocker_reducer_status": "blocked_remaining_first_live_order_final_blockers",
+    "current_top_blocker": "blocked_signer_diagnostic_not_ok",
+    "final_blockers": [
+      "blocked_signer_diagnostic_not_ok"
+    ],
+    "next_recommended_safe_command": "N/A - 076C signer diagnostic evidence bridge is not present in this branch",
+    "operator_summary": "Payload dry-run readiness is blocked because 076C signer diagnostic evidence is missing or not diagnostic_ok."
+  },
+  "risk_engine_v2_status": {
+    "status": "blocked_risk_engine_v2_review",
+    "ready": false
+  },
+  "final_blocker_reducer_status": {
+    "status": "blocked_remaining_first_live_order_final_blockers",
+    "ready": false
+  },
+  "static_safety_report_summary": {
+    "status": "passed_with_warnings",
+    "critical_findings": 0,
+    "safety_ok": true
+  },
+  "safety_invariants": {
+    "paper_only": true,
+    "submit_ready": false,
+    "live_ready": false,
+    "allowed_for_live": false,
+    "order_submission_enabled": false,
+    "signing_by_default": false,
+    "signer_instantiated_by_default": false,
+    "wallet_connected": false,
+    "full_signed_payload_output": false,
+    "real_order_submitted": false,
+    "real_order_cancelled": false,
+    "scheduler_or_daemon_added": false,
+    "autonomous_live_trading_added": false
+  },
+  "artifacts": [
+    "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/latest_payload_dry_run_readiness_076d_status.json",
+    "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_result.json",
+    "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_blockers.json",
+    "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/payload_dry_run_readiness_076d_operator_summary.md"
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_payload_dry_run_readiness_076d.py pm_bot/tests/test_selected_token_verification_bridge_076a.py pm_bot/tests/test_selected_candidate_artifact_075d.py pm_bot/tests/test_selected_token_payload_readiness_gate_073c.py",
+      "status": "passed",
+      "summary": "39 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signed_payload_diagnostic_adapter_072e.py pm_bot/tests/test_signed_order_payload_dry_run_070a.py pm_bot/tests/test_order_prep_packet_072a.py pm_bot/tests/test_first_order_market_token_resolver_070b.py pm_bot/tests/test_first_live_order_final_blocker_reducer_072d.py pm_bot/tests/test_risk_engine_v2_074d.py pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "65 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "timeout_then_rerun_passed",
+      "summary": "Initial 10 minute run timed out; rerun with -q and longer timeout passed 2226 tests."
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "runner smokes listed in task",
+      "status": "passed",
+      "summary": "All requested runner smokes completed; 076D rerun after upstream smokes preserved signer-evidence top blocker."
+    }
+  ],
+  "manual_safety_scan": {
+    "status": "passed",
+    "notes": "Staged added-line scans found only safe false-flag assertions, forbidden-flag rejection tests, status strings, and artifact summaries. No submit/cancel implementation, trading write call, signer creation by default, wallet connection UI, secret output, full signed payload output, fake execution values, background loop, or allowed_for_live=true path was added."
+  },
+  "pushed": false,
+  "remote_verified": false
+}
