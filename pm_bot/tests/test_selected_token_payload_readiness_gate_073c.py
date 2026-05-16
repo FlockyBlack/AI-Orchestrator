@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import inspect
 import json
 import os
@@ -61,6 +62,36 @@ def _write_json(path: Path, payload: Mapping[str, Any]) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(dict(payload), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return path
+
+
+def _write_selected_candidate_artifact(tmp_path: Path, *, token_id: str = VALID_TOKEN_ID) -> Path:
+    return _write_json(
+        tmp_path / "sources" / "selected_candidate_artifact_075d.json",
+        {
+            "contract_version": "pmbot_selected_candidate_artifact_075d.v1",
+            "task_id": "ORCH-PMBOT-TRADING-MVP-075D-SELECTED-CANDIDATE-ARTIFACT-CONTRACT-NO-LIVE",
+            "status": "selected_candidate_artifact_recorded",
+            "market_symbol": "BTC",
+            "strategy_name": "tiny-momentum",
+            "candidate_index": 0,
+            "market_title": "Will BTC close above the local review threshold?",
+            "outcome_label": "Yes",
+            "token_id_short": "123456...7890",
+            "token_id_hash": hashlib.sha256(token_id.encode("utf-8")).hexdigest(),
+            "source_backed": True,
+            "selected_by_operator": True,
+            "selected_candidate_executable_for_live": False,
+            "selected_candidate_submit_ready": False,
+            "allowed_for_live": False,
+            "token_id_generated": False,
+            "fake_token_id_generated": False,
+            "order_payload_generated": False,
+            "signed_payload_generated": False,
+            "order_submission_enabled": False,
+            "order_cancellation_enabled": False,
+            "private_key_read": False,
+        },
+    )
 
 
 def _ready_source_paths(
@@ -248,6 +279,7 @@ def _run_gate_with_sources(tmp_path: Path, paths: Mapping[str, Path]) -> dict[st
         market="BTC",
         strategy="tiny-momentum",
         dry_run=True,
+        selected_candidate_artifact_path=paths.get("selected_candidate", tmp_path / "missing_selected_candidate.json"),
         operator_token_selection_packet_path=paths.get("selection", tmp_path / "missing_selection.json"),
         first_order_market_token_contract_path=paths["resolver"],
         signer_diagnostic_status_path=paths.get("signer", tmp_path / "missing_signer.json"),
@@ -401,6 +433,26 @@ def test_all_required_sources_ready_allows_future_diagnostic_but_never_submit(tm
     assert result["signing_attempted"] is False
     assert result["signed_payload_generated"] is False
     assert result["validation"]["valid"] is True
+    _assert_required_false_flags(result)
+
+
+def test_selected_candidate_artifact_supplies_hash_only_selected_token(tmp_path: Path) -> None:
+    paths = _ready_source_paths(tmp_path, include_selection=False)
+    paths["selected_candidate"] = _write_selected_candidate_artifact(tmp_path)
+
+    result = _run_gate_with_sources(tmp_path, paths)
+    selected_token = result["readiness_summaries"]["selected_token"]
+
+    assert result["status"] == STATUS_READY
+    assert selected_token["selected_candidate_artifact_available"] is True
+    assert selected_token["selected_candidate_artifact_verified"] is True
+    assert selected_token["selected_token_present"] is True
+    assert selected_token["selected_token_verified"] is True
+    assert selected_token["selected_token_fingerprint_sha256"] == hashlib.sha256(
+        VALID_TOKEN_ID.encode("utf-8")
+    ).hexdigest()
+    assert result["selected_token_payload_ready_for_submit"] is False
+    assert result["allowed_for_live"] is False
     _assert_required_false_flags(result)
 
 

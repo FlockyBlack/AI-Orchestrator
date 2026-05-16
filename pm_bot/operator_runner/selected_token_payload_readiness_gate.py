@@ -19,6 +19,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--strategy", default="tiny-momentum", help="Paper strategy name.")
     parser.add_argument("--dry-run", action="store_true", help="Required. Writes no-submit readiness artifacts.")
     parser.add_argument(
+        "--selected-candidate-artifact-path",
+        default="",
+        help="Optional local selected candidate artifact 075D path.",
+    )
+    parser.add_argument(
         "--operator-token-selection-packet-path",
         default="",
         help="Optional local operator token selection packet 073B artifact path.",
@@ -70,6 +75,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         market=args.market,
         strategy=args.strategy,
         dry_run=True,
+        selected_candidate_artifact_path=Path(args.selected_candidate_artifact_path)
+        if args.selected_candidate_artifact_path
+        else None,
         operator_token_selection_packet_path=Path(args.operator_token_selection_packet_path)
         if args.operator_token_selection_packet_path
         else None,

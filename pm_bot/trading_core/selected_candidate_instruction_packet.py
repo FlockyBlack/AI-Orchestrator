@@ -279,7 +279,7 @@ def render_selected_candidate_instruction_markdown(result: Mapping[str, Any]) ->
         "",
         "## Safe CLI Command",
         "",
-        "Run the existing 073B dry-run selector only after manually choosing the candidate index:",
+        "Run the 075D dry-run selected candidate artifact command only after manually choosing the candidate index:",
         "",
         "```powershell",
         clean_text(value.get("safe_cli_command_template")),
@@ -785,9 +785,9 @@ def _manual_selection_reason(candidate_count: int) -> str:
         return "No source-backed candidates are available, so manual selection is blocked until a local 073B candidate artifact exists."
     if candidate_count == 1:
         return (
-            "A source-backed candidate is available, but 075A is review-only and must not auto-select it; "
-            "the operator must explicitly run the existing 073B dry-run command for the candidate index."
-        )
+                "A source-backed candidate is available, but 075A is review-only and must not auto-select it; "
+                "the operator must explicitly run the 075D dry-run artifact command for the candidate index."
+            )
     return (
         "Multiple source-backed candidates are available for different outcomes; 075A must not infer "
         "operator intent or choose a candidate automatically."
@@ -796,7 +796,7 @@ def _manual_selection_reason(candidate_count: int) -> str:
 
 def _selection_warning() -> str:
     return (
-        "The displayed command only generates a 073B dry-run selected candidate artifact for review. "
+        "The displayed command only writes a 075D dry-run selected candidate artifact for review. "
         "It is not live trading, not order approval, and not approval to sign, submit, or cancel."
     )
 
@@ -805,8 +805,8 @@ def _next_operator_action(status: str, *, requested_candidate: Mapping[str, Any]
     if status == STATUS_BLOCKED_MISSING_SOURCE_BACKED_CANDIDATES:
         return "run 073B/071A local discovery pipeline first; do not invent a token ID"
     if requested_candidate:
-        return "review the requested candidate and run its displayed 073B dry-run command only if it is the intended candidate"
-    return "review the candidate list and run the displayed 073B dry-run command with the chosen zero-based candidate_index"
+        return "review the requested candidate and run its displayed 075D dry-run command only if it is the intended candidate"
+    return "review the candidate list and run the displayed 075D dry-run command with the chosen zero-based candidate_index"
 
 
 def _operator_summary(status: str, *, candidate_count: int) -> str:
@@ -852,7 +852,7 @@ def _evidence_summary(*, candidate_id: str, source_ids: Sequence[str], source_pa
 def _safe_selection_cli(*, market: str, strategy: str, candidate_index: Any) -> str:
     index_text = clean_text(candidate_index)
     return (
-        "python -m pm_bot.operator_runner.operator_token_selection_packet "
+        "python -m pm_bot.operator_runner.selected_candidate_artifact "
         f"--market {clean_text(market).upper() or DEFAULT_MARKET} "
         f"--strategy {clean_text(strategy) or DEFAULT_STRATEGY} "
         "--dry-run "

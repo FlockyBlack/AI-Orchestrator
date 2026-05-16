@@ -100,10 +100,8 @@
       "status": "blocked_selected_token_candidate_not_ready"
     },
     "selected_token": {
-      "errors": [
-        "artifact_missing"
-      ],
-      "operator_selection_verified": false,
+      "errors": [],
+      "operator_selection_verified": true,
       "raw_token_id_emitted": false,
       "resolver_contract_available": true,
       "resolver_contract_path": "pm_bot/trading_core/artifacts/first_order_market_token_resolver_070b/first_order_market_token_contract_070b.json",
@@ -111,17 +109,20 @@
       "resolver_scope_matches": true,
       "resolver_status": "blocked_missing_token_id",
       "resolver_token_ready": false,
-      "selected_token_fingerprint_sha256": "",
-      "selected_token_present": false,
+      "selected_candidate_artifact_available": true,
+      "selected_candidate_artifact_path": "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d.json",
+      "selected_candidate_artifact_verified": true,
+      "selected_token_fingerprint_sha256": "d348e2a7d5d7c9f7084272c64ea704a8c5e82e183b04688937df777aef31e43a",
+      "selected_token_present": true,
       "selected_token_verified": false,
-      "selection_contract_version": "",
-      "selection_packet_available": false,
-      "selection_packet_path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/latest_operator_token_selection_packet_073b.json",
-      "selection_scope_matches": false,
-      "selection_status": "missing",
+      "selection_contract_version": "pmbot_operator_token_selection_packet_073b_result.v1",
+      "selection_packet_available": true,
+      "selection_packet_path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json",
+      "selection_scope_matches": true,
+      "selection_status": "selection_required",
       "source_safety_flags_ok": true,
       "token_generation_safe": true,
-      "token_id_format_valid": false,
+      "token_id_format_valid": true,
       "token_matches_resolver": true
     },
     "signed_payload_dry_run": {
@@ -202,13 +203,20 @@
       "status": "blocked_diagnostic_not_requested"
     },
     "operator_token_selection_packet_073b": {
-      "available": false,
-      "contract_version": "",
-      "errors": [
-        "artifact_missing"
-      ],
+      "available": true,
+      "contract_version": "pmbot_operator_token_selection_packet_073b_result.v1",
+      "errors": [],
       "label": "operator token selection packet 073B",
-      "path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/latest_operator_token_selection_packet_073b.json",
+      "path": "pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json",
+      "payload_values_embedded": false,
+      "status": "selection_required"
+    },
+    "selected_candidate_artifact_075d": {
+      "available": true,
+      "contract_version": "pmbot_selected_candidate_artifact_075d.v1",
+      "errors": [],
+      "label": "selected candidate artifact 075D",
+      "path": "pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d.json",
       "payload_values_embedded": false,
       "status": ""
     },
@@ -231,7 +239,7 @@
       "status": "blocked_selected_token_candidate_not_ready"
     }
   },
-  "status": "blocked_missing_selected_token",
+  "status": "blocked_unverified_selected_token",
   "strategy_name": "tiny-momentum",
   "submit_call_performed": false,
   "task_id": "ORCH-PMBOT-TRADING-MVP-073C-SELECTED-TOKEN-SIGNED-PAYLOAD-READINESS-GATE-NO-SUBMIT",

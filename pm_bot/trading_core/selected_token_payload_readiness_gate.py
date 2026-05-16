@@ -34,6 +34,11 @@ from pm_bot.trading_core.selected_token_payload_readiness_models import (
 )
 
 DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/selected_token_payload_readiness_gate_073c")
+DEFAULT_SELECTED_CANDIDATE_ARTIFACT_PATHS = (
+    Path("pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d.json"),
+    Path("pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/selected_candidate_artifact_075d_result.json"),
+    Path("pm_bot/trading_core/artifacts/selected_candidate_artifact_075d/latest_selected_candidate_artifact_075d.json"),
+)
 DEFAULT_OPERATOR_TOKEN_SELECTION_PACKET_PATHS = (
     Path("pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/latest_operator_token_selection_packet_073b.json"),
     Path("pm_bot/trading_core/artifacts/operator_token_selection_packet_073b/operator_token_selection_packet_073b_result.json"),
@@ -105,6 +110,7 @@ def run_selected_token_payload_readiness_gate(
     market: str = DEFAULT_ALLOWED_MARKET,
     strategy: str = DEFAULT_ALLOWED_STRATEGY,
     dry_run: bool = True,
+    selected_candidate_artifact_path: str | Path | None = None,
     operator_token_selection_packet_path: str | Path | None = None,
     first_order_market_token_contract_path: str | Path | None = None,
     signer_diagnostic_status_path: str | Path | None = None,
@@ -126,7 +132,15 @@ def run_selected_token_payload_readiness_gate(
         explicit_path=operator_token_selection_packet_path,
         default_paths=DEFAULT_OPERATOR_TOKEN_SELECTION_PACKET_PATHS,
     )
+    selected_candidate_path = _select_first_existing_path(
+        explicit_path=selected_candidate_artifact_path,
+        default_paths=DEFAULT_SELECTED_CANDIDATE_ARTIFACT_PATHS,
+    )
     source_artifacts = {
+        "selected_candidate_artifact_075d": _load_source_artifact(
+            selected_candidate_path,
+            "selected candidate artifact 075D",
+        ),
         "operator_token_selection_packet_073b": _load_source_artifact(
             selection_path,
             "operator token selection packet 073B",
@@ -164,6 +178,7 @@ def run_selected_token_payload_readiness_gate(
     }
 
     selected_token = _summarize_selected_token(
+        selected_candidate_source=source_artifacts["selected_candidate_artifact_075d"],
         selection_source=source_artifacts["operator_token_selection_packet_073b"],
         resolver_source=source_artifacts["first_order_market_token_resolver_070b"],
         market_symbol=market_symbol,
@@ -403,11 +418,17 @@ def _source_artifact_summary(source: Mapping[str, Any]) -> dict[str, Any]:
 
 def _summarize_selected_token(
     *,
+    selected_candidate_source: Mapping[str, Any],
     selection_source: Mapping[str, Any],
     resolver_source: Mapping[str, Any],
     market_symbol: str,
     strategy_name: str,
 ) -> dict[str, Any]:
+    selected_candidate_payload = (
+        dict(selected_candidate_source.get("payload", {}))
+        if isinstance(selected_candidate_source.get("payload"), Mapping)
+        else {}
+    )
     selection_payload = (
         dict(selection_source.get("payload", {})) if isinstance(selection_source.get("payload"), Mapping) else {}
     )
@@ -417,10 +438,39 @@ def _summarize_selected_token(
     selection_token = _extract_token_id(selection_payload)
     resolver_token = _extract_token_id(resolver_payload)
     selected_token = selection_token or resolver_token
-    token_format_valid = _token_format_valid(selected_token, selection_payload, resolver_payload)
+    selected_candidate_hash = clean_text(
+        selected_candidate_payload.get("token_id_hash")
+        or selected_candidate_payload.get("token_id_sha256")
+        or selected_candidate_payload.get("selected_token_fingerprint_sha256")
+    )
+    selected_candidate_available = selected_candidate_source.get("available") is True
+    selected_candidate_valid = (
+        selected_candidate_available
+        and clean_text(selected_candidate_payload.get("status") or "selected_candidate_artifact_recorded")
+        in {"", "selected_candidate_artifact_recorded"}
+        and selected_candidate_payload.get("selected_by_operator") is True
+        and selected_candidate_payload.get("source_backed") is True
+        and selected_candidate_payload.get("allowed_for_live") is False
+        and selected_candidate_payload.get("selected_candidate_executable_for_live") is False
+        and SHA256_HEX_PATTERN.fullmatch(selected_candidate_hash) is not None
+    )
+    token_format_valid = (
+        _token_format_valid(selected_token, selection_payload, resolver_payload)
+        if selected_token
+        else selected_candidate_valid
+    )
     selection_available = selection_source.get("available") is True
     resolver_available = resolver_source.get("available") is True
-    selection_scope_matches = _scope_matches(selection_payload, market_symbol, strategy_name) if selection_available else False
+    selected_candidate_scope_matches = (
+        _scope_matches(selected_candidate_payload, market_symbol, strategy_name)
+        if selected_candidate_available
+        else False
+    )
+    selection_scope_matches = (
+        _scope_matches(selection_payload, market_symbol, strategy_name)
+        if selection_available
+        else selected_candidate_scope_matches
+    )
     resolver_scope_matches = _scope_matches(resolver_payload, market_symbol, strategy_name) if resolver_available else False
     resolver_ready = (
         resolver_available
@@ -439,11 +489,35 @@ def _summarize_selected_token(
             ),
         )
     )
-    token_matches_resolver = not (selection_token and resolver_token) or selection_token == resolver_token
-    operator_verified = _operator_selection_verified(selection_payload) if selection_available else False
-    token_generation_safe = _token_generation_safe(selection_payload) and _token_generation_safe(resolver_payload)
+    if selected_candidate_hash and resolver_token:
+        token_matches_resolver = _sha256_text(resolver_token) == selected_candidate_hash
+    else:
+        token_matches_resolver = not (selection_token and resolver_token) or selection_token == resolver_token
+    operator_verified = selected_candidate_valid or (
+        _operator_selection_verified(selection_payload) if selection_available else False
+    )
+    token_generation_safe = (
+        _token_generation_safe(selected_candidate_payload)
+        and _token_generation_safe(selection_payload)
+        and _token_generation_safe(resolver_payload)
+    )
     source_safety_flags_ok = (
         _source_false_flags_ok(
+            selected_candidate_payload,
+            (
+                "allowed_for_live",
+                "fake_token_id_generated",
+                "token_id_generated",
+                "order_payload_generated",
+                "signed_payload_generated",
+                "order_submission_enabled",
+                "order_cancellation_enabled",
+                "private_key_read",
+                "selected_candidate_executable_for_live",
+                "selected_candidate_submit_ready",
+            ),
+        )
+        and _source_false_flags_ok(
             selection_payload,
             (
                 "allowed_for_live",
@@ -468,10 +542,10 @@ def _summarize_selected_token(
             ),
         )
     )
-    selected_token_present = bool(selected_token)
+    selected_token_present = bool(selected_token) or selected_candidate_valid
     verified = (
         selected_token_present
-        and selection_available
+        and (selection_available or selected_candidate_valid)
         and operator_verified
         and resolver_ready
         and token_matches_resolver
@@ -481,7 +555,13 @@ def _summarize_selected_token(
         and resolver_scope_matches
         and source_safety_flags_ok
     )
+    fingerprint = selected_candidate_hash if selected_candidate_valid else ""
+    if not fingerprint and selected_token and token_format_valid:
+        fingerprint = _sha256_text(selected_token)
     return {
+        "selected_candidate_artifact_available": selected_candidate_available,
+        "selected_candidate_artifact_path": clean_text(selected_candidate_source.get("path")),
+        "selected_candidate_artifact_verified": selected_candidate_valid,
         "selection_packet_available": selection_available,
         "selection_packet_path": clean_text(selection_source.get("path")),
         "resolver_contract_available": resolver_available,
@@ -499,10 +579,11 @@ def _summarize_selected_token(
         "token_id_format_valid": token_format_valid,
         "token_matches_resolver": token_matches_resolver,
         "token_generation_safe": token_generation_safe,
-        "selected_token_fingerprint_sha256": _sha256_text(selected_token) if selected_token and token_format_valid else "",
+        "selected_token_fingerprint_sha256": fingerprint,
         "raw_token_id_emitted": False,
         "source_safety_flags_ok": source_safety_flags_ok,
         "errors": [
+            *[clean_text(item) for item in selected_candidate_source.get("errors", [])],
             *[clean_text(item) for item in selection_source.get("errors", [])],
             *[clean_text(item) for item in resolver_source.get("errors", [])],
         ],
@@ -766,6 +847,8 @@ def _build_latest_status(
         "selected_token_present": selected_token.get("selected_token_present") is True,
         "selected_token_verified": selected_token.get("selected_token_verified") is True,
         "selected_token_fingerprint_sha256": clean_text(selected_token.get("selected_token_fingerprint_sha256")),
+        "selected_candidate_artifact_available": selected_token.get("selected_candidate_artifact_available") is True,
+        "selected_candidate_artifact_verified": selected_token.get("selected_candidate_artifact_verified") is True,
         "operator_selection_packet_available": selected_token.get("selection_packet_available") is True,
         "resolver_contract_available": selected_token.get("resolver_contract_available") is True,
         "signer_diagnostic_status": "ok" if signer.get("diagnostic_ok") is True else clean_text(signer.get("diagnostic_status")),
