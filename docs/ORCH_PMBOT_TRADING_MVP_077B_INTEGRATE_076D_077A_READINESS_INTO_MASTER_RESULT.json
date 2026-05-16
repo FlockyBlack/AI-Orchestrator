@@ -1,11 +1,12 @@
 {
   "task_id": "ORCH-PMBOT-TRADING-MVP-077B-INTEGRATE-076D-077A-READINESS-INTO-MASTER",
-  "status": "validated_rebased_after_remote_076d_ready_for_commit_push_and_remote_verify",
+  "status": "validated_rebased_after_remote_076d_pushed_and_verified_in_final_response",
   "worktree": "C:/oc077b_integrate_076d_077a_readiness_into_master",
   "temporary_windows_drive_mapping": {
     "used": true,
     "mapping": "O: => C:/oc077b_integrate_076d_077a_readiness_into_master",
-    "reason": "Windows MAX_PATH checkout failure on tracked long paths; mapping will be removed after final verification."
+    "reason": "Windows MAX_PATH checkout failure on tracked long paths.",
+    "removed_after_verification": true
   },
   "git": {
     "base_branch": "master",
@@ -34,24 +35,21 @@
     ]
   },
   "changed_files_summary": {
+    "scope_note": "Final 077B diff is measured from remote 076D integration base 0bc36d7 to the 077B integration head. The 076D core/runner/tests/artifacts are present on final master through 0bc36d7; 077B adds 077A and preserves/patches 076D behavior.",
     "added": [
       "docs/ORCH_PMBOT_TRADING_MVP_077A_FIRST_SUPERVISED_TINY_ORDER_READINESS_PACKET_NO_LIVE_RESULT.json",
       "docs/ORCH_PMBOT_TRADING_MVP_077B_INTEGRATE_076D_077A_READINESS_INTO_MASTER_RESULT.json",
       "pm_bot/operator_runner/first_supervised_tiny_order_readiness_packet.py",
-      "pm_bot/operator_runner/payload_dry_run_readiness_review.py",
       "pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
-      "pm_bot/tests/test_payload_dry_run_readiness_076d.py",
       "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/*",
-      "pm_bot/trading_core/artifacts/payload_dry_run_readiness_076d/*",
       "pm_bot/trading_core/first_supervised_tiny_order_readiness.py",
-      "pm_bot/trading_core/first_supervised_tiny_order_readiness_models.py",
-      "pm_bot/trading_core/payload_dry_run_readiness.py",
-      "pm_bot/trading_core/payload_dry_run_readiness_models.py"
+      "pm_bot/trading_core/first_supervised_tiny_order_readiness_models.py"
     ],
     "modified": [
       "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/latest_static_safety_invariant_report_status_060q.json",
       "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_report_060q_operator.md",
-      "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_report_060q_result.json"
+      "pm_bot/trading_core/artifacts/static_safety_invariant_report_060q/static_safety_invariant_report_060q_result.json",
+      "pm_bot/trading_core/payload_dry_run_readiness.py"
     ]
   },
   "validation": {
