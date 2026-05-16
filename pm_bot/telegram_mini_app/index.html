@@ -40,8 +40,8 @@
           <p class="section-kicker">Дашборд</p>
           <h2 id="dashboard-title">Панель управления PMBOT</h2>
           <p>
-            Здесь собраны подключение, баланс, аналитика, рынки, лимиты и контроль запуска.
-            Данные появляются только из подключенной истории аккаунта и локальных проверок.
+            Здесь собраны подключение, баланс, аналитика, запуск, готовность и безопасная остановка.
+            Панель остаётся статической: данные появляются только после read-only проверок в Telegram / CLI.
           </p>
         </div>
         <div class="hero-status" aria-label="Risk review status">
@@ -63,32 +63,32 @@
           <dl class="status-list real-check-list" aria-label="Статус подключения">
             <div>
               <dt>API Key</dt>
-              <dd><span class="badge muted">не подключен</span><small>проверяется в runtime-среде</small></dd>
+              <dd><span class="badge muted">статус ожидается</span><small>Проверяется в Telegram / CLI</small></dd>
             </div>
             <div>
               <dt>API Secret</dt>
-              <dd><span class="badge muted">не подключен</span><small>значение не показывается</small></dd>
+              <dd><span class="badge muted">статус ожидается</span><small>секретное значение не отображается</small></dd>
             </div>
             <div>
               <dt>Passphrase</dt>
-              <dd><span class="badge muted">не подключен</span><small>значение не показывается</small></dd>
+              <dd><span class="badge muted">статус ожидается</span><small>значение не вводится в Mini App</small></dd>
             </div>
             <div>
-              <dt>Адрес</dt>
-              <dd><span class="badge muted">не подключен</span><small>показывается только сокращённо</small></dd>
+              <dt>Кошелёк</dt>
+              <dd><span class="badge muted">placeholder</span><small>без подключения кошелька в интерфейсе</small></dd>
             </div>
             <div>
               <dt>Signature type</dt>
-              <dd><span class="badge muted">не подключен</span><small>тип, без секретных значений</small></dd>
+              <dd><span class="badge muted">placeholder</span><small>только диагностический статус</small></dd>
             </div>
             <div>
               <dt>Funder</dt>
-              <dd><span class="badge muted">не подключен</span><small>показывается только сокращённо</small></dd>
+              <dd><span class="badge muted">placeholder</span><small>адрес не подставляется без read-only проверки</small></dd>
             </div>
           </dl>
           <div class="empty-state artifact-empty-note">
             <strong>Ключи должны быть доступны процессу Telegram-бота</strong>
-            <p>В Mini App нет полей для ввода секретов. Настройка выполняется вне чата через безопасную runtime-среду.</p>
+            <p>В Mini App нет полей для ввода секретов, подключения кошелька или запуска подписи. Статусы показываются только как безопасные placeholders.</p>
           </div>
         </article>
 
@@ -102,7 +102,7 @@
           </div>
           <div class="empty-state">
             <strong>Баланс недоступен</strong>
-            <p>Сначала подключите API-ключи и аккаунт Polymarket.</p>
+            <p>Баланс unavailable до read-only проверки аккаунта в Telegram / CLI. Значения не имитируются и не подставляются вручную.</p>
             <span class="badge muted">данные не подставляются</span>
           </div>
         </article>
@@ -116,9 +116,9 @@
             </div>
           </div>
           <dl class="status-list analytics-list" aria-label="Плейсхолдеры аналитики">
-            <div><dt>Сегодня</dt><dd><span class="badge muted">нет данных</span></dd></div>
-            <div><dt>7 дней</dt><dd><span class="badge muted">нет данных</span></dd></div>
-            <div><dt>30 дней</dt><dd><span class="badge muted">нет данных</span></dd></div>
+            <div><dt>Сегодня</dt><dd><span class="badge muted">placeholder</span><small>нет PnL</small></dd></div>
+            <div><dt>7 дней</dt><dd><span class="badge muted">placeholder</span><small>нет PnL</small></dd></div>
+            <div><dt>30 дней</dt><dd><span class="badge muted">placeholder</span><small>нет PnL</small></dd></div>
             <div><dt>Сделок</dt><dd><span class="badge muted">нет данных</span></dd></div>
             <div><dt>Winrate</dt><dd><span class="badge muted">нет данных</span></dd></div>
             <div><dt>Просадка</dt><dd><span class="badge muted">нет данных</span></dd></div>
@@ -223,14 +223,93 @@
           <div class="card-header">
             <span class="card-icon" aria-hidden="true">🚀</span>
             <div>
-              <p class="card-label">Запуск / остановка</p>
-              <h3>Контроль работы</h3>
+              <p class="card-label">Запуск</p>
+              <h3>Финальная проверка запуска</h3>
             </div>
           </div>
+          <dl class="status-list launch-list" aria-label="Параметры запуска">
+            <div>
+              <dt>Лимит на день</dt>
+              <dd><span class="badge muted">не выбран</span><small>daily limit placeholder</small></dd>
+            </div>
+            <div>
+              <dt>Максимальный убыток</dt>
+              <dd><span class="badge muted">не выбран</span><small>max loss placeholder</small></dd>
+            </div>
+            <div>
+              <dt>Рынки</dt>
+              <dd><span class="badge muted">не выбраны</span><small>selected markets placeholder</small></dd>
+            </div>
+            <div>
+              <dt>Статус</dt>
+              <dd><span class="badge warning">финальная проверка требуется</span><small>требуется финальная проверка и подтверждение</small></dd>
+            </div>
+          </dl>
           <div class="empty-state">
             <strong>Запуск пока недоступен</strong>
-            <p>Требуется финальная проверка и подтверждение. Остановка показывает локальный статус, если бот не запущен.</p>
+            <p>Карточка показывает только product-style summary. Здесь нет live-кнопок, отправки заявок или подписи.</p>
           </div>
+        </article>
+
+        <article class="card readiness-card" id="readiness">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">✅</span>
+            <div>
+              <p class="card-label">Готовность</p>
+              <h3>Readiness review</h3>
+            </div>
+          </div>
+          <dl class="status-list readiness-list" aria-label="Проверка готовности">
+            <div>
+              <dt>Выбранный токен</dt>
+              <dd><span class="badge neutral">проверен</span><small>selected token verified, raw ID скрыт</small></dd>
+            </div>
+            <div>
+              <dt>Диагностика подписи</dt>
+              <dd><span class="badge muted">требуется проверка</span><small>статус приходит из CLI</small></dd>
+            </div>
+            <div>
+              <dt>Payload readiness</dt>
+              <dd><span class="badge muted">не готов</span><small>ожидает локальный dry-run</small></dd>
+            </div>
+            <div>
+              <dt>Риск-статус</dt>
+              <dd><span class="badge warning">требуется проверка</span><small>risk status без торгового сигнала</small></dd>
+            </div>
+            <div>
+              <dt>Финальная готовность</dt>
+              <dd><span class="badge danger">заблокировано</span><small>final readiness: review required</small></dd>
+            </div>
+          </dl>
+          <div class="empty-state safe-placeholder">
+            <strong>Готовность отображается без live-действий</strong>
+            <p>Панель не строит рекомендацию, не выбирает сторону и не включает исполнение.</p>
+          </div>
+        </article>
+
+        <article class="card stop-card" id="stop">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">⏹</span>
+            <div>
+              <p class="card-label">Stop</p>
+              <h3>No-live stop marker</h3>
+            </div>
+          </div>
+          <div class="stop-marker" aria-label="No-live stop marker">
+            <span class="badge danger">no-live</span>
+            <strong>Остановка показывает локальный статус</strong>
+            <p>Если runtime не запущен, карточка объясняет только локальный stop marker. Она не отменяет заявки и не управляет реальным исполнением.</p>
+          </div>
+          <dl class="status-list stop-list" aria-label="Статус остановки">
+            <div>
+              <dt>Runtime</dt>
+              <dd><span class="badge muted">не запущен</span></dd>
+            </div>
+            <div>
+              <dt>Stop marker</dt>
+              <dd><span class="badge neutral">operator_stop_requested</span><small>локальный флаг</small></dd>
+            </div>
+          </dl>
         </article>
       </section>
     </main>

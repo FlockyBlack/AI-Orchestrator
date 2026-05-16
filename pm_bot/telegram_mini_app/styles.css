@@ -227,7 +227,8 @@ body {
 }
 
 .analytics-card,
-.launch-card {
+.launch-card,
+.readiness-card {
   grid-column: span 8;
 }
 
@@ -290,6 +291,46 @@ body {
 .analytics-list dd {
   justify-content: flex-start;
   text-align: left;
+}
+
+.launch-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.launch-list div,
+.readiness-list div,
+.stop-list div {
+  grid-template-columns: 1fr;
+  align-content: start;
+}
+
+.launch-list dd,
+.readiness-list dd,
+.stop-list dd {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.readiness-list {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.stop-marker {
+  display: grid;
+  gap: 9px;
+  border: 1px solid rgba(239, 98, 98, 0.24);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--red-soft);
+}
+
+.stop-marker strong {
+  color: var(--text);
+  line-height: 1.28;
+}
+
+.stop-marker p {
+  color: var(--silver);
 }
 
 .chart-placeholder {
@@ -529,7 +570,8 @@ body {
   }
 
   .analytics-card,
-  .launch-card {
+  .launch-card,
+  .readiness-card {
     grid-column: 1 / -1;
   }
 
@@ -547,6 +589,11 @@ body {
 
   .analytics-list {
     grid-template-columns: 1fr;
+  }
+
+  .launch-list,
+  .readiness-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .order-prep-card {
@@ -577,6 +624,11 @@ body {
   }
 
   .risk-engine-list {
+    grid-template-columns: 1fr;
+  }
+
+  .launch-list,
+  .readiness-list {
     grid-template-columns: 1fr;
   }
 
