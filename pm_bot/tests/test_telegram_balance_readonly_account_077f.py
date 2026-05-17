@@ -122,10 +122,13 @@ def _write_account_artifact(
     *,
     include_values: bool = True,
     performed: bool = True,
+    status: str | None = None,
+    sdk_status: str = "available",
 ) -> None:
     latest: dict[str, Any] = {
         "contract_version": "pmbot_latest_live_account_readonly_state_status_070c.v1",
-        "status": "account_state_probe_succeeded_live_blocked" if performed else "blocked_account_state_probe_failed",
+        "status": status or ("account_state_probe_succeeded_live_blocked" if performed else "blocked_account_state_probe_failed"),
+        "sdk_status": sdk_status,
         "wallet_address_redacted": RAW_WALLET,
         "account_state_probe_performed": performed,
         "generated_at": GENERATED_AT,
@@ -216,6 +219,27 @@ def test_missing_account_artifact_shows_safe_command_and_refresh_controls(tmp_pa
     assert SAFE_ACCOUNT_PROBE_COMMAND in reply.text
     assert _labels(reply) == ("🔄 Обновить", "🔌 Подключение", "⬅️ Главное меню")
     assert _callbacks(reply) == ("pmbot:balance", "pmbot:connection", "pmbot:home")
+
+
+def test_blocked_sdk_unavailable_is_distinct_from_missing_account_artifact(tmp_path: Path) -> None:
+    _write_credential_visibility(tmp_path, l2_visible=True)
+    _write_account_artifact(
+        tmp_path,
+        include_values=False,
+        performed=False,
+        status="blocked_sdk_unavailable",
+        sdk_status="blocked_sdk_unavailable",
+    )
+
+    status = build_telegram_balance_readonly_status(artifact_root=tmp_path, generated_at=GENERATED_AT)
+    reply = _ru_balance_reply(tmp_path)
+
+    assert status["screen_variant"] == "account_probe_blocked_sdk_unavailable"
+    assert status["account_probe_blocked_sdk_unavailable"] is True
+    assert "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен" in reply.text
+    assert "Баланс не прочитан; фейковые значения не показываются." in reply.text
+    assert "Ключи видны, но проверка аккаунта ещё не выполнена." not in reply.text
+    assert SAFE_ACCOUNT_PROBE_COMMAND in reply.text
 
 
 def test_present_artifact_shows_only_real_available_fields(tmp_path: Path) -> None:

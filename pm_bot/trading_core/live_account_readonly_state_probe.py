@@ -43,9 +43,11 @@ from pm_bot.trading_core.live_account_readonly_state_models import (
     build_redaction_policy,
     live_account_readonly_state_safety_flags,
 )
+from pm_bot.trading_core.artifact_resolution import resolve_artifact_subdir
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, normalize_path, write_json, write_text
 
-DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts/live_account_readonly_state_probe_070c")
+ARTIFACT_DIR_NAME = "live_account_readonly_state_probe_070c"
+DEFAULT_ARTIFACT_DIR = Path("pm_bot/trading_core/artifacts") / ARTIFACT_DIR_NAME
 
 FORBIDDEN_RUNTIME_FLAGS = (
     "--live",
@@ -90,8 +92,14 @@ SdkLoader = Callable[[], LiveAccountSdkBinding]
 
 def live_account_readonly_state_probe_artifact_paths(
     artifact_dir: str | Path | None = None,
+    *,
+    environ: Mapping[str, str] | None = None,
 ) -> dict[str, Path]:
-    root = Path(artifact_dir) if artifact_dir else DEFAULT_ARTIFACT_DIR
+    root = resolve_artifact_subdir(
+        ARTIFACT_DIR_NAME,
+        artifact_dir=artifact_dir,
+        environ=environ,
+    )
     return {
         "root": root,
         "result": root / "live_account_readonly_state_probe_070c_result.json",
@@ -117,10 +125,9 @@ def run_live_account_readonly_state_probe(
 
     market_symbol = clean_text(market).upper() or DEFAULT_MARKET
     strategy_name = clean_text(strategy) or DEFAULT_STRATEGY
-    paths = live_account_readonly_state_probe_artifact_paths(artifact_dir)
-    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
-
     active_environ = _active_environ(environ)
+    paths = live_account_readonly_state_probe_artifact_paths(artifact_dir, environ=active_environ)
+    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
     credential_presence, credential_values, account_config_values = _read_presence_and_account_config(
         active_environ,
         generated_at=generated_at,

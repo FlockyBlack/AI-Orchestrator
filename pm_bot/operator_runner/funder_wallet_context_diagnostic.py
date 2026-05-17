@@ -29,7 +29,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--artifact-dir",
         dest="artifacts_dir",
         default="",
-        help="Optional output directory. Defaults to the 077G funder wallet context artifact directory.",
+        help=(
+            "Optional output directory. Defaults to PMBOT_ARTIFACT_DIR/funder_wallet_context_077g "
+            "when PMBOT_ARTIFACT_DIR is set, otherwise the repo 077G artifact directory."
+        ),
     )
     parser.add_argument("--json", action="store_true", help="Print latest funder wallet context status JSON.")
     return parser

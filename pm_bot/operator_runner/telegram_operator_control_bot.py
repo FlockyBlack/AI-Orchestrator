@@ -3978,6 +3978,7 @@ RUNTIME_VISIBILITY_DISPLAY_FIELD_KEYS = {
 def _normalize_runtime_credential_visibility_summary(value: Mapping[str, Any]) -> dict[str, Any]:
     data = dict(value or {})
     latest = dict(data.get("latest_status", {})) if isinstance(data.get("latest_status"), Mapping) else data
+    group = _first_mapping(data.get("group_summary"), latest.get("group_summary"))
     requested_rows = data.get("requested_env_var_statuses", [])
     alias_rows = data.get("runtime_alias_env_var_statuses", [])
     rows = [
@@ -3994,22 +3995,82 @@ def _normalize_runtime_credential_visibility_summary(value: Mapping[str, Any]) -
         "not_available",
         "missing",
     }
+    l2_missing = set(
+        _clean_list(
+            group.get("polymarket_l2_missing_env_vars")
+            or latest.get("polymarket_l2_missing_env_vars")
+            or data.get("polymarket_l2_missing_env_vars")
+        )
+    )
+    private_key_missing = set(
+        _clean_list(
+            group.get("private_key_missing_env_vars")
+            or latest.get("private_key_missing_env_vars")
+            or data.get("private_key_missing_env_vars")
+        )
+    )
+    wallet_missing = set(
+        _clean_list(
+            group.get("wallet_context_missing_env_vars")
+            or latest.get("wallet_context_missing_env_vars")
+            or data.get("wallet_context_missing_env_vars")
+        )
+    )
+    telegram_runtime_missing = set(
+        _clean_list(
+            group.get("telegram_runtime_alias_missing_env_vars")
+            or latest.get("telegram_runtime_alias_missing_env_vars")
+            or data.get("missing_runtime_alias_env_vars")
+        )
+    )
+
+    def fallback_present(env_name: str, group_flag: str, missing: set[str]) -> bool:
+        if missing:
+            return env_name not in missing
+        if group_flag in group:
+            return group.get(group_flag) is True
+        return latest.get(group_flag) is True or data.get(group_flag) is True
+
     fallback_group_flags = {
-        "l2_key_status": latest.get("polymarket_l2_visible") is True,
-        "l2_secret_status": latest.get("polymarket_l2_visible") is True,
-        "l2_passphrase_status": latest.get("polymarket_l2_visible") is True,
-        "signer_key_status": latest.get("private_key_visible") is True,
-        "wallet_address_status": latest.get("wallet_context_visible") is True,
-        "signature_type_status": latest.get("wallet_context_visible") is True,
-        "funder_address_status": latest.get("wallet_context_visible") is True,
-        "telegram_bot_status": (
-            latest.get("telegram_runtime_alias_visible") is True
-            or latest.get("telegram_credentials_visible") is True
+        "l2_key_status": fallback_present("POLYMARKET_API_KEY", "polymarket_l2_visible", l2_missing),
+        "l2_secret_status": fallback_present("POLYMARKET_API_SECRET", "polymarket_l2_visible", l2_missing),
+        "l2_passphrase_status": fallback_present(
+            "POLYMARKET_API_PASSPHRASE",
+            "polymarket_l2_visible",
+            l2_missing,
         ),
-        "telegram_operator_ids_status": (
-            latest.get("telegram_runtime_alias_visible") is True
-            or latest.get("telegram_credentials_visible") is True
+        "signer_key_status": fallback_present(
+            "POLYMARKET_PRIVATE_KEY",
+            "private_key_visible",
+            private_key_missing,
         ),
+        "wallet_address_status": fallback_present(
+            "POLYMARKET_WALLET_ADDRESS",
+            "wallet_context_visible",
+            wallet_missing,
+        ),
+        "signature_type_status": fallback_present(
+            "POLYMARKET_SIGNATURE_TYPE",
+            "wallet_context_visible",
+            wallet_missing,
+        ),
+        "funder_address_status": fallback_present(
+            "POLYMARKET_FUNDER_ADDRESS",
+            "wallet_context_visible",
+            wallet_missing,
+        ),
+        "telegram_bot_status": fallback_present(
+            "PMBOT_TELEGRAM_BOT_TOKEN",
+            "telegram_runtime_alias_visible",
+            telegram_runtime_missing,
+        )
+        or latest.get("telegram_credentials_visible") is True,
+        "telegram_operator_ids_status": fallback_present(
+            "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+            "telegram_runtime_alias_visible",
+            telegram_runtime_missing,
+        )
+        or latest.get("telegram_credentials_visible") is True,
     }
     fields = {
         field: _runtime_visibility_field(

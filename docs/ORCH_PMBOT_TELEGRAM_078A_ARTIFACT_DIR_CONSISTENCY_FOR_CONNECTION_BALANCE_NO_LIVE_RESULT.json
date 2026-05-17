@@ -1,0 +1,195 @@
+{
+  "contract_version": "orch_pmbot_telegram_078a_result.v1",
+  "task_id": "ORCH-PMBOT-TELEGRAM-078A-ARTIFACT-DIR-CONSISTENCY-FOR-CONNECTION-BALANCE-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-17T04:06:03+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base": "origin/master",
+  "base_head": "a07f2eb86d34e8c5c16b7c5d3159366aaab4928f",
+  "current_accepted_master": "a07f2eb86d34e8c5c16b7c5d3159366aaab4928f",
+  "head_before": "a07f2eb86d34e8c5c16b7c5d3159366aaab4928f",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result JSON cannot contain its own final commit SHA without changing that SHA. The final response records the committed and remotely verified feature branch HEAD.",
+  "branch": "pmbot/telegram-078a-artifact-dir-consistency-connection-balance-no-live",
+  "worktree": "C:/oc078a_artifact_dir_consistency_connection_balance_no_live",
+  "implementation_summary": [
+    "Added shared PMBOT artifact root resolution so diagnostics and Telegram readers agree on PMBOT_ARTIFACT_DIR when it is configured, while keeping the repo-relative artifact default for tests and existing local flows.",
+    "Updated runtime credential visibility, funder wallet context, and live account read-only probe diagnostics to write under PMBOT_ARTIFACT_DIR/<diagnostic-subdir> unless an explicit artifact directory is provided.",
+    "Updated Telegram runtime/status loading so Connection reads the same runtime_credential_visibility_077c result/latest artifacts used by the CLI diagnostic.",
+    "Updated Connection fallback normalization so present API key, API secret, passphrase, private key, wallet address, signature type, and PMBOT_TELEGRAM_* aliases render connected individually, while a missing POLYMARKET_FUNDER_ADDRESS remains specifically not connected.",
+    "Updated Balance status rendering to distinguish missing credentials, missing funder, missing read-only account artifact, blocked_sdk_unavailable, and real read-only account artifact states without fake balances, PnL, orders, signing, or live trading."
+  ],
+  "changed_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_078A_ARTIFACT_DIR_CONSISTENCY_FOR_CONNECTION_BALANCE_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/funder_wallet_context_diagnostic.py",
+    "pm_bot/operator_runner/live_account_readonly_state_probe.py",
+    "pm_bot/operator_runner/runtime_credential_visibility_diagnostic.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_artifact_dir_consistency_078a.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+    "pm_bot/trading_core/artifact_resolution.py",
+    "pm_bot/trading_core/funder_wallet_context_077g.py",
+    "pm_bot/trading_core/live_account_readonly_state_probe.py",
+    "pm_bot/trading_core/runtime_credential_visibility_077c.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "artifact_resolution_contract": {
+    "environment_variable": "PMBOT_ARTIFACT_DIR",
+    "default_artifact_root": "pm_bot/trading_core/artifacts",
+    "override_behavior": "When PMBOT_ARTIFACT_DIR is set, diagnostics write and Telegram reads each artifact family from PMBOT_ARTIFACT_DIR/<artifact-family-dir>.",
+    "explicit_artifact_dir_behavior": "Existing explicit artifact_dir arguments remain exact output directories for backward compatibility."
+  },
+  "connection_behavior_validated": {
+    "source_artifact": "runtime_credential_visibility_077c_result.json",
+    "api_key_connected_when_present": true,
+    "api_secret_connected_when_present": true,
+    "passphrase_connected_when_present": true,
+    "private_key_connected_when_present": true,
+    "wallet_address_connected_when_present": true,
+    "signature_type_connected_when_present": true,
+    "funder_address_not_connected_when_missing": true,
+    "telegram_bot_token_alias_connected_when_present": "PMBOT_TELEGRAM_BOT_TOKEN",
+    "telegram_operator_ids_alias_connected_when_present": "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS",
+    "raw_secret_output": false
+  },
+  "balance_behavior_validated": {
+    "credentials_missing_state_distinct": true,
+    "funder_missing_state_distinct": true,
+    "read_only_account_artifact_missing_state_distinct": true,
+    "blocked_sdk_unavailable_state_distinct": true,
+    "real_account_artifact_present_state_distinct": true,
+    "fake_balances_shown": false,
+    "fake_pnl_shown": false,
+    "fake_orders_shown": false
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_artifact_dir_consistency_078a.py",
+      "result": "passed",
+      "summary": "2 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "result": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_funder_wallet_context_077g.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "workdir": "C:/oc078a_artifact_dir_consistency_connection_balance_no_live",
+      "result": "failed_unrelated_environment_path_length",
+      "summary": "4 public-evidence fixture tests failed because Python direct Path.exists could not access an existing 260-character path under the required long Windows worktree; all other tests passed."
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "workdir": "O:/ mapped to C:/oc078a_artifact_dir_consistency_connection_balance_no_live",
+      "result": "passed",
+      "summary": "2295 passed in 630.14s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "No compile errors."
+    }
+  ],
+  "runner_smoke_with_artifact_override": {
+    "environment": {
+      "PMBOT_ARTIFACT_DIR": "C:/pmbot_artifacts"
+    },
+    "commands": [
+      {
+        "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "summary": "Wrote C:/pmbot_artifacts/runtime_credential_visibility_077c/runtime_credential_visibility_077c_result.json; this Codex environment had no visible Polymarket credentials, so status was blocked_missing_private_key."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "summary": "Wrote C:/pmbot_artifacts/funder_wallet_context_077g/funder_wallet_context_077g_result.json; this Codex environment had no visible wallet context, so status was blocked_missing_wallet_address."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "summary": "Wrote C:/pmbot_artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_probe_070c_result.json; no signing, submit, cancel, or private key read occurred."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+        "result": "passed",
+        "summary": "artifact_dir_configured=true; ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "result": "passed",
+        "summary": "critical_findings=0; warnings=7; live execution, order submission, signing, and wallet blocked."
+      }
+    ]
+  },
+  "temporary_windows_drive_mapping": {
+    "used": true,
+    "drive": "O:",
+    "target": "C:/oc078a_artifact_dir_consistency_connection_balance_no_live",
+    "reason": "The required long Windows worktree path made Python direct Path.exists checks fail for an existing 260-character public-evidence fixture path during the full suite.",
+    "removed_after_validation": true
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "no_live_trading": true,
+    "no_real_orders": true,
+    "no_order_submission": true,
+    "no_order_cancellation": true,
+    "no_signing_by_default": true,
+    "no_wallet_connect_ui": true,
+    "no_raw_secret_output": true,
+    "no_fake_balances": true,
+    "no_fake_pnl": true,
+    "no_fake_orders": true,
+    "allowed_for_live": false,
+    "trading_requested": false
+  },
+  "remote_verification": {
+    "pushed": false,
+    "remote_verified": false,
+    "status": "pending_final_commit_push_verify"
+  },
+  "remaining_risks": [
+    "The runner smoke executed in the Codex process where Polymarket credentials were not visible, so it validates artifact path behavior and safe missing-credential states rather than a real credential-present local operator environment.",
+    "Read-only account balance still depends on a future successful official SDK probe artifact; the UI now labels blocked_sdk_unavailable separately and does not synthesize balances."
+  ]
+}

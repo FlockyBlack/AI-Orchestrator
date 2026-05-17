@@ -175,6 +175,38 @@ def test_missing_funder_address_is_clear_and_balance_routes_to_connection(tmp_pa
     assert _callbacks(balance) == ("pmbot:connection",)
 
 
+def test_connection_screen_loads_runtime_visibility_result_from_artifact_root(tmp_path: Path) -> None:
+    artifact_root = tmp_path / "operator_artifacts"
+    run_runtime_credential_visibility_diagnostic(
+        market="BTC",
+        strategy="tiny-momentum",
+        dry_run=True,
+        artifact_dir=artifact_root / "runtime_credential_visibility_077c",
+        environ=_env(include_funder=False),
+        generated_at=GENERATED_AT,
+    )
+    context = runtime.load_runtime_context(artifact_root, generated_at=GENERATED_AT)
+    reply = _adapter(context).handle_callback(
+        user_id=AUTHORIZED_USER_ID,
+        chat_id="chat-1",
+        callback_data="pmbot:connection",
+    )
+
+    for label in (
+        "API Key: подключен",
+        "API Secret: подключен",
+        "Passphrase: подключен",
+        "Private Key: подключен",
+        "Wallet Address: подключен",
+        "Signature Type: подключен",
+        "Bot Token: подключен",
+        "Operator IDs: подключен",
+    ):
+        assert label in reply.text
+    assert "Funder Address: не подключен" in reply.text
+    assert "Funder Address не указан." in reply.text
+
+
 def test_refresh_and_instruction_screens_are_registered_and_safe(tmp_path: Path) -> None:
     adapter = _adapter(_runtime_visibility_context(tmp_path, include_funder=False))
 

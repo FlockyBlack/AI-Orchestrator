@@ -6,6 +6,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.artifact_resolution import (
+    DEFAULT_ARTIFACT_ROOT,
+    resolve_artifact_subdir,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, normalize_path, write_json, write_text
 
 TASK_ID = "ORCH-PMBOT-RUNTIME-077G-FUNDER-WALLET-CONTEXT-DIAGNOSTIC-NO-LIVE"
@@ -39,8 +43,8 @@ VALID_STATUSES = {
     STATUS_BLOCKED_MISSING_SIGNATURE_TYPE,
 }
 
-DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
-DEFAULT_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "funder_wallet_context_077g"
+ARTIFACT_DIR_NAME = "funder_wallet_context_077g"
+DEFAULT_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / ARTIFACT_DIR_NAME
 
 POLYMARKET_WALLET_ADDRESS = "POLYMARKET_WALLET_ADDRESS"
 POLYMARKET_FUNDER_ADDRESS = "POLYMARKET_FUNDER_ADDRESS"
@@ -147,8 +151,16 @@ ENV_SPECS = (
 )
 
 
-def funder_wallet_context_artifact_paths(artifact_dir: str | Path | None = None) -> dict[str, Path]:
-    root = Path(artifact_dir) if artifact_dir else DEFAULT_ARTIFACT_DIR
+def funder_wallet_context_artifact_paths(
+    artifact_dir: str | Path | None = None,
+    *,
+    environ: Mapping[str, str] | None = None,
+) -> dict[str, Path]:
+    root = resolve_artifact_subdir(
+        ARTIFACT_DIR_NAME,
+        artifact_dir=artifact_dir,
+        environ=environ,
+    )
     return {
         "root": root,
         "result": root / "funder_wallet_context_077g_result.json",
@@ -173,9 +185,9 @@ def run_funder_wallet_context_diagnostic(
 
     market_symbol = clean_text(market).upper() or DEFAULT_MARKET
     strategy_name = clean_text(strategy) or DEFAULT_STRATEGY
-    paths = funder_wallet_context_artifact_paths(artifact_dir)
-    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
     active_environ = os.environ if environ is None else environ
+    paths = funder_wallet_context_artifact_paths(artifact_dir, environ=active_environ)
+    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
     env_rows = [_env_var_status(spec, active_environ) for spec in ENV_SPECS]
     rows_by_name = {row["env_var_name"]: row for row in env_rows}
     summary = _build_context_summary(active_environ=active_environ, rows_by_name=rows_by_name)

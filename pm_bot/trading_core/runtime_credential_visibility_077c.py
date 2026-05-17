@@ -7,6 +7,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.artifact_resolution import (
+    DEFAULT_ARTIFACT_ROOT,
+    resolve_artifact_subdir,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, bullet_lines, clean_text, normalize_path, write_json, write_text
 
 TASK_ID = "ORCH-PMBOT-RUNTIME-077C-CREDENTIAL-VISIBILITY-DIAGNOSTIC-AND-RUNBOOK-NO-LIVE"
@@ -38,8 +42,8 @@ VALID_STATUSES = {
     STATUS_BLOCKED_MISSING_TELEGRAM_CREDENTIALS,
 }
 
-DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
-DEFAULT_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "runtime_credential_visibility_077c"
+ARTIFACT_DIR_NAME = "runtime_credential_visibility_077c"
+DEFAULT_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / ARTIFACT_DIR_NAME
 
 FORBIDDEN_RUNTIME_FLAGS = (
     "--live",
@@ -174,8 +178,16 @@ WALLET_ENV_VAR_NAMES = (
 )
 
 
-def runtime_credential_visibility_artifact_paths(artifact_dir: str | Path | None = None) -> dict[str, Path]:
-    root = Path(artifact_dir) if artifact_dir else DEFAULT_ARTIFACT_DIR
+def runtime_credential_visibility_artifact_paths(
+    artifact_dir: str | Path | None = None,
+    *,
+    environ: Mapping[str, str] | None = None,
+) -> dict[str, Path]:
+    root = resolve_artifact_subdir(
+        ARTIFACT_DIR_NAME,
+        artifact_dir=artifact_dir,
+        environ=environ,
+    )
     return {
         "root": root,
         "result": root / "runtime_credential_visibility_077c_result.json",
@@ -200,9 +212,9 @@ def run_runtime_credential_visibility_diagnostic(
 
     market_symbol = clean_text(market).upper() or DEFAULT_MARKET
     strategy_name = clean_text(strategy) or DEFAULT_STRATEGY
-    paths = runtime_credential_visibility_artifact_paths(artifact_dir)
-    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
     active_environ = os.environ if environ is None else environ
+    paths = runtime_credential_visibility_artifact_paths(artifact_dir, environ=active_environ)
+    path_refs = {key: normalize_path(path) for key, path in paths.items() if key != "root"}
     requested_rows = [_env_var_status(spec, active_environ) for spec in REQUESTED_ENV_SPECS]
     runtime_alias_rows = [_env_var_status(spec, active_environ) for spec in TELEGRAM_RUNTIME_ALIAS_SPECS]
     rows_by_name = {row["env_var_name"]: row for row in (*requested_rows, *runtime_alias_rows)}
@@ -570,10 +582,16 @@ def _build_latest_status(
         "requested_present_count": int(group_summary.get("requested_present_count", 0) or 0),
         "runtime_alias_present_count": int(group_summary.get("runtime_alias_present_count", 0) or 0),
         "polymarket_l2_visible": group_summary.get("polymarket_l2_visible") is True,
+        "polymarket_l2_missing_env_vars": list(group_summary.get("polymarket_l2_missing_env_vars", [])),
         "private_key_visible": group_summary.get("private_key_visible") is True,
+        "private_key_missing_env_vars": list(group_summary.get("private_key_missing_env_vars", [])),
         "wallet_context_visible": group_summary.get("wallet_context_visible") is True,
+        "wallet_context_missing_env_vars": list(group_summary.get("wallet_context_missing_env_vars", [])),
         "telegram_credentials_visible": group_summary.get("telegram_credentials_visible") is True,
         "telegram_runtime_alias_visible": group_summary.get("telegram_runtime_alias_visible") is True,
+        "telegram_runtime_alias_missing_env_vars": list(
+            group_summary.get("telegram_runtime_alias_missing_env_vars", [])
+        ),
         "blocker_count": len(blockers),
         "resolved_blocker_count": 0,
         "artifact_path": clean_text(artifact_paths.get("result")),

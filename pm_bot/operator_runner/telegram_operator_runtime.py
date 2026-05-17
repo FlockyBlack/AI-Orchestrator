@@ -37,6 +37,7 @@ from pm_bot.operator_runner.telegram_operator_control_state import (
     write_telegram_operator_control_state,
 )
 from pm_bot.operator_runner.telegram_status_registry import build_telegram_console_context
+from pm_bot.trading_core.artifact_resolution import resolve_artifact_root
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path
 from pm_bot.trading_core.runtime_credential_visibility_077c import (
     DEFAULT_ARTIFACT_DIR as RUNTIME_CREDENTIAL_VISIBILITY_077C_ARTIFACT_DIR,
@@ -801,11 +802,8 @@ def startup_instruction_lines(errors: tuple[str, ...]) -> list[str]:
 
 
 def load_runtime_context(artifact_dir: Path | None, *, generated_at: str = GENERATED_AT) -> dict[str, Any]:
-    runtime_visibility_dir = (
-        artifact_dir / "runtime_credential_visibility_077c"
-        if artifact_dir is not None
-        else RUNTIME_CREDENTIAL_VISIBILITY_077C_ARTIFACT_DIR
-    )
+    artifact_root = Path(artifact_dir) if artifact_dir is not None else resolve_artifact_root()
+    runtime_visibility_dir = artifact_root / "runtime_credential_visibility_077c"
     context: dict[str, Any] = {
         "runtime_credential_visibility_refresh_enabled": True,
         "runtime_credential_visibility_artifact_dir": normalize_path(runtime_visibility_dir),
@@ -813,7 +811,7 @@ def load_runtime_context(artifact_dir: Path | None, *, generated_at: str = GENER
     try:
         context.update(
             build_telegram_console_context(
-                artifact_root=artifact_dir if artifact_dir is not None else None,
+                artifact_root=artifact_root,
                 generated_at=generated_at,
             )
         )

@@ -9,6 +9,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
+from pm_bot.trading_core.artifact_resolution import (
+    DEFAULT_ARTIFACT_ROOT,
+    resolve_artifact_root,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
 from pm_bot.trading_core.telegram_real_check_results_display_073t import (
     ARTIFACT_DIR_NAME as TELEGRAM_REAL_CHECK_RESULTS_073T_ARTIFACT_DIR_NAME,
@@ -90,7 +94,6 @@ CREDENTIALS_READINESS_REVIEW_064T_CONTROLS_CONTRACT = (
     "pmbot_telegram_credentials_readiness_review_064t_controls.v1"
 )
 
-DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
 TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / "telegram_operator_console_060t"
 TELEGRAM_OPERATOR_CONSOLE_RESULT_PATH = (
     TELEGRAM_OPERATOR_CONSOLE_ARTIFACT_DIR / "telegram_operator_console_060t_result.json"
@@ -612,7 +615,7 @@ def build_telegram_status_registry_snapshot(
     artifact_root: str | Path | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
-    root = Path(artifact_root) if artifact_root else DEFAULT_ARTIFACT_ROOT
+    root = resolve_artifact_root(artifact_root)
     cards = [_build_status_card(source, artifact_root=root, generated_at=generated_at) for source in STATUS_SOURCES]
     cards_by_flow = {card["flow_id"]: card for card in cards}
     context_fields = {
@@ -1719,6 +1722,29 @@ def _build_status_card(
         except Exception as exc:
             load_error = exc.__class__.__name__
             payload = {}
+    runtime_result_path: Path | None = None
+    runtime_result_payload: dict[str, Any] = {}
+    runtime_result_load_error = ""
+    if source.flow_id == RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID:
+        runtime_result_path = _first_existing_path(
+            _candidate_artifact_paths(
+                source,
+                artifact_root,
+                "runtime_credential_visibility_077c_result.json",
+            )
+        )
+        if runtime_result_path is not None:
+            try:
+                runtime_result_payload = load_json_object(
+                    runtime_result_path,
+                    label="runtime_credential_visibility_077c result",
+                )
+            except Exception as exc:
+                runtime_result_load_error = exc.__class__.__name__
+                runtime_result_payload = {}
+        if not payload and runtime_result_payload:
+            latest_from_result = runtime_result_payload.get("latest_status")
+            payload = dict(latest_from_result) if isinstance(latest_from_result, Mapping) else dict(runtime_result_payload)
     expected_path = _candidate_latest_status_paths(source, artifact_root)[0]
     status_summary = _status_summary_from_payload(payload)
     tiny_order_review: dict[str, Any] = {}
@@ -1755,6 +1781,15 @@ def _build_status_card(
             generated_at=generated_at,
         )
         status_summary.update(_credentials_readiness_review_status_summary(credentials_readiness_review))
+    if source.flow_id == RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID:
+        status_summary.update(
+            _runtime_credential_visibility_status_summary(
+                latest_payload=payload,
+                result_payload=runtime_result_payload,
+                result_path=runtime_result_path,
+                result_load_error=runtime_result_load_error,
+            )
+        )
     if source.flow_id == TELEGRAM_ORDER_PREP_PACKET_STATUS_072B_FLOW_ID:
         status_summary.update(normalize_telegram_order_prep_packet_status_summary(payload))
     if source.flow_id == TELEGRAM_REAL_CHECK_RESULTS_073T_FLOW_ID:
@@ -1790,6 +1825,8 @@ def _build_status_card(
             balance_explicit_payload_available
             or status_summary.get("account_readonly_artifact_available") is True
         )
+    if source.flow_id == RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID:
+        available = bool(payload) or bool(runtime_result_payload)
     return {
         "contract_version": STATUS_CARD_CONTRACT,
         "task_id": TASK_ID,
@@ -1818,16 +1855,24 @@ def _build_status_card(
 
 
 def _candidate_latest_status_paths(source: TelegramStatusSource, artifact_root: Path) -> tuple[Path, ...]:
+    return _candidate_artifact_paths(source, artifact_root, source.latest_status_filename)
+
+
+def _candidate_artifact_paths(
+    source: TelegramStatusSource,
+    artifact_root: Path,
+    filename: str,
+) -> tuple[Path, ...]:
     paths = [
-        artifact_root / source.artifact_dir_name / source.latest_status_filename,
+        artifact_root / source.artifact_dir_name / filename,
     ]
     if artifact_root.name == source.artifact_dir_name:
-        paths.append(artifact_root / source.latest_status_filename)
+        paths.append(artifact_root / filename)
     paths.append(
         artifact_root
         / "authenticated_clob_preflight_057"
         / source.artifact_dir_name
-        / source.latest_status_filename
+        / filename
     )
     unique: list[Path] = []
     seen: set[str] = set()
@@ -2028,6 +2073,29 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     for field in FORCED_FALSE_SAFETY_FLAGS:
         summary[field] = False
     return summary
+
+
+def _runtime_credential_visibility_status_summary(
+    *,
+    latest_payload: Mapping[str, Any],
+    result_payload: Mapping[str, Any],
+    result_path: Path | None,
+    result_load_error: str,
+) -> dict[str, Any]:
+    latest = dict(latest_payload or {})
+    result = dict(result_payload or {})
+    combined = dict(result or latest)
+    if latest:
+        combined["latest_status"] = latest
+    combined["runtime_credential_visibility_result_available"] = bool(result)
+    combined["runtime_credential_visibility_result_path"] = normalize_path(result_path) if result_path else ""
+    combined["runtime_credential_visibility_result_load_error"] = clean_text(result_load_error)
+    combined.setdefault("raw_values_emitted", False)
+    combined.setdefault("raw_secret_values_emitted", False)
+    combined.setdefault("allowed_for_live", False)
+    combined.setdefault("order_submission_enabled", False)
+    combined.setdefault("signing_enabled", False)
+    return combined
 
 
 def _tiny_order_review_from_artifacts(

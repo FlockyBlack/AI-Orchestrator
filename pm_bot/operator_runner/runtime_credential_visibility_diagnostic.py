@@ -29,7 +29,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--artifact-dir",
         dest="artifacts_dir",
         default="",
-        help="Optional output directory. Defaults to the 077C runtime credential visibility artifact directory.",
+        help=(
+            "Optional output directory. Defaults to PMBOT_ARTIFACT_DIR/runtime_credential_visibility_077c "
+            "when PMBOT_ARTIFACT_DIR is set, otherwise the repo 077C artifact directory."
+        ),
     )
     parser.add_argument("--json", action="store_true", help="Print latest runtime credential visibility status JSON.")
     return parser

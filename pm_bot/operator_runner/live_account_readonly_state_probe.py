@@ -27,7 +27,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--artifact-dir",
         dest="artifacts_dir",
         default="",
-        help="Optional output directory. Defaults to the 070C live account read-only state artifact directory.",
+        help=(
+            "Optional output directory. Defaults to PMBOT_ARTIFACT_DIR/live_account_readonly_state_probe_070c "
+            "when PMBOT_ARTIFACT_DIR is set, otherwise the repo 070C artifact directory."
+        ),
     )
     parser.add_argument("--json", action="store_true", help="Print latest status JSON.")
     return parser

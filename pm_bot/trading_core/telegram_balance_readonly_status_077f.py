@@ -3,6 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from pm_bot.trading_core.artifact_resolution import (
+    DEFAULT_ARTIFACT_ROOT,
+    resolve_artifact_root,
+    resolve_artifact_subdir,
+)
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
 
 TASK_ID = "ORCH-PMBOT-TELEGRAM-077F-BALANCE-READONLY-ACCOUNT-INTEGRATION-NO-LIVE"
@@ -18,7 +23,6 @@ LATEST_STATUS_FILENAME = "latest_telegram_balance_readonly_status_077f.json"
 MENU_SNAPSHOT_FILENAME = "telegram_balance_readonly_menu_snapshot_077f.json"
 SAFETY_SNAPSHOT_FILENAME = "telegram_balance_readonly_safety_snapshot_077f.json"
 
-DEFAULT_ARTIFACT_ROOT = Path("pm_bot/trading_core/artifacts")
 DEFAULT_ARTIFACT_DIR = DEFAULT_ARTIFACT_ROOT / ARTIFACT_DIR_NAME
 
 RUNTIME_077C_DIR_NAMES = ("runtime_credential_visibility_077c",)
@@ -62,7 +66,7 @@ _ABSENT_TEXT = {
 
 
 def telegram_balance_readonly_artifact_paths(output_dir: str | Path | None = None) -> dict[str, Path]:
-    root = Path(output_dir) if output_dir else DEFAULT_ARTIFACT_DIR
+    root = resolve_artifact_subdir(ARTIFACT_DIR_NAME, artifact_dir=output_dir)
     return {
         "root": root,
         "result": root / RESULT_FILENAME,
@@ -77,7 +81,7 @@ def build_telegram_balance_readonly_status(
     artifact_root: str | Path | None = None,
     generated_at: str = GENERATED_AT,
 ) -> dict[str, Any]:
-    root = Path(artifact_root) if artifact_root else DEFAULT_ARTIFACT_ROOT
+    root = resolve_artifact_root(artifact_root)
     credential_latest_path = _first_existing_path(
         _candidate_paths(root, RUNTIME_077C_DIR_NAMES, RUNTIME_077C_LATEST_FILENAMES)
     )
@@ -95,6 +99,7 @@ def build_telegram_balance_readonly_status(
     credentials_visible = credential["polymarket_l2_visible"] is True
     funder_present = credential["funder_address_present"] is True
     account_available = bool(account)
+    sdk_unavailable = _account_probe_blocked_sdk_unavailable(account_summary)
     if not credentials_visible:
         status = "balance_unavailable_missing_credentials"
         screen_variant = "missing_credentials"
@@ -104,6 +109,9 @@ def build_telegram_balance_readonly_status(
     elif not account_available:
         status = "balance_readonly_account_probe_missing"
         screen_variant = "missing_account_artifact"
+    elif sdk_unavailable:
+        status = "balance_readonly_account_probe_blocked_sdk_unavailable"
+        screen_variant = "account_probe_blocked_sdk_unavailable"
     else:
         status = "balance_readonly_account_artifact_available"
         screen_variant = "account_artifact_available"
@@ -131,6 +139,9 @@ def build_telegram_balance_readonly_status(
         "account_readonly_artifact_available": account_available,
         "account_readonly_artifact_path": normalize_path(account_path) if account_path else "",
         "account_probe_run": account_available,
+        "account_probe_blocked_sdk_unavailable": sdk_unavailable,
+        "account_probe_status": account_summary["account_probe_status"],
+        "account_sdk_status": account_summary["account_sdk_status"],
         "account_state_probe_performed": account_summary["account_state_probe_performed"] is True,
         "safe_account_probe_command": SAFE_ACCOUNT_PROBE_COMMAND,
         "wallet_short_address": account_summary["wallet_short_address"],
@@ -287,6 +298,17 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
                     value["safe_account_probe_command"],
                 ]
             )
+        if value["screen_variant"] == "account_probe_blocked_sdk_unavailable":
+            return "\n".join(
+                [
+                    "💰 Баланс",
+                    "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен в этом окружении.",
+                    "Баланс не прочитан; фейковые значения не показываются.",
+                    f"Статус проверки: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
+                    "Безопасная команда:",
+                    value["safe_account_probe_command"],
+                ]
+            )
         return "\n".join(
             [
                 "💰 Баланс",
@@ -324,6 +346,17 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
                 value["safe_account_probe_command"],
             ]
         )
+    if value["screen_variant"] == "account_probe_blocked_sdk_unavailable":
+        return "\n".join(
+            [
+                "💰 Balance",
+                "Account check is blocked: the official Polymarket CLOB SDK is unavailable in this environment.",
+                "Balance was not read; fake values are not shown.",
+                f"Check status: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
+                "Safe command:",
+                value["safe_account_probe_command"],
+            ]
+        )
     return "\n".join(
         [
             "💰 Balance",
@@ -345,6 +378,7 @@ def normalize_telegram_balance_readonly_status_summary(status: Mapping[str, Any]
         "missing_credentials",
         "missing_funder",
         "missing_account_artifact",
+        "account_probe_blocked_sdk_unavailable",
         "account_artifact_available",
     }:
         if value.get("credentials_visible") is not True:
@@ -353,6 +387,8 @@ def normalize_telegram_balance_readonly_status_summary(status: Mapping[str, Any]
             screen_variant = "missing_funder"
         elif value.get("account_readonly_artifact_available") is not True:
             screen_variant = "missing_account_artifact"
+        elif value.get("account_probe_blocked_sdk_unavailable") is True:
+            screen_variant = "account_probe_blocked_sdk_unavailable"
         else:
             screen_variant = "account_artifact_available"
     return {
@@ -378,6 +414,9 @@ def normalize_telegram_balance_readonly_status_summary(status: Mapping[str, Any]
         "account_readonly_artifact_available": value.get("account_readonly_artifact_available") is True,
         "account_readonly_artifact_path": clean_text(value.get("account_readonly_artifact_path")),
         "account_probe_run": value.get("account_probe_run") is True,
+        "account_probe_blocked_sdk_unavailable": value.get("account_probe_blocked_sdk_unavailable") is True,
+        "account_probe_status": clean_text(value.get("account_probe_status")),
+        "account_sdk_status": clean_text(value.get("account_sdk_status")),
         "account_state_probe_performed": value.get("account_state_probe_performed") is True,
         "safe_account_probe_command": clean_text(value.get("safe_account_probe_command")) or SAFE_ACCOUNT_PROBE_COMMAND,
         "wallet_short_address": _safe_short_address(value.get("wallet_short_address")),
@@ -502,7 +541,10 @@ def _account_artifact_summary(account: Mapping[str, Any], path: Path | None) -> 
     value = dict(account or {})
     latest = _first_mapping(value.get("latest_status"), value)
     account_status = _first_mapping(value.get("account_status"), latest.get("account_status"))
+    sdk_status = _first_mapping(value.get("sdk_status"))
     search_payloads = (latest, value, account_status)
+    account_probe_status = _first_optional_text(search_payloads, ("status", "account_status"))
+    account_sdk_status = _first_optional_text((latest, sdk_status, value), ("sdk_status", "status"))
     return {
         "available": bool(value),
         "path": normalize_path(path) if path else "",
@@ -519,8 +561,18 @@ def _account_artifact_summary(account: Mapping[str, Any], path: Path | None) -> 
             ("open_orders", "orders"),
         ),
         "last_check_timestamp": _first_optional_text(search_payloads, ("last_check_timestamp", "generated_at")),
-        "last_check_status": _first_optional_text(search_payloads, ("status", "account_status")),
+        "last_check_status": account_probe_status,
+        "account_probe_status": account_probe_status,
+        "account_sdk_status": account_sdk_status,
         "account_state_probe_performed": any(payload.get("account_state_probe_performed") is True for payload in search_payloads),
+    }
+
+
+def _account_probe_blocked_sdk_unavailable(account_summary: Mapping[str, Any]) -> bool:
+    return "blocked_sdk_unavailable" in {
+        clean_text(account_summary.get("account_probe_status")),
+        clean_text(account_summary.get("account_sdk_status")),
+        clean_text(account_summary.get("last_check_status")),
     }
 
 
