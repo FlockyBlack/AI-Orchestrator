@@ -1,0 +1,135 @@
+{
+  "task_id": "ORCH-PMBOT-RUNTIME-078G-LOCAL-ENVIRONMENT-SELF-TEST-BUNDLE-NO-LIVE",
+  "status": "completed_validated_no_live",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base": "origin/master",
+  "branch": "pmbot/runtime-078g-local-environment-self-test-bundle-no-live",
+  "worktree": "C:/oc078g_local_environment_self_test_bundle_no_live",
+  "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+  "head_after": "POST_COMMIT_HEAD_REPORTED_IN_FINAL_RESPONSE",
+  "generated_at": "2026-05-17T00:00:00+04:00",
+  "changed_files": [
+    "pm_bot/trading_core/local_environment_self_test_bundle_078g.py",
+    "pm_bot/operator_runner/local_environment_self_test_bundle.py",
+    "pm_bot/tests/test_local_environment_self_test_078g.py",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/latest_local_environment_self_test_078g_status.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_blockers.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_checks.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_operator_summary.md",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_result.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/telegram_runtime_smoke_078g.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/funder_wallet_context_077g/funder_wallet_context_077g_operator_summary.md",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/funder_wallet_context_077g/funder_wallet_context_077g_result.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/funder_wallet_context_077g/latest_funder_wallet_context_077g_status.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/runtime_credential_visibility_077c/latest_runtime_credential_visibility_077c_status.json",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/runtime_credential_visibility_077c/runtime_credential_visibility_077c_operator_summary.md",
+    "pm_bot/trading_core/artifacts/local_environment_self_test_078g/runtime_credential_visibility_077c/runtime_credential_visibility_077c_result.json",
+    "docs/ORCH_PMBOT_RUNTIME_078G_LOCAL_ENVIRONMENT_SELF_TEST_BUNDLE_NO_LIVE_RESULT.json"
+  ],
+  "runner_summary": {
+    "command": "python -m pm_bot.operator_runner.local_environment_self_test_bundle --market BTC --strategy tiny-momentum --dry-run",
+    "exit_code": 0,
+    "status": "blocked_missing_funder_address",
+    "passed_count": 1,
+    "check_count": 10,
+    "blocker_count": 9,
+    "top_blockers": [
+      "runtime_credential_visibility: blocked_missing_private_key",
+      "funder_wallet_context: blocked_missing_wallet_address",
+      "clob_sdk_account_readonly_probe: blocked_sdk_unavailable",
+      "local_real_check_bundle: missing",
+      "selected_candidate_artifact: missing"
+    ],
+    "telegram_runtime_smoke_status": "telegram_runtime_ready",
+    "raw_secrets_emitted": false
+  },
+  "exact_next_safe_commands": [
+    "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+    "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+    "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+    "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run",
+    "python -m pm_bot.operator_runner.selected_candidate_artifact --market BTC --strategy tiny-momentum --dry-run --candidate-index 0",
+    "python -m pm_bot.operator_runner.local_environment_self_test_bundle --market BTC --strategy tiny-momentum --dry-run",
+    "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run"
+  ],
+  "artifact_paths": {
+    "result": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_result.json",
+    "latest_status": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/latest_local_environment_self_test_078g_status.json",
+    "checks": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_checks.json",
+    "blockers": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_blockers.json",
+    "operator_md": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/local_environment_self_test_078g_operator_summary.md",
+    "telegram_smoke": "pm_bot/trading_core/artifacts/local_environment_self_test_078g/telegram_runtime_smoke_078g.json"
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_local_environment_self_test_078g.py",
+      "status": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_funder_wallet_context_077g.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2302 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.local_environment_self_test_bundle --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "exit 0, status blocked_missing_funder_address"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "exit 0, critical findings 0, warnings 7"
+    }
+  ],
+  "safety": {
+    "no_live_trading": true,
+    "no_submit": true,
+    "no_cancel": true,
+    "no_signing_by_default": true,
+    "no_signer_instantiation_by_default": true,
+    "no_wallet_ui": true,
+    "no_browser_automation": true,
+    "no_background_worker": true,
+    "no_authenticated_endpoint_call": true,
+    "no_raw_secrets_output": true,
+    "paper_only": true
+  },
+  "remaining_risks": [
+    "The local runner is intentionally blocked until runtime credentials, funder/wallet context, CLOB SDK availability, and prerequisite readiness artifacts are present.",
+    "The CLOB account read-only probe is summarized from existing artifacts by 078G; it is not executed by default."
+  ]
+}
