@@ -34,4 +34,3 @@ This task improves PMBOT 070C live-account read-only diagnostics and Telegram ba
 - `python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run` passed with credential env vars cleared for safety.
 - `python -m pm_bot.operator_runner.telegram_runtime_smoke --json` passed with credential env vars cleared for safety.
 - `python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run` passed with 0 critical findings.
-

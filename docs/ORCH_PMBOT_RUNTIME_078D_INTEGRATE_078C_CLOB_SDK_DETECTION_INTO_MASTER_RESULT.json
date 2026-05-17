@@ -1,0 +1,265 @@
+{
+  "contract_version": "orch_pmbot_runtime_078d_integrate_078c_clob_sdk_detection_into_master_result.v1",
+  "task_id": "ORCH-PMBOT-RUNTIME-078D-INTEGRATE-078C-CLOB-SDK-DETECTION-INTO-MASTER",
+  "status": "validation_passed_pending_push",
+  "generated_at": "2026-05-17T06:23:09.5213597+04:00",
+  "worktree": "C:/oc078d_integrate_078c_clob_sdk_detection_into_master",
+  "temporary_windows_drive_mapping": {
+    "used": false,
+    "reason": "No Windows MAX_PATH failure occurred during checkout, validation, or full test run.",
+    "removed_after_verification": true
+  },
+  "git": {
+    "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+    "base_branch": "master",
+    "old_master_head": "0144f6a74cfa408f23858a060078c392088073b0",
+    "accepted_master_head_at_start": "0144f6a74cfa408f23858a060078c392088073b0",
+    "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+    "head_after": "013b26ecb4dfb0a06c9a7cb3a6662cde3990ffed",
+    "head_after_note": "head_after is the integrated 078C source head before committing this 078D result artifact; the final pushed master head is verified in the operator final report because a commit cannot embed its own final hash.",
+    "source_branch": "pmbot/runtime-078c-clob-sdk-detection-readonly-balance-probe-no-live",
+    "source_head": "013b26ecb4dfb0a06c9a7cb3a6662cde3990ffed",
+    "remote_master_before": "0144f6a74cfa408f23858a060078c392088073b0",
+    "remote_source_before": "013b26ecb4dfb0a06c9a7cb3a6662cde3990ffed",
+    "remote_master_after": "pending_push",
+    "final_git_status": "pending_push"
+  },
+  "integration": {
+    "method": "Created a clean detached worktree at origin/master 0144f6a74cfa408f23858a060078c392088073b0, verified the source branch head, then fast-forward merged 013b26ecb4dfb0a06c9a7cb3a6662cde3990ffed into the detached integration worktree before adding this 078D result artifact.",
+    "replayed_commits": [
+      {
+        "commit": "013b26ecb4dfb0a06c9a7cb3a6662cde3990ffed",
+        "summary": "Improve CLOB SDK detection diagnostics"
+      }
+    ],
+    "conflicts": {
+      "encountered": false,
+      "resolutions": []
+    },
+    "preserved_behavior": [
+      "078B artifact directory consistency remains intact.",
+      "077F Telegram balance renderer behavior remains intact and gains a distinct SDK-unavailable blocker display.",
+      "077E Telegram connection credential visibility remains redacted and presence-only.",
+      "077G funder/wallet diagnostic behavior remains intact.",
+      "077A and 076D readiness behavior remains no-live and blocked without explicit approval.",
+      "PMBOT remains paper/read-only only with no live submit, cancel, wallet connection, or signer-by-default behavior."
+    ]
+  },
+  "changed_files": [
+    "docs/ORCH_PMBOT_RUNTIME_078C_CLOB_SDK_DETECTION_AND_READONLY_BALANCE_PROBE_NO_LIVE.md",
+    "docs/ORCH_PMBOT_RUNTIME_078C_CLOB_SDK_DETECTION_AND_READONLY_BALANCE_PROBE_NO_LIVE_RESULT.json",
+    "docs/ORCH_PMBOT_RUNTIME_078D_INTEGRATE_078C_CLOB_SDK_DETECTION_INTO_MASTER_RESULT.json",
+    "pm_bot/tests/test_clob_sdk_detection_078c.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/trading_core/live_account_readonly_state_models.py",
+    "pm_bot/trading_core/live_account_readonly_state_probe.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "sdk_detection_behavior_summary": {
+    "candidate_modules": [
+      "py_clob_client",
+      "py_clob_client.client",
+      "py_clob_client_v2"
+    ],
+    "expected_sdk_module": "py_clob_client.client",
+    "expected_install_command": "python -m pip install py-clob-client",
+    "missing_sdk_behavior": "Reports blocked_sdk_unavailable when L2 credentials are present but no supported SDK candidate imports; when L2 credentials are missing it still reports dependency_missing SDK diagnostics without claiming a balance probe ran.",
+    "present_sdk_behavior": "Selects py_clob_client.client for the v1 client surface and py_clob_client_v2 when that candidate provides the needed read-only client surface.",
+    "diagnostics_reported": [
+      "installed or missing status per candidate",
+      "import error type with raw error messages redacted",
+      "selected SDK module",
+      "expected install command",
+      "Python executable path",
+      "pip package visibility and version when safely available"
+    ],
+    "fake_data_policy": "Open orders, balances, PnL, fills, order IDs, and transaction hashes are not invented when the SDK is unavailable."
+  },
+  "telegram_balance_behavior_summary": {
+    "sdk_unavailable_variant": "account_probe_blocked_sdk_unavailable",
+    "operator_text": "Telegram Balance shows the SDK-unavailable blocker, expected SDK, safe install command, Python executable, and the safe read-only probe command.",
+    "missing_connection_behavior": "SDK-unavailable artifacts are not rendered as a generic missing-connection or missing-account-artifact message when credentials are visible.",
+    "fake_data_policy": "Telegram Balance does not display fake balances, fake PnL, fake orders, fake fills, order IDs, or transaction hashes."
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_sdk_detection_078c.py",
+      "result": "passed",
+      "summary": "6 passed in 0.25s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "result": "passed",
+      "summary": "9 passed in 0.45s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "result": "passed",
+      "summary": "8 passed in 16.15s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_artifact_dir_consistency_078a.py",
+      "result": "passed",
+      "summary": "2 passed in 4.74s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed in 46.05s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "result": "passed",
+      "summary": "6 passed in 2.84s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "result": "passed",
+      "summary": "9 passed in 0.47s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_funder_wallet_context_077g.py",
+      "result": "passed",
+      "summary": "8 passed in 1.20s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
+      "result": "passed",
+      "summary": "10 passed in 0.83s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_payload_dry_run_readiness_076d.py",
+      "result": "passed",
+      "summary": "10 passed in 0.84s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "summary": "7 passed in 0.60s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed in 1.77s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed in 0.22s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_single_message_product_menu_069c.py",
+      "result": "passed",
+      "summary": "12 passed in 2.25s"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2301 passed in 815.51s (0:13:35)"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "no compile errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "no compile errors"
+    }
+  ],
+  "runner_smoke_with_pmbot_artifact_dir": {
+    "env": {
+      "PMBOT_ARTIFACT_DIR": "C:/pmbot_artifacts"
+    },
+    "commands": [
+      {
+        "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_private_key",
+        "summary": "Prompt required vars visible=0/9; Polymarket L2 visible=false; private key visible=false; wallet context visible=false; Telegram runtime visible=true; raw secret output=false; signer instantiated=false; order submission enabled=false; allowed_for_live=false."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_wallet_address",
+        "summary": "Wallet address, funder address, signature type, and private key were not present; raw secret output=false; signer instantiated=false; order submission enabled=false; allowed_for_live=false."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_l2_credentials",
+        "summary": "SDK status=dependency_missing; selected SDK=not_available; expected SDK=py_clob_client.client; expected install command=python -m pip install py-clob-client; Python executable path reported; open orders and balance allowance not_available; no fake balances emitted."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.local_real_check_bundle --market BTC --strategy tiny-momentum --dry-run --allow-private-key-diagnostic",
+        "result": "passed",
+        "status": "local_real_check_bundle_completed_with_blockers_live_blocked",
+        "summary": "Subchecks completed=6/6; failed=0; blocked=4; allowed_for_live=false; bundle executable for live=false; order submission/cancellation/payload signing/trading write endpoints blocked."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+        "result": "passed",
+        "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; no_network_by_default=true; live_trading_enabled=false; real_orders_submitted=false; wallet_integration_added=false."
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "result": "passed",
+        "summary": "scanned_files=384; critical_findings=0; warnings=7; live execution/order submission/signing/wallet blocked."
+      }
+    ]
+  },
+  "static_safety_report_summary": {
+    "critical_findings": 0,
+    "warnings": 7,
+    "live_execution": "blocked",
+    "order_submission": "blocked",
+    "signing": "blocked",
+    "wallet": "blocked"
+  },
+  "manual_safety_scan_summary": {
+    "status": "passed",
+    "added_lines_scanned": 1024,
+    "critical_true_flag_matches": 0,
+    "broad_review_false_positives": 59,
+    "unsafe_runtime_capability_introduced": false,
+    "raw_secret_output_introduced": false,
+    "full_signed_payload_output_introduced": false,
+    "fake_balance_or_order_data_introduced": false,
+    "notes": "Final added-line scan reviewed broad matches for raw secret, private key, API secret/passphrase, signed payload, submit/cancel/order posting, signer default creation, wallet connect, in-chat secret collection, fake financial data, scheduler/daemon/background loop, and true-valued allowed_for_live or trading_requested flags. Matches were expected safety text, fake test fixtures, negative safety flags, or blocked runner summaries. No true-valued live/order/signing/wallet/fake-data flags were found."
+  },
+  "safety_flags": {
+    "paper_mode_only": true,
+    "live_trading_introduced": false,
+    "order_submission_introduced": false,
+    "order_cancel_introduced": false,
+    "signing_by_default_introduced": false,
+    "signer_instantiation_by_default_introduced": false,
+    "wallet_connection_ui_introduced": false,
+    "raw_secret_output_introduced": false,
+    "private_key_output_introduced": false,
+    "api_secret_or_passphrase_output_introduced": false,
+    "full_signed_payload_output_introduced": false,
+    "fake_balance_or_order_data_introduced": false,
+    "scheduler_daemon_background_loop_introduced": false,
+    "allowed_for_live_true_introduced": false,
+    "trading_requested_true_introduced": false,
+    "in_chat_secret_collection_introduced": false
+  },
+  "validation_side_effect_cleanup": {
+    "tracked_generated_artifact_changes_restored": true,
+    "pycache_directories_removed": true,
+    "pytest_cache_removed": true,
+    "validation_logs_removed": true
+  },
+  "push_policy": {
+    "push_master_allowed_after_validation": true,
+    "force_push_allowed": false,
+    "selective_staging_only": true
+  },
+  "remote_verification": {
+    "status": "pending_push",
+    "command": "git ls-remote origin refs/heads/master"
+  },
+  "final_git_status": "pending_push"
+}
