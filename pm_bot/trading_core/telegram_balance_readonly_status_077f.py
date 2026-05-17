@@ -9,6 +9,10 @@ from pm_bot.trading_core.artifact_resolution import (
     resolve_artifact_subdir,
 )
 from pm_bot.trading_core.schemas import GENERATED_AT, clean_text, load_json_object, normalize_path, write_json
+from pm_bot.trading_core.live_account_readonly_state_models import (
+    EXPECTED_SDK_INSTALL_COMMAND,
+    EXPECTED_SDK_MODULE,
+)
 
 TASK_ID = "ORCH-PMBOT-TELEGRAM-077F-BALANCE-READONLY-ACCOUNT-INTEGRATION-NO-LIVE"
 
@@ -142,6 +146,11 @@ def build_telegram_balance_readonly_status(
         "account_probe_blocked_sdk_unavailable": sdk_unavailable,
         "account_probe_status": account_summary["account_probe_status"],
         "account_sdk_status": account_summary["account_sdk_status"],
+        "account_expected_sdk_module": account_summary["account_expected_sdk_module"],
+        "account_expected_install_command": account_summary["account_expected_install_command"],
+        "account_python_executable": account_summary["account_python_executable"],
+        "account_sdk_import_reports": list(account_summary["account_sdk_import_reports"]),
+        "account_pip_package_visibility": list(account_summary["account_pip_package_visibility"]),
         "account_state_probe_performed": account_summary["account_state_probe_performed"] is True,
         "safe_account_probe_command": SAFE_ACCOUNT_PROBE_COMMAND,
         "wallet_short_address": account_summary["wallet_short_address"],
@@ -304,6 +313,9 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
                     "💰 Баланс",
                     "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен в этом окружении.",
                     "Баланс не прочитан; фейковые значения не показываются.",
+                    f"Ожидаемый SDK: {value['account_expected_sdk_module'] or EXPECTED_SDK_MODULE}",
+                    f"Безопасная команда установки: {value['account_expected_install_command'] or EXPECTED_SDK_INSTALL_COMMAND}",
+                    f"Python: {value['account_python_executable'] or 'нет данных'}",
                     f"Статус проверки: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
                     "Безопасная команда:",
                     value["safe_account_probe_command"],
@@ -352,6 +364,9 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
                 "💰 Balance",
                 "Account check is blocked: the official Polymarket CLOB SDK is unavailable in this environment.",
                 "Balance was not read; fake values are not shown.",
+                f"Expected SDK: {value['account_expected_sdk_module'] or EXPECTED_SDK_MODULE}",
+                f"Safe install command: {value['account_expected_install_command'] or EXPECTED_SDK_INSTALL_COMMAND}",
+                f"Python: {value['account_python_executable'] or 'no data'}",
                 f"Check status: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
                 "Safe command:",
                 value["safe_account_probe_command"],
@@ -417,6 +432,17 @@ def normalize_telegram_balance_readonly_status_summary(status: Mapping[str, Any]
         "account_probe_blocked_sdk_unavailable": value.get("account_probe_blocked_sdk_unavailable") is True,
         "account_probe_status": clean_text(value.get("account_probe_status")),
         "account_sdk_status": clean_text(value.get("account_sdk_status")),
+        "account_expected_sdk_module": clean_text(value.get("account_expected_sdk_module")) or EXPECTED_SDK_MODULE,
+        "account_expected_install_command": (
+            clean_text(value.get("account_expected_install_command")) or EXPECTED_SDK_INSTALL_COMMAND
+        ),
+        "account_python_executable": clean_text(value.get("account_python_executable")),
+        "account_sdk_import_reports": [
+            dict(row) for row in value.get("account_sdk_import_reports", []) if isinstance(row, Mapping)
+        ],
+        "account_pip_package_visibility": [
+            dict(row) for row in value.get("account_pip_package_visibility", []) if isinstance(row, Mapping)
+        ],
         "account_state_probe_performed": value.get("account_state_probe_performed") is True,
         "safe_account_probe_command": clean_text(value.get("safe_account_probe_command")) or SAFE_ACCOUNT_PROBE_COMMAND,
         "wallet_short_address": _safe_short_address(value.get("wallet_short_address")),
@@ -543,8 +569,9 @@ def _account_artifact_summary(account: Mapping[str, Any], path: Path | None) -> 
     account_status = _first_mapping(value.get("account_status"), latest.get("account_status"))
     sdk_status = _first_mapping(value.get("sdk_status"))
     search_payloads = (latest, value, account_status)
+    sdk_payloads = (latest, sdk_status, value)
     account_probe_status = _first_optional_text(search_payloads, ("status", "account_status"))
-    account_sdk_status = _first_optional_text((latest, sdk_status, value), ("sdk_status", "status"))
+    account_sdk_status = _first_optional_text(sdk_payloads, ("sdk_status", "status"))
     return {
         "available": bool(value),
         "path": normalize_path(path) if path else "",
@@ -564,6 +591,13 @@ def _account_artifact_summary(account: Mapping[str, Any], path: Path | None) -> 
         "last_check_status": account_probe_status,
         "account_probe_status": account_probe_status,
         "account_sdk_status": account_sdk_status,
+        "account_expected_sdk_module": _first_optional_text(sdk_payloads, ("expected_sdk_module",))
+        or EXPECTED_SDK_MODULE,
+        "account_expected_install_command": _first_optional_text(sdk_payloads, ("expected_install_command",))
+        or EXPECTED_SDK_INSTALL_COMMAND,
+        "account_python_executable": _first_optional_text(sdk_payloads, ("python_executable",)),
+        "account_sdk_import_reports": tuple(_first_list(sdk_payloads, "sdk_import_reports")),
+        "account_pip_package_visibility": tuple(_first_list(sdk_payloads, "pip_package_visibility")),
         "account_state_probe_performed": any(payload.get("account_state_probe_performed") is True for payload in search_payloads),
     }
 
@@ -721,6 +755,16 @@ def _first_optional_text(payloads: Sequence[Mapping[str, Any]], keys: Sequence[s
             if text:
                 return text
     return ""
+
+
+def _first_list(payloads: Sequence[Mapping[str, Any]], key: str) -> list[Any]:
+    for payload in payloads:
+        value = payload.get(key)
+        if isinstance(value, list):
+            return list(value)
+        if isinstance(value, tuple):
+            return list(value)
+    return []
 
 
 def _optional_display(value: Any) -> str:

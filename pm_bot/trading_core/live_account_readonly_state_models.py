@@ -46,7 +46,11 @@ FORBIDDEN_SECRET_ENV_VARS_NOT_READ = (
     "SEED_PHRASE",
 )
 
-SUPPORTED_SDK_MODULES = ("py_clob_client_v2", "py_clob_client")
+CLOB_SDK_IMPORT_CANDIDATES = ("py_clob_client", "py_clob_client.client", "py_clob_client_v2")
+SUPPORTED_SDK_MODULES = CLOB_SDK_IMPORT_CANDIDATES
+EXPECTED_SDK_MODULE = "py_clob_client.client"
+EXPECTED_PIP_PACKAGE = "py-clob-client"
+EXPECTED_SDK_INSTALL_COMMAND = "python -m pip install py-clob-client"
 READONLY_SDK_METHODS = ("get_orders", "get_balance_allowance")
 READONLY_HTTP_METHOD = "GET"
 BLOCKED_HTTP_METHODS = ("POST", "PUT", "PATCH", "DELETE")
@@ -309,6 +313,12 @@ class LiveAccountSdkStatus:
     sdk_available: bool
     selected_sdk_module: str
     attempted_sdk_modules: tuple[str, ...]
+    expected_sdk_module: str
+    expected_pip_package: str
+    expected_install_command: str
+    python_executable: str
+    sdk_import_reports: tuple[Mapping[str, Any], ...]
+    pip_package_visibility: tuple[Mapping[str, Any], ...]
     client_class_available: bool
     api_creds_class_available: bool
     open_orders_method_available: bool
@@ -325,7 +335,15 @@ class LiveAccountSdkStatus:
         value["contract_version"] = SDK_STATUS_CONTRACT
         value["task_id"] = TASK_ID
         value["attempted_sdk_modules"] = list(self.attempted_sdk_modules)
+        value["sdk_import_reports"] = [dict(row) for row in self.sdk_import_reports]
+        value["pip_package_visibility"] = [dict(row) for row in self.pip_package_visibility]
         value["supported_sdk_modules"] = list(SUPPORTED_SDK_MODULES)
+        value["expected_sdk_module"] = clean_text(self.expected_sdk_module) or EXPECTED_SDK_MODULE
+        value["expected_pip_package"] = clean_text(self.expected_pip_package) or EXPECTED_PIP_PACKAGE
+        value["expected_install_command"] = (
+            clean_text(self.expected_install_command) or EXPECTED_SDK_INSTALL_COMMAND
+        )
+        value["python_executable"] = clean_text(self.python_executable)
         value["safe_readonly_methods"] = list(READONLY_SDK_METHODS)
         value["request_method_allowlist"] = [READONLY_HTTP_METHOD]
         value["blocked_http_methods"] = list(BLOCKED_HTTP_METHODS)
@@ -423,6 +441,11 @@ class LiveAccountReadOnlyLatestStatus:
     credential_presence_status: str
     sdk_status: str
     selected_sdk_module: str
+    expected_sdk_module: str
+    expected_install_command: str
+    python_executable: str
+    sdk_import_reports: tuple[Mapping[str, Any], ...]
+    pip_package_visibility: tuple[Mapping[str, Any], ...]
     account_status: str
     wallet_address_status: str
     signature_type_status: str
@@ -456,6 +479,13 @@ class LiveAccountReadOnlyLatestStatus:
         value["credential_presence_status"] = clean_text(self.credential_presence_status)
         value["sdk_status"] = clean_text(self.sdk_status)
         value["selected_sdk_module"] = clean_text(self.selected_sdk_module)
+        value["expected_sdk_module"] = clean_text(self.expected_sdk_module) or EXPECTED_SDK_MODULE
+        value["expected_install_command"] = (
+            clean_text(self.expected_install_command) or EXPECTED_SDK_INSTALL_COMMAND
+        )
+        value["python_executable"] = clean_text(self.python_executable)
+        value["sdk_import_reports"] = [dict(row) for row in self.sdk_import_reports]
+        value["pip_package_visibility"] = [dict(row) for row in self.pip_package_visibility]
         value["account_status"] = clean_text(self.account_status)
         value["wallet_address_status"] = clean_text(self.wallet_address_status)
         value["signature_type_status"] = clean_text(self.signature_type_status)
@@ -532,6 +562,9 @@ class LiveAccountReadOnlyProbeResult:
             "wallet_address_redacted",
             "signature_type_redacted",
             "funder_address_redacted",
+            "expected_sdk_module",
+            "expected_install_command",
+            "python_executable",
             "open_orders_status",
             "open_order_count",
             "balance_allowance_status",

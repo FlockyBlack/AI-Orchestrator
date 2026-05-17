@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import importlib
+from importlib import metadata as importlib_metadata
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -9,10 +11,14 @@ from typing import Any, Callable, Mapping, Sequence
 from pm_bot.trading_core.live_account_readonly_state_models import (
     ACCOUNT_CONFIG_ENV_VARS,
     BLOCKED_HTTP_METHODS,
+    CLOB_SDK_IMPORT_CANDIDATES,
     DEFAULT_CLOB_HOST,
     DEFAULT_MARKET,
     DEFAULT_STRATEGY,
     EXECUTION_MODE,
+    EXPECTED_PIP_PACKAGE,
+    EXPECTED_SDK_INSTALL_COMMAND,
+    EXPECTED_SDK_MODULE,
     POLYGON_CHAIN_ID,
     POLYMARKET_API_KEY_ENV,
     POLYMARKET_API_PASSPHRASE_ENV,
@@ -71,6 +77,11 @@ FORBIDDEN_RUNTIME_FLAGS = (
 )
 
 _ADDRESS_RE = re.compile(r"^0x[a-fA-F0-9]{40}$")
+_CANDIDATE_PIP_PACKAGES = {
+    "py_clob_client": ("py-clob-client",),
+    "py_clob_client.client": ("py-clob-client",),
+    "py_clob_client_v2": ("py-clob-client-v2", "py-clob-client"),
+}
 
 
 @dataclass(frozen=True)
@@ -78,6 +89,12 @@ class LiveAccountSdkBinding:
     status: str
     module_name: str = ""
     attempted_modules: tuple[str, ...] = SUPPORTED_SDK_MODULES
+    expected_sdk_module: str = EXPECTED_SDK_MODULE
+    expected_pip_package: str = EXPECTED_PIP_PACKAGE
+    expected_install_command: str = EXPECTED_SDK_INSTALL_COMMAND
+    python_executable: str = ""
+    sdk_import_reports: tuple[Mapping[str, Any], ...] = ()
+    pip_package_visibility: tuple[Mapping[str, Any], ...] = ()
     client_class: Any = None
     creds_class: Any = None
     open_order_params_class: Any = None
@@ -136,6 +153,7 @@ def run_live_account_readonly_state_probe(
     blockers: list[dict[str, Any]] = []
     probe_attempts: list[dict[str, Any]] = []
     redaction_policy = build_redaction_policy(generated_at=generated_at)
+    binding = (sdk_loader or load_polymarket_clob_sdk)()
 
     if credential_presence.get("missing_l2_count", 0):
         status = STATUS_BLOCKED_MISSING_CREDENTIALS
@@ -146,17 +164,25 @@ def run_live_account_readonly_state_probe(
                 "One or more required L2 API credential env vars are missing; private key fallback is forbidden.",
             )
         )
+        if binding.status != "available":
+            blockers.append(
+                build_blocker(
+                    "polymarket_clob_sdk_dependency_missing",
+                    "dependency",
+                    "No supported official Polymarket Python CLOB SDK module is importable in this environment.",
+                )
+            )
         sdk_status = _sdk_status_from_binding(
-            LiveAccountSdkBinding(status="not_checked_missing_credentials", attempted_modules=()),
+            binding,
             l2_credentials_object_created=False,
             sdk_client_created=False,
             sdk_requires_signer_without_private_key=False,
             open_orders_method_available=False,
             balance_allowance_method_available=False,
+            status_override="not_checked_missing_credentials" if binding.status == "available" else "",
             generated_at=generated_at,
         )
     else:
-        binding = (sdk_loader or load_polymarket_clob_sdk)()
         if binding.status != "available":
             status = STATUS_BLOCKED_DEPENDENCY_MISSING
             blockers.append(
@@ -207,6 +233,15 @@ def run_live_account_readonly_state_probe(
         credential_presence_status=clean_text(credential_presence.get("status")),
         sdk_status=clean_text(sdk_status.get("status")),
         selected_sdk_module=clean_text(sdk_status.get("selected_sdk_module")),
+        expected_sdk_module=clean_text(sdk_status.get("expected_sdk_module")),
+        expected_install_command=clean_text(sdk_status.get("expected_install_command")),
+        python_executable=clean_text(sdk_status.get("python_executable")),
+        sdk_import_reports=tuple(
+            row for row in sdk_status.get("sdk_import_reports", []) if isinstance(row, Mapping)
+        ),
+        pip_package_visibility=tuple(
+            row for row in sdk_status.get("pip_package_visibility", []) if isinstance(row, Mapping)
+        ),
         account_status=clean_text(account_status.get("status")),
         wallet_address_status=clean_text(account_status.get("wallet_address_status")),
         signature_type_status=clean_text(account_status.get("signature_type_status")),
@@ -254,52 +289,211 @@ def run_live_account_readonly_state_probe(
 
 
 def load_polymarket_clob_sdk() -> LiveAccountSdkBinding:
-    attempted: list[str] = []
-    errors: list[str] = []
-    for module_name in SUPPORTED_SDK_MODULES:
-        attempted.append(module_name)
-        try:
-            if module_name == "py_clob_client_v2":
-                package = importlib.import_module("py_clob_client_v2")
-                types_module = importlib.import_module("py_clob_client_v2.clob_types")
-                return LiveAccountSdkBinding(
-                    status="available",
-                    module_name=module_name,
-                    attempted_modules=tuple(attempted),
-                    client_class=getattr(package, "ClobClient", None),
-                    creds_class=getattr(package, "ApiCreds", getattr(types_module, "ApiCreds", None)),
-                    open_order_params_class=getattr(
-                        package,
-                        "OpenOrderParams",
-                        getattr(types_module, "OpenOrderParams", None),
-                    ),
-                    balance_allowance_params_class=getattr(
-                        package,
-                        "BalanceAllowanceParams",
-                        getattr(types_module, "BalanceAllowanceParams", None),
-                    ),
-                    asset_type_class=getattr(package, "AssetType", getattr(types_module, "AssetType", None)),
-                )
-            package_client = importlib.import_module("py_clob_client.client")
-            types_module = importlib.import_module("py_clob_client.clob_types")
-            return LiveAccountSdkBinding(
-                status="available",
-                module_name=module_name,
-                attempted_modules=tuple(attempted),
-                client_class=getattr(package_client, "ClobClient", None),
-                creds_class=getattr(types_module, "ApiCreds", None),
-                open_order_params_class=getattr(types_module, "OpenOrderParams", None),
-                balance_allowance_params_class=getattr(types_module, "BalanceAllowanceParams", None),
-                asset_type_class=getattr(types_module, "AssetType", None),
-            )
-        except Exception as exc:  # pragma: no cover - exact import errors vary by environment
-            errors.append(f"{module_name}:{type(exc).__name__}")
+    imported_modules: dict[str, Any] = {}
+    reports: list[dict[str, Any]] = []
+    for module_name in CLOB_SDK_IMPORT_CANDIDATES:
+        module, report = _import_sdk_candidate(module_name)
+        if module is not None:
+            imported_modules[module_name] = module
+        reports.append(report)
+    pip_visibility = _pip_package_visibility()
+    selected = _select_sdk_binding(
+        imported_modules=imported_modules,
+        reports=reports,
+        pip_visibility=pip_visibility,
+    )
+    if selected is not None:
+        return selected
+    errors = [
+        f"{row['module_name']}:{row['import_error_type'] or row['import_status']}"
+        for row in reports
+        if row.get("import_status") != "installed"
+    ]
     return LiveAccountSdkBinding(
         status="dependency_missing",
-        attempted_modules=tuple(attempted),
+        attempted_modules=tuple(CLOB_SDK_IMPORT_CANDIDATES),
+        python_executable=sys.executable,
+        sdk_import_reports=tuple(reports),
+        pip_package_visibility=tuple(pip_visibility),
         error_type="ImportError",
         error_message_sanitized=", ".join(errors) or "supported_sdk_modules_not_importable",
     )
+
+
+def _import_sdk_candidate(module_name: str) -> tuple[Any | None, dict[str, Any]]:
+    package_names = _CANDIDATE_PIP_PACKAGES.get(module_name, (EXPECTED_PIP_PACKAGE,))
+    base_report: dict[str, Any] = {
+        "module_name": module_name,
+        "installed": False,
+        "import_status": "missing",
+        "import_error_type": "ModuleNotFoundError",
+        "import_error_message_sanitized": "",
+        "pip_package_candidates": list(package_names),
+        "selected": False,
+        "safe_for_artifacts": True,
+    }
+    try:
+        module = importlib.import_module(module_name)
+    except ModuleNotFoundError as exc:
+        if _module_not_found_matches_candidate(exc, module_name):
+            return None, base_report
+        report = dict(base_report)
+        report["import_status"] = "import_error"
+        report["import_error_type"] = type(exc).__name__
+        report["import_error_message_sanitized"] = (
+            f"{module_name} import failed because dependency {clean_text(exc.name)} is missing"
+        )
+        return None, report
+    except Exception as exc:  # pragma: no cover - exact third-party import errors vary by environment.
+        report = dict(base_report)
+        report["import_status"] = "import_error"
+        report["import_error_type"] = type(exc).__name__
+        report["import_error_message_sanitized"] = f"{module_name} import raised {type(exc).__name__}; message redacted"
+        return None, report
+    report = dict(base_report)
+    report["installed"] = True
+    report["import_status"] = "installed"
+    report["import_error_type"] = ""
+    return module, report
+
+
+def _module_not_found_matches_candidate(exc: ModuleNotFoundError, module_name: str) -> bool:
+    missing_name = clean_text(getattr(exc, "name", ""))
+    if not missing_name:
+        return True
+    return module_name == missing_name or module_name.startswith(missing_name + ".")
+
+
+def _pip_package_visibility() -> tuple[dict[str, Any], ...]:
+    package_names = _dedupe_text(
+        [EXPECTED_PIP_PACKAGE]
+        + [package for packages in _CANDIDATE_PIP_PACKAGES.values() for package in packages]
+    )
+    rows: list[dict[str, Any]] = []
+    for package_name in package_names:
+        row = {
+            "package_name": package_name,
+            "visible": False,
+            "version": "",
+            "error_type": "PackageNotFoundError",
+            "safe_for_artifacts": True,
+        }
+        try:
+            version = importlib_metadata.version(package_name)
+        except importlib_metadata.PackageNotFoundError:
+            rows.append(row)
+            continue
+        except Exception as exc:  # pragma: no cover - metadata backend errors vary by environment.
+            row["error_type"] = type(exc).__name__
+            rows.append(row)
+            continue
+        row["visible"] = True
+        row["version"] = clean_text(version)
+        row["error_type"] = ""
+        rows.append(row)
+    return tuple(rows)
+
+
+def _dedupe_text(values: Sequence[Any]) -> list[str]:
+    result: list[str] = []
+    for value in values:
+        text = clean_text(value)
+        if text and text not in result:
+            result.append(text)
+    return result
+
+
+def _select_sdk_binding(
+    *,
+    imported_modules: Mapping[str, Any],
+    reports: Sequence[Mapping[str, Any]],
+    pip_visibility: Sequence[Mapping[str, Any]],
+) -> LiveAccountSdkBinding | None:
+    if "py_clob_client.client" in imported_modules:
+        package = imported_modules.get("py_clob_client")
+        client_module = imported_modules["py_clob_client.client"]
+        types_module = _import_supporting_module("py_clob_client.clob_types")
+        return _sdk_binding_from_modules(
+            selected_module_name="py_clob_client.client",
+            reports=reports,
+            pip_visibility=pip_visibility,
+            package_module=package,
+            client_module=client_module,
+            types_module=types_module,
+        )
+    if "py_clob_client_v2" in imported_modules:
+        package = imported_modules["py_clob_client_v2"]
+        types_module = _import_supporting_module("py_clob_client_v2.clob_types")
+        return _sdk_binding_from_modules(
+            selected_module_name="py_clob_client_v2",
+            reports=reports,
+            pip_visibility=pip_visibility,
+            package_module=package,
+            client_module=package,
+            types_module=types_module,
+        )
+    package = imported_modules.get("py_clob_client")
+    if package is not None and getattr(package, "ClobClient", None) is not None:
+        types_module = _import_supporting_module("py_clob_client.clob_types")
+        return _sdk_binding_from_modules(
+            selected_module_name="py_clob_client",
+            reports=reports,
+            pip_visibility=pip_visibility,
+            package_module=package,
+            client_module=package,
+            types_module=types_module,
+        )
+    return None
+
+
+def _import_supporting_module(module_name: str) -> Any | None:
+    try:
+        return importlib.import_module(module_name)
+    except Exception:
+        return None
+
+
+def _sdk_binding_from_modules(
+    *,
+    selected_module_name: str,
+    reports: Sequence[Mapping[str, Any]],
+    pip_visibility: Sequence[Mapping[str, Any]],
+    package_module: Any | None,
+    client_module: Any | None,
+    types_module: Any | None,
+) -> LiveAccountSdkBinding:
+    selected_reports = []
+    for row in reports:
+        report = dict(row)
+        report["selected"] = clean_text(row.get("module_name")) == selected_module_name
+        selected_reports.append(report)
+    client_class = _first_attr(client_module, package_module, "ClobClient")
+    return LiveAccountSdkBinding(
+        status="available",
+        module_name=selected_module_name,
+        attempted_modules=tuple(CLOB_SDK_IMPORT_CANDIDATES),
+        python_executable=sys.executable,
+        sdk_import_reports=tuple(selected_reports),
+        pip_package_visibility=tuple(pip_visibility),
+        client_class=client_class,
+        creds_class=_first_attr(package_module, client_module, types_module, "ApiCreds"),
+        open_order_params_class=_first_attr(package_module, client_module, types_module, "OpenOrderParams"),
+        balance_allowance_params_class=_first_attr(
+            package_module,
+            client_module,
+            types_module,
+            "BalanceAllowanceParams",
+        ),
+        asset_type_class=_first_attr(package_module, client_module, types_module, "AssetType"),
+    )
+
+
+def _first_attr(*modules_and_name: Any) -> Any:
+    *modules, attr_name = modules_and_name
+    for module in modules:
+        if module is not None and getattr(module, attr_name, None) is not None:
+            return getattr(module, attr_name)
+    return None
 
 
 def render_live_account_readonly_state_probe_cli_summary(status: Mapping[str, Any]) -> str:
@@ -324,6 +518,9 @@ def render_live_account_readonly_state_probe_cli_summary(status: Mapping[str, An
             f"Funder status: {clean_text(value.get('funder_address_status')) or 'missing'}",
             f"SDK status: {clean_text(value.get('sdk_status'))}",
             f"Selected SDK: {clean_text(value.get('selected_sdk_module')) or 'not_available'}",
+            f"Expected SDK: {clean_text(value.get('expected_sdk_module')) or EXPECTED_SDK_MODULE}",
+            f"Expected install command: {clean_text(value.get('expected_install_command')) or EXPECTED_SDK_INSTALL_COMMAND}",
+            f"Python executable: {clean_text(value.get('python_executable')) or sys.executable}",
             f"Open orders status: {clean_text(value.get('open_orders_status')) or 'not_available'}",
             f"Open order count: {open_count_text}",
             f"Balance allowance status: {clean_text(value.get('balance_allowance_status')) or 'not_available'}",
@@ -340,6 +537,8 @@ def render_live_account_readonly_state_probe_markdown(result: Mapping[str, Any])
     account_status = dict(value.get("account_status", {}))
     sdk_status = dict(value.get("sdk_status", {}))
     attempts = [dict(row) for row in diagnostics.get("probe_attempts", []) if isinstance(row, Mapping)]
+    sdk_import_reports = [dict(row) for row in sdk_status.get("sdk_import_reports", []) if isinstance(row, Mapping)]
+    pip_visibility = [dict(row) for row in sdk_status.get("pip_package_visibility", []) if isinstance(row, Mapping)]
     blockers = [dict(row) for row in value.get("blockers", []) if isinstance(row, Mapping)]
     open_count = latest.get("open_order_count")
     open_count_text = "not_available" if open_count is None else str(open_count)
@@ -375,12 +574,37 @@ def render_live_account_readonly_state_probe_markdown(result: Mapping[str, Any])
         "",
         f"- SDK status: `{sdk_status.get('status')}`",
         f"- Selected SDK: `{sdk_status.get('selected_sdk_module') or 'not_available'}`",
+        f"- Expected SDK: `{sdk_status.get('expected_sdk_module') or EXPECTED_SDK_MODULE}`",
+        f"- Expected install command: `{sdk_status.get('expected_install_command') or EXPECTED_SDK_INSTALL_COMMAND}`",
+        f"- Python executable: `{sdk_status.get('python_executable') or sys.executable}`",
         f"- Read-only probe attempted: `{str(latest.get('account_state_probe_attempted') is True).lower()}`",
         f"- Read-only probe performed: `{str(latest.get('account_state_probe_performed') is True).lower()}`",
         f"- Open orders status: `{latest.get('open_orders_status') or 'not_available'}`",
         f"- Open order count: `{open_count_text}`",
         f"- Balance/allowance status: `{latest.get('balance_allowance_status') or 'not_available'}`",
         f"- Balance/allowance availability: `{latest.get('balance_allowance_availability_status') or 'not_available'}`",
+        "",
+        "## SDK Import Candidates",
+        "",
+        *bullet_lines(
+            f"`{row.get('module_name')}`: `{row.get('import_status')}`"
+            + (
+                f" error=`{row.get('import_error_type')}`"
+                if row.get("import_error_type")
+                else ""
+            )
+            + (" selected=`true`" if row.get("selected") is True else "")
+            for row in sdk_import_reports
+        ),
+        "",
+        "## Pip Package Visibility",
+        "",
+        *bullet_lines(
+            f"`{row.get('package_name')}`: `{'visible' if row.get('visible') is True else 'missing'}`"
+            + (f" version=`{row.get('version')}`" if row.get("version") else "")
+            + (f" error=`{row.get('error_type')}`" if row.get("error_type") else "")
+            for row in pip_visibility
+        ),
         "",
         "## Attempts",
         "",
@@ -696,6 +920,12 @@ def _sdk_status_from_binding(
         sdk_available=binding.status == "available",
         selected_sdk_module=binding.module_name,
         attempted_sdk_modules=tuple(binding.attempted_modules),
+        expected_sdk_module=clean_text(binding.expected_sdk_module) or EXPECTED_SDK_MODULE,
+        expected_pip_package=clean_text(binding.expected_pip_package) or EXPECTED_PIP_PACKAGE,
+        expected_install_command=clean_text(binding.expected_install_command) or EXPECTED_SDK_INSTALL_COMMAND,
+        python_executable=clean_text(binding.python_executable) or sys.executable,
+        sdk_import_reports=tuple(binding.sdk_import_reports),
+        pip_package_visibility=tuple(binding.pip_package_visibility),
         client_class_available=binding.client_class is not None,
         api_creds_class_available=binding.creds_class is not None,
         open_orders_method_available=open_orders_method_available,

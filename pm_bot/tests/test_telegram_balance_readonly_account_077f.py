@@ -23,6 +23,10 @@ from pm_bot.trading_core.telegram_balance_readonly_status_077f import (
     SAFE_ACCOUNT_PROBE_COMMAND,
     build_telegram_balance_readonly_status,
 )
+from pm_bot.trading_core.live_account_readonly_state_models import (
+    EXPECTED_SDK_INSTALL_COMMAND,
+    EXPECTED_SDK_MODULE,
+)
 
 GENERATED_AT = "2026-05-16T00:00:00+04:00"
 AUTHORIZED_USER_ID = "1001"
@@ -129,6 +133,9 @@ def _write_account_artifact(
         "contract_version": "pmbot_latest_live_account_readonly_state_status_070c.v1",
         "status": status or ("account_state_probe_succeeded_live_blocked" if performed else "blocked_account_state_probe_failed"),
         "sdk_status": sdk_status,
+        "expected_sdk_module": EXPECTED_SDK_MODULE,
+        "expected_install_command": EXPECTED_SDK_INSTALL_COMMAND,
+        "python_executable": "C:/safe/python.exe",
         "wallet_address_redacted": RAW_WALLET,
         "account_state_probe_performed": performed,
         "generated_at": GENERATED_AT,
@@ -236,8 +243,14 @@ def test_blocked_sdk_unavailable_is_distinct_from_missing_account_artifact(tmp_p
 
     assert status["screen_variant"] == "account_probe_blocked_sdk_unavailable"
     assert status["account_probe_blocked_sdk_unavailable"] is True
+    assert status["account_expected_sdk_module"] == EXPECTED_SDK_MODULE
+    assert status["account_expected_install_command"] == EXPECTED_SDK_INSTALL_COMMAND
+    assert status["account_python_executable"] == "C:/safe/python.exe"
     assert "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен" in reply.text
     assert "Баланс не прочитан; фейковые значения не показываются." in reply.text
+    assert f"Ожидаемый SDK: {EXPECTED_SDK_MODULE}" in reply.text
+    assert f"Безопасная команда установки: {EXPECTED_SDK_INSTALL_COMMAND}" in reply.text
+    assert "Python: C:/safe/python.exe" in reply.text
     assert "Ключи видны, но проверка аккаунта ещё не выполнена." not in reply.text
     assert SAFE_ACCOUNT_PROBE_COMMAND in reply.text
 

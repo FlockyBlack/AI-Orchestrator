@@ -1,0 +1,97 @@
+{
+  "task_id": "ORCH-PMBOT-RUNTIME-078C-CLOB-SDK-DETECTION-AND-READONLY-BALANCE-PROBE-NO-LIVE",
+  "status": "completed",
+  "branch": "pmbot/runtime-078c-clob-sdk-detection-readonly-balance-probe-no-live",
+  "base": "origin/master",
+  "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_RESPONSE",
+  "changed_files": [
+    "docs/ORCH_PMBOT_RUNTIME_078C_CLOB_SDK_DETECTION_AND_READONLY_BALANCE_PROBE_NO_LIVE.md",
+    "docs/ORCH_PMBOT_RUNTIME_078C_CLOB_SDK_DETECTION_AND_READONLY_BALANCE_PROBE_NO_LIVE_RESULT.json",
+    "pm_bot/tests/test_clob_sdk_detection_078c.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/trading_core/live_account_readonly_state_models.py",
+    "pm_bot/trading_core/live_account_readonly_state_probe.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "implementation_summary": [
+    "Added import-only SDK candidate detection for py_clob_client, py_clob_client.client, and py_clob_client_v2.",
+    "Added expected SDK/install/Python executable/pip visibility diagnostics to the 070C SDK status and latest status artifacts.",
+    "Kept missing credentials and SDK unavailability blocked without credential object creation, client creation, signing, wallet connection, or write endpoint calls.",
+    "Updated Telegram Balance SDK-unavailable text to show safe install guidance and current Python executable from local artifacts.",
+    "Added deterministic monkeypatched tests for missing SDK, v1 SDK, v2 SDK, import error redaction, and no fake balances."
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_sdk_detection_078c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_artifact_dir_consistency_078a.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2301 passed"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "safety_note": "Polymarket credential/account env vars were cleared inside the subprocess before running.",
+      "summary": "Blocked for missing L2 credentials; SDK status dependency_missing; expected install command shown."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "status": "passed",
+      "safety_note": "Polymarket and Telegram credential env vars were cleared inside the subprocess before running.",
+      "summary": "No network requested; review-only safety flags OK."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "0 critical findings; live execution, order submission, signing, and wallet remain blocked."
+    }
+  ],
+  "safety_flags": {
+    "live_trading_added": false,
+    "order_submission_added": false,
+    "order_cancellation_added": false,
+    "trading_write_endpoint_added": false,
+    "signer_instantiated_by_default": false,
+    "wallet_connect_ui_added": false,
+    "private_key_read": false,
+    "raw_secret_output_added": false,
+    "fake_balances_emitted": false,
+    "fake_pnl_emitted": false,
+    "fake_orders_emitted": false,
+    "allowed_for_live": false,
+    "trading_requested": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false
+  },
+  "remaining_risks": [
+    "Actual balance/account probing still depends on separately configured L2 credentials and an installed compatible Polymarket CLOB SDK.",
+    "SDK import side effects are limited to Python import-time behavior from installed packages; no signer/client/account probe runs until credentials are present and the safe read-only path is reached."
+  ]
+}
