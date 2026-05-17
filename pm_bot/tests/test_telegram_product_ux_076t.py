@@ -262,9 +262,9 @@ def test_launch_flow_exposes_limits_markets_and_prelaunch_summary() -> None:
     selected_market = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:launch:market:btc")
     prelaunch = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:launch:start")
 
-    assert "Запуск торговли" in launch.text
-    assert "Настройте лимиты и выберите рынки" in launch.text
-    assert _labels(launch) == ("💵 Лимит на день", "📉 Максимальный убыток", "🎯 Выбор рынков", "▶️ Запустить", "⬅️ Главное меню")
+    assert "🚀 Запуск" in launch.text
+    assert "Запуск пока недоступен: требуется завершить проверки." in launch.text
+    assert _labels(launch) == ("🔄 Обновить", "📋 Подробнее", "🔌 Подключение", "💰 Баланс", "⬅️ Главное меню")
     assert _labels(limit_menu)[:5] == ("$5", "$10", "$25", "$50", "Ввести вручную")
     assert "Лимит на день выбран: $5" in selected_limit.text
     assert "Максимальный убыток выбран: $2" in selected_loss.text
@@ -273,10 +273,11 @@ def test_launch_flow_exposes_limits_markets_and_prelaunch_summary() -> None:
     assert "Максимальный убыток: $2" in prelaunch.text
     assert "Рынки: BTC" in prelaunch.text
     assert "Подключение: не готово" in prelaunch.text
-    assert "Баланс/аккаунт: недоступен" in prelaunch.text
-    assert "Риск: требуется финальная проверка" in prelaunch.text
-    assert "Token ID: требуется выбор" in prelaunch.text
-    assert "Запуск пока недоступен: требуется завершить подключение и проверку подписи." in prelaunch.text
+    assert "Баланс/аккаунт: SDK недоступен" in prelaunch.text
+    assert "Risk Engine: требует проверки" in prelaunch.text
+    assert "Token ID: не проверен" in prelaunch.text
+    assert "Запуск пока недоступен: требуется завершить проверки." in prelaunch.text
+    assert "trading_requested=false" in prelaunch.text
     assert "allowed_for_live" not in prelaunch.text
     assert prelaunch.summary["order_submission_enabled"] is False
     assert prelaunch.summary["signing_enabled"] is False

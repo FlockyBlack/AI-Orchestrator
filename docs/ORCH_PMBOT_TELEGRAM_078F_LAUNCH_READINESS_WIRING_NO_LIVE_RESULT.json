@@ -1,0 +1,168 @@
+{
+  "contract_version": "orch_pmbot_telegram_078f_launch_readiness_wiring_no_live_result.v1",
+  "task_id": "ORCH-PMBOT-TELEGRAM-078F-LAUNCH-READINESS-WIRING-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "repo": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "base": "origin/master",
+  "base_head_at_start": "0144f6a74cfa408f23858a060078c392088073b0",
+  "base_head_after_rebase": "1a2fcae9c1e3e09e5418e4686177bfebe8bfd011",
+  "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+  "head_after": "pending_final_commit_hash_reported_after_commit",
+  "head_after_note": "Embedding this result artifact commit's own SHA in the committed JSON would change that SHA; final local and remote feature branch heads are reported in the operator final report.",
+  "branch": "pmbot/telegram-078f-launch-readiness-wiring-no-live",
+  "worktree": "C:/oc078f_telegram_launch_readiness_wiring_no_live",
+  "generated_at": "2026-05-17T00:00:00+04:00",
+  "base_update": {
+    "rebased_onto_current_origin_master_before_final_validation": true,
+    "origin_master_head_after_rebase": "1a2fcae9c1e3e09e5418e4686177bfebe8bfd011",
+    "origin_master_summary": "Integrate PMBOT 078C CLOB SDK detection",
+    "reason": "The feature worktree started from 0144f6a74cfa408f23858a060078c392088073b0, then current origin/master contained 078C CLOB SDK detection commits. The feature branch was rebased before final validation to keep the task based on origin/master."
+  },
+  "task_scope": {
+    "goal": "Wire the Telegram Launch screen to the existing 077A first supervised tiny order readiness packet and 076D payload dry-run readiness result so Launch shows real readiness blockers instead of generic product copy.",
+    "telegram_launch_only": true,
+    "no_live_start": true,
+    "trading_requested_true_added": false,
+    "submit_cancel_sign_added": false,
+    "background_loop_added": false
+  },
+  "implementation_summary": [
+    "Added 076D and 077A readiness artifacts to the Telegram status registry and operator summary normalization.",
+    "Replaced the Launch primary copy with a no-live readiness screen showing selected limits, selected markets, connection, balance/account, selected candidate, token verification, signer diagnostic, payload dry-run, risk engine, and final readiness status.",
+    "Added a Launch details screen for technical status values and preserved legacy Launch start as a blocked no-live prelaunch summary with trading_requested=false.",
+    "Changed the Launch keyboard to Refresh, Details, Connection, Balance, and Main menu, with no working live start button.",
+    "Added 078F regression tests covering direct context wiring, details/prelaunch no-live behavior, and runtime artifact loading."
+  ],
+  "changed_files_summary": {
+    "operator": [
+      "pm_bot/operator_runner/telegram_operator_control_bot.py",
+      "pm_bot/operator_runner/telegram_operator_i18n.py",
+      "pm_bot/operator_runner/telegram_single_message_product_menu_069c.py",
+      "pm_bot/operator_runner/telegram_status_registry.py"
+    ],
+    "tests": [
+      "pm_bot/tests/test_telegram_launch_readiness_wiring_078f.py",
+      "pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "pm_bot/tests/test_telegram_product_ux_076t.py",
+      "pm_bot/tests/test_telegram_single_message_product_menu_069c.py"
+    ],
+    "docs": [
+      "docs/ORCH_PMBOT_TELEGRAM_078F_LAUNCH_READINESS_WIRING_NO_LIVE_RESULT.json"
+    ]
+  },
+  "launch_behavior": {
+    "primary_blocked_copy_ru": "Запуск пока недоступен: требуется завершить проверки.",
+    "shows_daily_limit_when_present": true,
+    "shows_max_loss_when_present": true,
+    "shows_selected_markets_when_present": true,
+    "shows_connection_status": true,
+    "shows_balance_account_status": true,
+    "shows_selected_candidate_status": true,
+    "shows_selected_token_verification_status": true,
+    "shows_signer_diagnostic_status": true,
+    "shows_payload_dry_run_readiness_status": true,
+    "shows_risk_engine_status": true,
+    "shows_final_readiness_status": true,
+    "primary_top_blockers_ru": [
+      "подпись не проверена",
+      "SDK баланса недоступен",
+      "нет финального разрешения на live"
+    ],
+    "technical_details_under_details_screen": true,
+    "launch_start_behavior": "blocked no-live prelaunch summary; does not request trading"
+  },
+  "validation_commands": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_launch_readiness_wiring_078f.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_payload_dry_run_readiness_076d.py",
+      "status": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "status": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2304 passed in 615.82s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.first_supervised_tiny_order_readiness_packet --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "summary": "status=blocked_signer_diagnostic_not_ok; allowed for live=false; order submission enabled=false; order cancel enabled=false; signing by default=false"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "status": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; no network check requested"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "summary": "critical findings=0; warnings=7; live execution/order submission/signing/wallet blocked"
+    }
+  ],
+  "manual_safety_scan": {
+    "status": "passed",
+    "dangerous_true_state_matches": 0,
+    "submit_cancel_sign_call_matches": 0,
+    "background_loop_additions": 0,
+    "notes": "Added Launch code only renders readiness and blocked/no-live summaries. It does not add submit, cancel, signing calls, trading_requested=true, allowed_for_live=true, or a background loop."
+  },
+  "safety_flags": {
+    "paper_only": true,
+    "no_wallet_private_keys": true,
+    "no_real_orders": true,
+    "no_trading_endpoints": true,
+    "no_order_submission": true,
+    "no_order_cancellation": true,
+    "no_signing": true,
+    "no_live_start": true,
+    "no_autonomous_background_loop": true,
+    "allowed_for_live": false,
+    "trading_requested": false,
+    "order_submission_enabled": false,
+    "order_cancel_enabled": false,
+    "signing_enabled": false,
+    "wallet_signing_enabled": false
+  },
+  "remote_verification": {
+    "pushed": false,
+    "remote_verified": false,
+    "status": "pending_final_commit_push_verify"
+  },
+  "remaining_risks": [
+    "Launch details intentionally expose technical status codes under the Details screen, while the primary Launch copy stays user-readable.",
+    "Existing legacy limit, max-loss, market, and launch_start callbacks remain routable for compatibility, but the primary Launch keyboard no longer exposes a working start button and launch_start stays blocked/no-live.",
+    "Readiness remains blocked by current 077A/076D evidence, including signer diagnostic failure, balance SDK unavailability, and missing final live permission."
+  ]
+}

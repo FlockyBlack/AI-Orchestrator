@@ -141,6 +141,7 @@ SUPPORTED_COMMANDS = (
     "/analytics",
     "/analytics_details",
     "/launch",
+    "/launch_details",
     "/launch_daily_limit",
     "/launch_max_loss",
     "/launch_markets",
@@ -206,6 +207,7 @@ CALLBACK_COMMAND_MAP = {
     "pmbot:analytics": "/analytics",
     "pmbot:analytics:details": "/analytics_details",
     "pmbot:launch": "/launch",
+    "pmbot:launch:details": "/launch_details",
     "pmbot:launch:limit": "/launch_daily_limit",
     "pmbot:launch:max_loss": "/launch_max_loss",
     "pmbot:launch:markets": "/launch_markets",
@@ -685,6 +687,7 @@ class TelegramOperatorControlBot:
             "/analytics": self._render_analytics,
             "/analytics_details": self._render_analytics_details,
             "/launch": self._render_launch,
+            "/launch_details": self._render_launch_details,
             "/launch_daily_limit": self._render_launch_daily_limit,
             "/launch_max_loss": self._render_launch_max_loss,
             "/launch_markets": self._render_launch_markets,
@@ -947,35 +950,12 @@ class TelegramOperatorControlBot:
         return "📈 Details\nDetailed analytics will appear after account data is available."
 
     def _render_launch(self) -> str:
-        config = _launch_config_from_state(self.state)
-        summary = self._summary()
-        connection_ready = _balance_connection_available(_build_connection_product_display_status(summary))
-        signer_ready = _launch_signer_evidence_ready(summary)
-        if self._language() == "ru":
-            lines = [
-                "🚀 Запуск торговли",
-                "",
-                "Настройте лимиты и выберите рынки, на которых бот сможет работать.",
-                "",
-                f"Лимит на день: {config['daily_limit_ru']}",
-                f"Максимальный убыток: {config['max_loss_ru']}",
-                f"Рынки: {config['markets_ru']}",
-            ]
-            if not (connection_ready and signer_ready):
-                lines.extend(["", "Запуск пока недоступен: требуется завершить подключение и проверку подписи."])
-            return "\n".join(lines)
-        lines = [
-            "🚀 Launch trading",
-            "",
-            "Set limits and choose the markets where the bot can operate.",
-            "",
-            f"Daily limit: {config['daily_limit_en']}",
-            f"Max loss: {config['max_loss_en']}",
-            f"Markets: {config['markets_en']}",
-        ]
-        if not (connection_ready and signer_ready):
-            lines.extend(["", "Launch is currently unavailable: finish connection and signature verification first."])
-        return "\n".join(lines)
+        view = _build_launch_readiness_view(self._summary(), self.state, language=self._language())
+        return _render_launch_readiness_primary(view, language=self._language())
+
+    def _render_launch_details(self) -> str:
+        view = _build_launch_readiness_view(self._summary(), self.state, language=self._language())
+        return _render_launch_readiness_details(view, language=self._language())
 
     def _render_launch_daily_limit(self) -> str:
         if self._language() == "ru":
@@ -1023,49 +1003,8 @@ class TelegramOperatorControlBot:
         return "🎯 Add market\nAdding a custom market will be available after a safe selection wizard is added. Choose a preset for now."
 
     def _render_launch_start(self) -> str:
-        config = _launch_config_from_state(self.state)
-        summary = self._summary()
-        connection = _build_connection_product_display_status(summary)
-        connection_ready = _balance_connection_available(connection)
-        signer_ready = _launch_signer_evidence_ready(summary)
-        token_status = _product_token_status(summary, language=self._language())
-        if self._language() == "ru":
-            return "\n".join(
-                [
-                    "🚀 Предзапусковая проверка",
-                    f"Лимит на день: {config['daily_limit_ru']}",
-                    f"Максимальный убыток: {config['max_loss_ru']}",
-                    f"Рынки: {config['markets_ru']}",
-                    f"Подключение: {'готово' if connection_ready else 'не готово'}",
-                    f"Баланс/аккаунт: {'доступен' if connection_ready else 'недоступен'}",
-                    "Риск: требуется финальная проверка",
-                    f"Token ID: {token_status}",
-                    "",
-                    (
-                        "Запуск пока недоступен: требуется финальная проверка и подтверждение."
-                        if connection_ready and signer_ready
-                        else "Запуск пока недоступен: требуется завершить подключение и проверку подписи."
-                    ),
-                ]
-            )
-        return "\n".join(
-            [
-                "🚀 Pre-launch check",
-                f"Daily limit: {config['daily_limit_en']}",
-                f"Max loss: {config['max_loss_en']}",
-                f"Markets: {config['markets_en']}",
-                f"Connection: {'ready' if connection_ready else 'not ready'}",
-                f"Balance/account: {'available' if connection_ready else 'unavailable'}",
-                "Risk: final review required",
-                f"Token ID: {token_status}",
-                "",
-                (
-                    "Launch is currently unavailable: final review and confirmation are required."
-                    if connection_ready and signer_ready
-                    else "Launch is currently unavailable: finish connection and signature verification first."
-                ),
-            ]
-        )
+        view = _build_launch_readiness_view(self._summary(), self.state, language=self._language())
+        return _render_launch_readiness_prelaunch(view, language=self._language())
 
     def _render_trades(self) -> str:
         if self._language() == "ru":
@@ -2105,6 +2044,7 @@ class TelegramOperatorControlBot:
             "/analytics",
             "/analytics_details",
             "/launch",
+            "/launch_details",
             "/launch_start",
             "/settings",
             "/trades",
@@ -2282,6 +2222,7 @@ def _product_screen_button_rows(command: str, language: str) -> tuple[tuple[tupl
         return tuple(analytics_product_button_rows(language))
     if command in {
         "/launch",
+        "/launch_details",
         "/launch_start",
         "/launch_limit_manual",
         "/launch_max_loss_manual",
@@ -2522,6 +2463,16 @@ def build_telegram_operator_control_summary(
         context_value.get("signer_diagnostic_evidence_bridge_076c_status_summary"),
         context_value.get("latest_signer_diagnostic_evidence_076c_status"),
     )
+    payload_dry_run_readiness_076d = _first_mapping(
+        context_value.get("payload_dry_run_readiness_076d_status_summary"),
+        context_value.get("payload_dry_run_readiness_076d_status"),
+        context_value.get("latest_payload_dry_run_readiness_076d_status"),
+    )
+    first_supervised_tiny_order_readiness_077a = _first_mapping(
+        context_value.get("first_supervised_tiny_order_readiness_077a_status_summary"),
+        context_value.get("first_supervised_tiny_order_readiness_077a_status"),
+        context_value.get("latest_first_supervised_tiny_order_readiness_077a_status"),
+    )
     mini_panel = _first_mapping(
         context_value.get("telegram_mini_app_operator_panel_summary"),
         context_value.get("telegram_mini_app_operator_panel"),
@@ -2579,6 +2530,8 @@ def build_telegram_operator_control_summary(
                 "telegram_risk_engine_v2_status_075b": telegram_risk_engine_v2_status_075b,
                 "runtime_credential_visibility_077c": runtime_credential_visibility_077c,
                 "signer_diagnostic_evidence_076c": signer_diagnostic_evidence_076c,
+                "payload_dry_run_readiness_076d": payload_dry_run_readiness_076d,
+                "first_supervised_tiny_order_readiness_077a": first_supervised_tiny_order_readiness_077a,
             },
         ),
         "task_id": TASK_ID,
@@ -2662,6 +2615,12 @@ def build_telegram_operator_control_summary(
         ),
         "signer_diagnostic_evidence_076c_status_summary": _normalize_signer_diagnostic_evidence_summary(
             signer_diagnostic_evidence_076c
+        ),
+        "payload_dry_run_readiness_076d_status_summary": _normalize_no_live_readiness_status_summary(
+            payload_dry_run_readiness_076d
+        ),
+        "first_supervised_tiny_order_readiness_077a_status_summary": _normalize_no_live_readiness_status_summary(
+            first_supervised_tiny_order_readiness_077a
         ),
         "telegram_mini_app_operator_panel_summary": mini_panel,
         "telegram_operator_console_060t_status_registry": telegram_operator_console,
@@ -4161,6 +4120,96 @@ def _normalize_signer_diagnostic_evidence_summary(value: Mapping[str, Any]) -> d
     }
 
 
+def _normalize_no_live_readiness_status_summary(value: Mapping[str, Any]) -> dict[str, Any]:
+    data = dict(value or {})
+    latest = dict(data.get("latest_status", {})) if isinstance(data.get("latest_status"), Mapping) else data
+    status = clean_text(latest.get("status") or data.get("status") or "not_available")
+    blockers = _clean_list(
+        latest.get("final_blockers")
+        or data.get("final_blockers")
+        or latest.get("top_blocker_reasons")
+        or data.get("top_blocker_reasons")
+    )
+    return {
+        "status": status,
+        "market": clean_text(latest.get("market") or latest.get("market_symbol") or data.get("market")),
+        "market_symbol": clean_text(latest.get("market_symbol") or data.get("market_symbol") or data.get("market")),
+        "strategy_name": clean_text(latest.get("strategy_name") or data.get("strategy_name") or data.get("strategy")),
+        "mode": clean_text(latest.get("mode") or data.get("mode") or "review-only"),
+        "selected_candidate_status": clean_text(latest.get("selected_candidate_status") or data.get("selected_candidate_status")),
+        "selected_candidate_ready": latest.get("selected_candidate_ready") is True
+        or data.get("selected_candidate_ready") is True,
+        "selected_token_verification_status": clean_text(
+            latest.get("selected_token_verification_status") or data.get("selected_token_verification_status")
+        ),
+        "selected_token_verified": latest.get("selected_token_verified") is True
+        or data.get("selected_token_verified") is True,
+        "signer_diagnostic_status": clean_text(
+            latest.get("signer_diagnostic_status") or data.get("signer_diagnostic_status")
+        ),
+        "signer_diagnostic_ok": latest.get("signer_diagnostic_ok") is True
+        or data.get("signer_diagnostic_ok") is True,
+        "payload_dry_run_readiness_status": clean_text(
+            latest.get("payload_dry_run_readiness_status") or data.get("payload_dry_run_readiness_status")
+        ),
+        "payload_dry_run_status": clean_text(
+            latest.get("payload_dry_run_status") or data.get("payload_dry_run_status")
+        ),
+        "payload_dry_run_ready": latest.get("payload_dry_run_ready") is True
+        or data.get("payload_dry_run_ready") is True,
+        "risk_status": clean_text(latest.get("risk_status") or data.get("risk_status")),
+        "risk_engine_status": clean_text(latest.get("risk_engine_status") or data.get("risk_engine_status")),
+        "risk_engine_ready": latest.get("risk_engine_ready") is True
+        or latest.get("risk_engine_v2_ready") is True
+        or data.get("risk_engine_ready") is True
+        or data.get("risk_engine_v2_ready") is True,
+        "final_blocker_reducer_status": clean_text(
+            latest.get("final_blocker_reducer_status") or data.get("final_blocker_reducer_status")
+        ),
+        "final_blocker_reducer_clear": latest.get("final_blocker_reducer_clear") is True
+        or data.get("final_blocker_reducer_clear") is True,
+        "static_safety_report_status": clean_text(
+            latest.get("static_safety_report_status") or data.get("static_safety_report_status")
+        ),
+        "static_safety_report_ok": latest.get("static_safety_report_ok") is True
+        or data.get("static_safety_report_ok") is True,
+        "daily_limit": clean_text(latest.get("daily_limit") or data.get("daily_limit")),
+        "max_loss": clean_text(latest.get("max_loss") or data.get("max_loss")),
+        "selected_markets": _clean_list(latest.get("selected_markets") or data.get("selected_markets")),
+        "explicit_live_authorization_present": latest.get("explicit_live_authorization_present") is True
+        or data.get("explicit_live_authorization_present") is True,
+        "ready_for_separate_live_packet": (
+            latest.get("first_supervised_tiny_order_ready_for_authorization") is True
+            or data.get("first_supervised_tiny_order_ready_for_authorization") is True
+        ),
+        "first_supervised_tiny_order_ready_for_execution": False,
+        "future_separate_live_task_can_be_considered": (
+            latest.get("future_separate_live_task_can_be_considered") is True
+            or data.get("future_separate_live_task_can_be_considered") is True
+        ),
+        "blocker_count": _int_first(latest.get("blocker_count"), data.get("blocker_count"), len(blockers)),
+        "resolved_blocker_count": 0,
+        "final_blockers": blockers,
+        "current_top_blocker": clean_text(latest.get("current_top_blocker") or data.get("current_top_blocker")),
+        "top_blocker_reasons": _clean_list(data.get("top_blocker_reasons") or latest.get("top_blocker_reasons")),
+        "next_recommended_safe_command": clean_text(
+            latest.get("next_recommended_safe_command") or data.get("next_recommended_safe_command")
+        ),
+        "operator_summary": clean_text(latest.get("operator_summary") or data.get("operator_summary")),
+        "artifact_path": clean_text(latest.get("artifact_path") or data.get("artifact_path")),
+        "latest_status_path": clean_text(latest.get("latest_status_path") or data.get("latest_status_path")),
+        "review_only": True,
+        "execution_enabling": False,
+        "allowed_for_live": False,
+        "live_execution_approved": False,
+        "order_submission_enabled": False,
+        "order_cancel_enabled": False,
+        "signing_enabled": False,
+        "wallet_signing_enabled": False,
+        "trading_requested": False,
+    }
+
+
 def _build_connection_product_status(summary: Mapping[str, Any]) -> dict[str, bool]:
     credentials = dict(summary.get("explicit_live_credentials_readiness_gate_status_summary", {}))
     auth = dict(summary.get("live_credentials_auth_boundary_summary", {}))
@@ -4419,10 +4468,13 @@ def _launch_config_from_state(state: Mapping[str, Any]) -> dict[str, str]:
     markets = _clean_list(state.get("launch_selected_markets"))
     markets_text = ", ".join(markets)
     return {
+        "daily_limit_raw": daily_limit,
         "daily_limit_ru": daily_limit or "не выбран",
         "daily_limit_en": daily_limit or "not selected",
+        "max_loss_raw": max_loss,
         "max_loss_ru": max_loss or "не выбран",
         "max_loss_en": max_loss or "not selected",
+        "markets": markets,
         "markets_ru": markets_text or "не выбраны",
         "markets_en": markets_text or "not selected",
     }
@@ -4439,6 +4491,350 @@ def _product_token_status(summary: Mapping[str, Any], *, language: str) -> str:
 def _launch_signer_evidence_ready(summary: Mapping[str, Any]) -> bool:
     status = dict(summary.get("signer_diagnostic_evidence_076c_status_summary", {}))
     return status.get("signer_diagnostic_evidence_ok_for_payload_dry_run") is True
+
+
+def _build_launch_readiness_view(
+    summary: Mapping[str, Any],
+    state: Mapping[str, Any],
+    *,
+    language: str,
+) -> dict[str, Any]:
+    config = _launch_config_from_state(state)
+    first = dict(summary.get("first_supervised_tiny_order_readiness_077a_status_summary", {}))
+    payload = dict(summary.get("payload_dry_run_readiness_076d_status_summary", {}))
+    config = _merge_launch_config_from_readiness(config, first)
+    connection = _build_connection_product_display_status(summary)
+    balance = _balance_status_from_summary(summary)
+    connection_ready = _balance_connection_available(connection)
+    balance_ready = (
+        balance.get("account_readonly_artifact_available") is True
+        and balance.get("account_probe_blocked_sdk_unavailable") is not True
+    )
+    balance_sdk_unavailable = (
+        balance.get("account_probe_blocked_sdk_unavailable") is True
+        or "sdk_unavailable" in clean_text(balance.get("status"))
+        or balance_ready is not True
+    )
+    selected_candidate_ready = _bool_any(first, payload, key="selected_candidate_ready")
+    selected_token_verified = _bool_any(first, payload, key="selected_token_verified")
+    signer_ok = _bool_any(first, payload, key="signer_diagnostic_ok")
+    payload_ready = _bool_any(first, payload, key="payload_dry_run_ready")
+    risk_ready = _bool_any(first, payload, key="risk_engine_ready")
+    final_clear = _bool_any(first, payload, key="final_blocker_reducer_clear")
+    explicit_live_authorization = first.get("explicit_live_authorization_present") is True
+    ready_for_authorization = first.get("ready_for_separate_live_packet") is True
+    final_ready = ready_for_authorization and explicit_live_authorization
+    view = {
+        "language": language,
+        "config": config,
+        "daily_limit_present": bool(config["daily_limit_raw"]),
+        "max_loss_present": bool(config["max_loss_raw"]),
+        "markets_present": bool(config["markets"]),
+        "connection_ready": connection_ready,
+        "balance_ready": balance_ready,
+        "balance_sdk_unavailable": balance_sdk_unavailable,
+        "selected_candidate_ready": selected_candidate_ready,
+        "selected_token_verified": selected_token_verified,
+        "signer_ok": signer_ok,
+        "payload_ready": payload_ready,
+        "risk_ready": risk_ready,
+        "final_blocker_clear": final_clear,
+        "explicit_live_authorization_present": explicit_live_authorization,
+        "ready_for_authorization": ready_for_authorization,
+        "final_ready": final_ready,
+        "launch_available": False,
+        "first_status": clean_text(first.get("status") or "not_available"),
+        "payload_status": clean_text(payload.get("status") or "not_available"),
+        "selected_candidate_status": _status_first(first, payload, key="selected_candidate_status"),
+        "selected_token_status": _status_first(first, payload, key="selected_token_verification_status"),
+        "signer_status": _status_first(first, payload, key="signer_diagnostic_status"),
+        "payload_readiness_status": clean_text(
+            first.get("payload_dry_run_readiness_status")
+            or payload.get("payload_dry_run_status")
+            or payload.get("payload_dry_run_readiness_status")
+            or "not_available"
+        ),
+        "risk_status": clean_text(
+            first.get("risk_engine_status")
+            or payload.get("risk_status")
+            or payload.get("risk_engine_status")
+            or "not_available"
+        ),
+        "final_blocker_status": _status_first(first, payload, key="final_blocker_reducer_status"),
+        "static_safety_status": _status_first(first, payload, key="static_safety_report_status"),
+        "first_artifact_path": clean_text(first.get("artifact_path")),
+        "payload_artifact_path": clean_text(payload.get("artifact_path")),
+        "next_safe_command": clean_text(
+            first.get("next_recommended_safe_command") or payload.get("next_recommended_safe_command")
+        ),
+        "operator_summary": clean_text(first.get("operator_summary") or payload.get("operator_summary")),
+    }
+    view["user_blockers_ru"] = _launch_user_blockers(view, language="ru")
+    view["user_blockers_en"] = _launch_user_blockers(view, language="en")
+    return view
+
+
+def _render_launch_readiness_primary(view: Mapping[str, Any], *, language: str) -> str:
+    if language == "ru":
+        lines = [
+            "🚀 Запуск",
+            "",
+            "Запуск пока недоступен: требуется завершить проверки.",
+            "",
+            *_launch_selected_config_lines(view, language=language),
+            f"Подключение: {_launch_bool_ru(view.get('connection_ready'), ready='готово', blocked='не готово')}",
+            f"Баланс/аккаунт: {_launch_balance_ru(view)}",
+            f"Кандидат: {_launch_bool_ru(view.get('selected_candidate_ready'), ready='выбран', blocked='не выбран')}",
+            f"Token ID: {_launch_bool_ru(view.get('selected_token_verified'), ready='проверен', blocked='не проверен')}",
+            f"Подпись: {_launch_bool_ru(view.get('signer_ok'), ready='проверена', blocked='не проверена')}",
+            f"Payload dry-run: {_launch_bool_ru(view.get('payload_ready'), ready='готов', blocked='заблокирован')}",
+            f"Risk Engine: {_launch_bool_ru(view.get('risk_ready'), ready='готов', blocked='требует проверки')}",
+            f"Финальная готовность: {_launch_final_ru(view)}",
+            "",
+            "Что мешает:",
+            *_bullet_lines(view.get("user_blockers_ru")),
+        ]
+        return "\n".join(line for line in lines if line is not None)
+    lines = [
+        "🚀 Launch",
+        "",
+        "Launch is currently unavailable: complete the checks first.",
+        "",
+        *_launch_selected_config_lines(view, language=language),
+        f"Connection: {_launch_bool_en(view.get('connection_ready'), ready='ready', blocked='not ready')}",
+        f"Balance/account: {_launch_balance_en(view)}",
+        f"Candidate: {_launch_bool_en(view.get('selected_candidate_ready'), ready='selected', blocked='not selected')}",
+        f"Token ID: {_launch_bool_en(view.get('selected_token_verified'), ready='verified', blocked='not verified')}",
+        f"Signature: {_launch_bool_en(view.get('signer_ok'), ready='verified', blocked='not verified')}",
+        f"Payload dry-run: {_launch_bool_en(view.get('payload_ready'), ready='ready', blocked='blocked')}",
+        f"Risk Engine: {_launch_bool_en(view.get('risk_ready'), ready='ready', blocked='needs review')}",
+        f"Final readiness: {_launch_final_en(view)}",
+        "",
+        "Top blockers:",
+        *_bullet_lines(view.get("user_blockers_en")),
+    ]
+    return "\n".join(line for line in lines if line is not None)
+
+
+def _render_launch_readiness_prelaunch(view: Mapping[str, Any], *, language: str) -> str:
+    if language == "ru":
+        return "\n".join(
+            [
+                "🚀 Предзапусковая проверка",
+                "Запуск не выполнен: режим no-live.",
+                "",
+                *_launch_selected_config_lines(view, language=language, include_missing=True),
+                f"Подключение: {_launch_bool_ru(view.get('connection_ready'), ready='готово', blocked='не готово')}",
+                f"Баланс/аккаунт: {_launch_balance_ru(view)}",
+                f"Кандидат: {_launch_bool_ru(view.get('selected_candidate_ready'), ready='выбран', blocked='не выбран')}",
+                f"Token ID: {_launch_bool_ru(view.get('selected_token_verified'), ready='проверен', blocked='не проверен')}",
+                f"Подпись: {_launch_bool_ru(view.get('signer_ok'), ready='проверена', blocked='не проверена')}",
+                f"Payload dry-run: {_launch_bool_ru(view.get('payload_ready'), ready='готов', blocked='заблокирован')}",
+                f"Risk Engine: {_launch_bool_ru(view.get('risk_ready'), ready='готов', blocked='требует проверки')}",
+                f"Финальная готовность: {_launch_final_ru(view)}",
+                "",
+                "Запуск пока недоступен: требуется завершить проверки.",
+                "trading_requested=false",
+            ]
+        )
+    return "\n".join(
+        [
+            "🚀 Pre-launch check",
+            "Start was not performed: no-live mode.",
+            "",
+            *_launch_selected_config_lines(view, language=language, include_missing=True),
+            f"Connection: {_launch_bool_en(view.get('connection_ready'), ready='ready', blocked='not ready')}",
+            f"Balance/account: {_launch_balance_en(view)}",
+            f"Candidate: {_launch_bool_en(view.get('selected_candidate_ready'), ready='selected', blocked='not selected')}",
+            f"Token ID: {_launch_bool_en(view.get('selected_token_verified'), ready='verified', blocked='not verified')}",
+            f"Signature: {_launch_bool_en(view.get('signer_ok'), ready='verified', blocked='not verified')}",
+            f"Payload dry-run: {_launch_bool_en(view.get('payload_ready'), ready='ready', blocked='blocked')}",
+            f"Risk Engine: {_launch_bool_en(view.get('risk_ready'), ready='ready', blocked='needs review')}",
+            f"Final readiness: {_launch_final_en(view)}",
+            "",
+            "Launch is currently unavailable: complete the checks first.",
+            "trading_requested=false",
+        ]
+    )
+
+
+def _render_launch_readiness_details(view: Mapping[str, Any], *, language: str) -> str:
+    if language == "ru":
+        lines = [
+            "📋 Подробнее",
+            "Технические статусы readiness без live-действий.",
+            "",
+            f"077A final readiness: {view.get('first_status')}",
+            f"076D payload dry-run: {view.get('payload_status')}",
+            f"selected_candidate_status: {view.get('selected_candidate_status')}",
+            f"selected_token_verification_status: {view.get('selected_token_status')}",
+            f"signer_diagnostic_status: {view.get('signer_status')}",
+            f"payload_dry_run_readiness_status: {view.get('payload_readiness_status')}",
+            f"risk_engine_status: {view.get('risk_status')}",
+            f"final_blocker_reducer_status: {view.get('final_blocker_status')}",
+            f"static_safety_report_status: {view.get('static_safety_status')}",
+            f"ready_for_separate_live_packet: {str(view.get('ready_for_authorization') is True).lower()}",
+            "live authorization: missing",
+            "order submission/signing: disabled",
+        ]
+    else:
+        lines = [
+            "📋 Details",
+            "Technical readiness statuses with no live action.",
+            "",
+            f"077A final readiness: {view.get('first_status')}",
+            f"076D payload dry-run: {view.get('payload_status')}",
+            f"selected_candidate_status: {view.get('selected_candidate_status')}",
+            f"selected_token_verification_status: {view.get('selected_token_status')}",
+            f"signer_diagnostic_status: {view.get('signer_status')}",
+            f"payload_dry_run_readiness_status: {view.get('payload_readiness_status')}",
+            f"risk_engine_status: {view.get('risk_status')}",
+            f"final_blocker_reducer_status: {view.get('final_blocker_status')}",
+            f"static_safety_report_status: {view.get('static_safety_status')}",
+            f"ready_for_separate_live_packet: {str(view.get('ready_for_authorization') is True).lower()}",
+            "live authorization: missing",
+            "order submission/signing: disabled",
+        ]
+    if clean_text(view.get("next_safe_command")):
+        lines.extend(["", f"Next safe command: {view.get('next_safe_command')}"])
+    artifact_lines = [
+        clean_text(view.get("first_artifact_path")),
+        clean_text(view.get("payload_artifact_path")),
+    ]
+    artifact_lines = [line for line in artifact_lines if line]
+    if artifact_lines:
+        lines.extend(["", "Artifacts:", *_bullet_lines(artifact_lines)])
+    return "\n".join(lines)
+
+
+def _launch_selected_config_lines(
+    view: Mapping[str, Any],
+    *,
+    language: str,
+    include_missing: bool = False,
+) -> list[str]:
+    config = dict(view.get("config", {}))
+    if language == "ru":
+        lines = []
+        if include_missing or view.get("daily_limit_present") is True:
+            lines.append(f"Лимит на день: {config.get('daily_limit_ru')}")
+        if include_missing or view.get("max_loss_present") is True:
+            lines.append(f"Максимальный убыток: {config.get('max_loss_ru')}")
+        if include_missing or view.get("markets_present") is True:
+            lines.append(f"Рынки: {config.get('markets_ru')}")
+        return lines
+    lines = []
+    if include_missing or view.get("daily_limit_present") is True:
+        lines.append(f"Daily limit: {config.get('daily_limit_en')}")
+    if include_missing or view.get("max_loss_present") is True:
+        lines.append(f"Max loss: {config.get('max_loss_en')}")
+    if include_missing or view.get("markets_present") is True:
+        lines.append(f"Markets: {config.get('markets_en')}")
+    return lines
+
+
+def _merge_launch_config_from_readiness(
+    config: Mapping[str, Any],
+    readiness: Mapping[str, Any],
+) -> dict[str, Any]:
+    value = dict(config)
+    daily_limit = clean_text(readiness.get("daily_limit"))
+    max_loss = clean_text(readiness.get("max_loss"))
+    selected_markets = _clean_list(readiness.get("selected_markets"))
+    if not clean_text(value.get("daily_limit_raw")) and daily_limit:
+        value["daily_limit_raw"] = daily_limit
+        value["daily_limit_ru"] = daily_limit
+        value["daily_limit_en"] = daily_limit
+    if not clean_text(value.get("max_loss_raw")) and max_loss:
+        value["max_loss_raw"] = max_loss
+        value["max_loss_ru"] = max_loss
+        value["max_loss_en"] = max_loss
+    if not _clean_list(value.get("markets")) and selected_markets:
+        markets_text = ", ".join(selected_markets)
+        value["markets"] = selected_markets
+        value["markets_ru"] = markets_text
+        value["markets_en"] = markets_text
+    return value
+
+
+def _launch_user_blockers(view: Mapping[str, Any], *, language: str) -> list[str]:
+    if language == "ru":
+        candidates = [
+            ("подпись не проверена", view.get("signer_ok") is not True),
+            ("SDK баланса недоступен", view.get("balance_ready") is not True),
+            ("нет финального разрешения на live", view.get("explicit_live_authorization_present") is not True),
+            ("кандидат не выбран", view.get("selected_candidate_ready") is not True),
+            ("Token ID не проверен", view.get("selected_token_verified") is not True),
+            ("payload dry-run не готов", view.get("payload_ready") is not True),
+            ("Risk Engine требует проверки", view.get("risk_ready") is not True),
+        ]
+    else:
+        candidates = [
+            ("signature is not verified", view.get("signer_ok") is not True),
+            ("balance SDK is unavailable", view.get("balance_ready") is not True),
+            ("final live permission is missing", view.get("explicit_live_authorization_present") is not True),
+            ("candidate is not selected", view.get("selected_candidate_ready") is not True),
+            ("Token ID is not verified", view.get("selected_token_verified") is not True),
+            ("payload dry-run is not ready", view.get("payload_ready") is not True),
+            ("Risk Engine needs review", view.get("risk_ready") is not True),
+        ]
+    return [text for text, active in candidates if active][:3]
+
+
+def _launch_bool_ru(value: Any, *, ready: str, blocked: str) -> str:
+    return ready if value is True else blocked
+
+
+def _launch_bool_en(value: Any, *, ready: str, blocked: str) -> str:
+    return ready if value is True else blocked
+
+
+def _launch_balance_ru(view: Mapping[str, Any]) -> str:
+    if view.get("balance_ready") is True:
+        return "доступен"
+    if view.get("balance_sdk_unavailable") is True:
+        return "SDK недоступен"
+    return "недоступен"
+
+
+def _launch_balance_en(view: Mapping[str, Any]) -> str:
+    if view.get("balance_ready") is True:
+        return "available"
+    if view.get("balance_sdk_unavailable") is True:
+        return "SDK unavailable"
+    return "unavailable"
+
+
+def _launch_final_ru(view: Mapping[str, Any]) -> str:
+    if view.get("final_ready") is True:
+        return "готова"
+    if view.get("ready_for_authorization") is True:
+        return "нет финального разрешения на live"
+    return "заблокирована"
+
+
+def _launch_final_en(view: Mapping[str, Any]) -> str:
+    if view.get("final_ready") is True:
+        return "ready"
+    if view.get("ready_for_authorization") is True:
+        return "missing final live permission"
+    return "blocked"
+
+
+def _bullet_lines(values: Any) -> list[str]:
+    return [f"- {item}" for item in _clean_list(values)]
+
+
+def _bool_any(*sources: Mapping[str, Any], key: str) -> bool:
+    return any(dict(source).get(key) is True for source in sources)
+
+
+def _status_first(*sources: Mapping[str, Any], key: str) -> str:
+    for source in sources:
+        text = clean_text(dict(source).get(key))
+        if text:
+            return text
+    return "not_available"
 
 
 def _normalize_l2_auth_display(value: str) -> str:

@@ -122,17 +122,17 @@ ANALYTICS_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
 
 LAUNCH_PRODUCT_BUTTON_ROWS_BY_LANGUAGE = {
     "ru": (
-        (("💵 Лимит на день", "pmbot:launch:limit"),),
-        (("📉 Максимальный убыток", "pmbot:launch:max_loss"),),
-        (("🎯 Выбор рынков", "pmbot:launch:markets"),),
-        (("▶️ Запустить", "pmbot:launch:start"),),
+        (("🔄 Обновить", "pmbot:launch"),),
+        (("📋 Подробнее", "pmbot:launch:details"),),
+        (("🔌 Подключение", "pmbot:connection"),),
+        (("💰 Баланс", "pmbot:balance"),),
         (("⬅️ Главное меню", "pmbot:home"),),
     ),
     "en": (
-        (("💵 Daily limit", "pmbot:launch:limit"),),
-        (("📉 Max loss", "pmbot:launch:max_loss"),),
-        (("🎯 Market selection", "pmbot:launch:markets"),),
-        (("▶️ Launch", "pmbot:launch:start"),),
+        (("🔄 Refresh", "pmbot:launch"),),
+        (("📋 Details", "pmbot:launch:details"),),
+        (("🔌 Connection", "pmbot:connection"),),
+        (("💰 Balance", "pmbot:balance"),),
         (("⬅️ Main menu", "pmbot:home"),),
     ),
 }

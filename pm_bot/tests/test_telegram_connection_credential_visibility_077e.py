@@ -242,8 +242,8 @@ def test_launch_blocks_when_credential_or_signer_chain_is_incomplete(tmp_path: P
     launch = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:launch")
     prelaunch = adapter.handle_callback(user_id=AUTHORIZED_USER_ID, chat_id="chat-1", callback_data="pmbot:launch:start")
 
-    assert "Запуск пока недоступен: требуется завершить подключение и проверку подписи." in launch.text
-    assert "Запуск пока недоступен: требуется завершить подключение и проверку подписи." in prelaunch.text
+    assert "Запуск пока недоступен: требуется завершить проверки." in launch.text
+    assert "Запуск пока недоступен: требуется завершить проверки." in prelaunch.text
     assert "allowed_for_live" not in launch.text
     assert "allowed_for_live" not in prelaunch.text
     assert prelaunch.summary["order_submission_enabled"] is False

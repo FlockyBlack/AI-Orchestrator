@@ -66,6 +66,8 @@ TELEGRAM_OPERATOR_TOKEN_SELECTION_074B_FLOW_ID = "telegram_operator_token_select
 TELEGRAM_RISK_ENGINE_V2_STATUS_075B_FLOW_ID = "telegram_risk_engine_v2_status_075b"
 RUNTIME_CREDENTIAL_VISIBILITY_077C_FLOW_ID = "runtime_credential_visibility_077c"
 SIGNER_DIAGNOSTIC_EVIDENCE_076C_FLOW_ID = "signer_diagnostic_evidence_bridge_076c"
+PAYLOAD_DRY_RUN_READINESS_076D_FLOW_ID = "payload_dry_run_readiness_076d"
+FIRST_SUPERVISED_TINY_ORDER_READINESS_077A_FLOW_ID = "first_supervised_tiny_order_readiness_077a"
 STATUS_REGISTRY_CONTRACT = "pmbot_telegram_operator_console_060t_status_registry.v1"
 STATUS_CARD_CONTRACT = "pmbot_telegram_operator_console_060t_status_card.v1"
 READINESS_SUMMARY_CONTRACT = "pmbot_telegram_operator_console_060t_readiness.v1"
@@ -440,6 +442,24 @@ STATUS_SOURCES: tuple[TelegramStatusSource, ...] = (
         context_key="signer_diagnostic_evidence_076c_status_summary",
         label_en="Signer diagnostic evidence",
         label_ru="Проверка подписи",
+    ),
+    TelegramStatusSource(
+        flow_id=PAYLOAD_DRY_RUN_READINESS_076D_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name="payload_dry_run_readiness_076d",
+        latest_status_filename="latest_payload_dry_run_readiness_076d_status.json",
+        context_key="payload_dry_run_readiness_076d_status_summary",
+        label_en="Payload dry-run readiness 076D",
+        label_ru="Payload dry-run 076D",
+    ),
+    TelegramStatusSource(
+        flow_id=FIRST_SUPERVISED_TINY_ORDER_READINESS_077A_FLOW_ID,
+        section="Live Readiness",
+        artifact_dir_name="first_supervised_tiny_order_readiness_077a",
+        latest_status_filename="latest_first_supervised_tiny_order_readiness_077a_status.json",
+        context_key="first_supervised_tiny_order_readiness_077a_status_summary",
+        label_en="First supervised tiny order readiness 077A",
+        label_ru="Готовность первого tiny order 077A",
     ),
     TelegramStatusSource(
         flow_id=TELEGRAM_BALANCE_READONLY_STATUS_077F_FLOW_ID,
@@ -2066,6 +2086,44 @@ def _status_summary_from_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "live_execution_blocked": True,
         "blocker_count": _int_or_zero(value.get("blocker_count"), len(blockers)),
         "top_blocker_reasons": _clean_list(top_blockers),
+        "selected_candidate_status": clean_text(value.get("selected_candidate_status") or "not_available"),
+        "selected_candidate_ready": value.get("selected_candidate_ready") is True,
+        "selected_token_verification_status": clean_text(
+            value.get("selected_token_verification_status") or "not_available"
+        ),
+        "selected_token_verified": value.get("selected_token_verified") is True,
+        "signer_diagnostic_status": clean_text(value.get("signer_diagnostic_status") or "not_available"),
+        "signer_diagnostic_ok": value.get("signer_diagnostic_ok") is True,
+        "payload_dry_run_readiness_status": clean_text(
+            value.get("payload_dry_run_readiness_status") or "not_available"
+        ),
+        "payload_dry_run_status": clean_text(value.get("payload_dry_run_status") or "not_available"),
+        "payload_dry_run_ready": value.get("payload_dry_run_ready") is True,
+        "risk_status": clean_text(value.get("risk_status") or "not_available"),
+        "risk_engine_status": clean_text(value.get("risk_engine_status") or "not_available"),
+        "risk_engine_ready": value.get("risk_engine_ready") is True
+        or value.get("risk_engine_v2_ready") is True,
+        "final_blocker_reducer_status": clean_text(
+            value.get("final_blocker_reducer_status") or "not_available"
+        ),
+        "final_blocker_reducer_clear": value.get("final_blocker_reducer_clear") is True,
+        "static_safety_report_status": clean_text(value.get("static_safety_report_status") or "not_available"),
+        "static_safety_report_ok": value.get("static_safety_report_ok") is True,
+        "daily_limit": clean_text(value.get("daily_limit")),
+        "max_loss": clean_text(value.get("max_loss")),
+        "selected_markets": _clean_list(value.get("selected_markets")),
+        "explicit_live_authorization_present": value.get("explicit_live_authorization_present") is True,
+        "ready_for_separate_live_packet": (
+            value.get("first_supervised_tiny_order_ready_for_authorization") is True
+        ),
+        "first_supervised_tiny_order_ready_for_execution": False,
+        "future_separate_live_task_can_be_considered": (
+            value.get("future_separate_live_task_can_be_considered") is True
+        ),
+        "final_blockers": _clean_list(value.get("final_blockers")),
+        "current_top_blocker": clean_text(value.get("current_top_blocker")),
+        "next_recommended_safe_command": clean_text(value.get("next_recommended_safe_command")),
+        "operator_summary": clean_text(value.get("operator_summary")),
         "review_only": True,
         "execution_enabling": False,
     }
