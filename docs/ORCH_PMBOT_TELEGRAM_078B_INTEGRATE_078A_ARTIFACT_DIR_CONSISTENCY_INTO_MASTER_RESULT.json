@@ -1,0 +1,279 @@
+{
+  "contract_version": "orch_pmbot_telegram_078b_integrate_078a_artifact_dir_consistency_into_master_result.v1",
+  "task_id": "ORCH-PMBOT-TELEGRAM-078B-INTEGRATE-078A-ARTIFACT-DIR-CONSISTENCY-INTO-MASTER",
+  "status": "validation_passed_pending_push",
+  "generated_at": "2026-05-17T04:29:35.0216466+04:00",
+  "worktree": "C:/oc078b_integrate_078a_artifact_dir_consistency_into_master",
+  "temporary_drive_mapping": {
+    "used": true,
+    "mapping": "O: => C:/oc078b_integrate_078a_artifact_dir_consistency_into_master",
+    "reason": "Initial checkout hit Windows MAX_PATH limits."
+  },
+  "base_branch": "master",
+  "head_before": "a07f2eb86d34e8c5c16b7c5d3159366aaab4928f",
+  "head_after": "47a02af53912a5747c61efd34945600af349a109",
+  "head_after_note": "head_after is the master head after replaying the 078A source commit and before committing this 078B result artifact; the final pushed master head is verified in the operator final report because a commit cannot embed its own final hash.",
+  "source_branch": "pmbot/telegram-078a-artifact-dir-consistency-connection-balance-no-live",
+  "source_head": "47a02af53912a5747c61efd34945600af349a109",
+  "replay_method": "fast-forward merge of FETCH_HEAD onto master",
+  "conflicts": {
+    "encountered": false,
+    "resolutions": []
+  },
+  "integrated_files": [
+    "docs/ORCH_PMBOT_TELEGRAM_078A_ARTIFACT_DIR_CONSISTENCY_FOR_CONNECTION_BALANCE_NO_LIVE_RESULT.json",
+    "pm_bot/operator_runner/funder_wallet_context_diagnostic.py",
+    "pm_bot/operator_runner/live_account_readonly_state_probe.py",
+    "pm_bot/operator_runner/runtime_credential_visibility_diagnostic.py",
+    "pm_bot/operator_runner/telegram_operator_control_bot.py",
+    "pm_bot/operator_runner/telegram_operator_runtime.py",
+    "pm_bot/operator_runner/telegram_status_registry.py",
+    "pm_bot/tests/test_artifact_dir_consistency_078a.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+    "pm_bot/trading_core/artifact_resolution.py",
+    "pm_bot/trading_core/funder_wallet_context_077g.py",
+    "pm_bot/trading_core/live_account_readonly_state_probe.py",
+    "pm_bot/trading_core/runtime_credential_visibility_077c.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "result_artifact_file": "docs/ORCH_PMBOT_TELEGRAM_078B_INTEGRATE_078A_ARTIFACT_DIR_CONSISTENCY_INTO_MASTER_RESULT.json",
+  "artifact_resolver_behavior_summary": {
+    "resolver": "pm_bot/trading_core/artifact_resolution.py",
+    "default_root": "pm_bot/trading_core/artifacts",
+    "env_override": "PMBOT_ARTIFACT_DIR",
+    "behavior": "Explicit artifact_dir wins first, otherwise PMBOT_ARTIFACT_DIR is used, otherwise repo-relative default artifacts are used."
+  },
+  "telegram_connection_behavior_summary": {
+    "runtime_visibility_artifact_loading": "Telegram status registry checks latest status and falls back to runtime_credential_visibility_077c_result.json when needed.",
+    "credential_fields": [
+      "POLYMARKET_API_KEY",
+      "POLYMARKET_API_SECRET",
+      "POLYMARKET_API_PASSPHRASE",
+      "POLYMARKET_PRIVATE_KEY",
+      "POLYMARKET_WALLET_ADDRESS",
+      "POLYMARKET_SIGNATURE_TYPE",
+      "POLYMARKET_FUNDER_ADDRESS",
+      "PMBOT_TELEGRAM_BOT_TOKEN",
+      "PMBOT_TELEGRAM_ALLOWED_OPERATOR_IDS"
+    ],
+    "secret_handling": "Connection rendering uses presence, missing-list, group-summary, and redacted metadata only; raw secret values are not displayed."
+  },
+  "telegram_balance_behavior_summary": {
+    "credential_visibility": "Balance uses the same artifact root and reads runtime credential visibility latest/result artifacts.",
+    "screen_variants": [
+      "missing_credentials",
+      "missing_funder",
+      "missing_account_artifact",
+      "account_probe_blocked_sdk_unavailable",
+      "account_artifact_available"
+    ],
+    "fake_data_policy": "Balance displays real account fields only when the read-only account artifact contains them; it does not invent balances, PnL, orders, fills, order IDs, or transaction hashes."
+  },
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_artifact_dir_consistency_078a.py",
+      "result": "passed",
+      "summary": "2 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_connection_credential_visibility_077e.py",
+      "result": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_runtime_credential_visibility_077c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_funder_wallet_context_077g.py",
+      "result": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_first_supervised_tiny_order_readiness_packet_077a.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_payload_dry_run_readiness_076d.py",
+      "result": "passed",
+      "summary": "10 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_signer_diagnostic_evidence_bridge_076c.py",
+      "result": "passed",
+      "summary": "7 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "result": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2295 passed in 639.94s"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "no compile errors"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "no compile errors"
+    }
+  ],
+  "runner_smoke_with_pmbot_artifact_dir": {
+    "env": {
+      "PMBOT_ARTIFACT_DIR": "C:/pmbot_artifacts"
+    },
+    "commands": [
+      {
+        "command": "python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_private_key",
+        "artifact": "C:/pmbot_artifacts/runtime_credential_visibility_077c/runtime_credential_visibility_077c_result.json",
+        "safety": {
+          "raw_secret_output": false,
+          "signer_instantiated": false,
+          "order_submission_enabled": false,
+          "allowed_for_live": false
+        }
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_wallet_address",
+        "artifact": "C:/pmbot_artifacts/funder_wallet_context_077g/funder_wallet_context_077g_result.json",
+        "safety": {
+          "raw_secret_output": false,
+          "signer_instantiated": false,
+          "order_submission_enabled": false,
+          "allowed_for_live": false
+        }
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_missing_l2_credentials",
+        "artifact": "C:/pmbot_artifacts/live_account_readonly_state_probe_070c/live_account_readonly_state_probe_070c_result.json",
+        "safety": {
+          "private_key_read": false,
+          "signer_instantiated": false,
+          "order_submission": "blocked",
+          "order_cancellation": "blocked",
+          "wallet_connection": "blocked",
+          "allowed_for_live": false
+        }
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+        "result": "passed",
+        "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; no_network_by_default=true; artifact_dir_configured=true",
+        "safety": {
+          "live_trading_enabled": false,
+          "real_orders_submitted": false,
+          "cryptographic_signing_added": false,
+          "wallet_integration_added": false,
+          "autonomous_execution_added": false,
+          "authenticated_polymarket_endpoint_calls_added": false
+        }
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.first_supervised_tiny_order_readiness_packet --market BTC --strategy tiny-momentum --dry-run",
+        "result": "passed",
+        "status": "blocked_signer_diagnostic_not_ok",
+        "artifact": "pm_bot/trading_core/artifacts/first_supervised_tiny_order_readiness_077a/first_supervised_tiny_order_readiness_077a_result.json",
+        "safety": {
+          "ready_for_execution": false,
+          "allowed_for_live": false,
+          "order_submission_enabled": false,
+          "order_cancel_enabled": false,
+          "signing_by_default": false
+        }
+      },
+      {
+        "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+        "result": "passed",
+        "summary": "scanned_files=384; critical_findings=0; warnings=7",
+        "safety": {
+          "live_execution": "blocked",
+          "order_submission": "blocked",
+          "signing": "blocked",
+          "wallet": "blocked"
+        }
+      }
+    ]
+  },
+  "static_safety_report_summary": {
+    "critical_findings": 0,
+    "warnings": 7,
+    "live_execution": "blocked",
+    "order_submission": "blocked",
+    "signing": "blocked",
+    "wallet": "blocked"
+  },
+  "manual_safety_scan_summary": {
+    "status": "passed",
+    "added_lines_scanned": 707,
+    "unsafe_pattern_matches": 0,
+    "broad_review_false_positives": 2,
+    "broad_review_disposition": "Broad review matches were safe context: no_raw_secret_output=true and documentation stating fake balances/PnL/orders are not shown.",
+    "forbidden_runtime_capability_introduced": false,
+    "notes": "Reviewed added-line matches for private key, API secret/passphrase, signed payload, submit/cancel/order posting, signer creation by default, wallet connection UI, in-chat secret collection, fake financial data, scheduler/daemon/background loop, and true-valued allowed_for_live or trading_requested flags."
+  },
+  "safety_flags": {
+    "paper_mode_only": true,
+    "live_trading_introduced": false,
+    "order_submission_introduced": false,
+    "order_cancel_introduced": false,
+    "signing_by_default_introduced": false,
+    "signer_instantiation_by_default_introduced": false,
+    "wallet_connection_ui_introduced": false,
+    "raw_secret_output_introduced": false,
+    "full_signed_payload_output_introduced": false,
+    "fake_balance_or_order_data_introduced": false,
+    "scheduler_daemon_background_loop_introduced": false,
+    "allowed_for_live_true_introduced": false,
+    "trading_requested_true_introduced": false,
+    "in_chat_secret_collection_introduced": false
+  },
+  "validation_side_effect_cleanup": {
+    "tracked_generated_artifact_changes_restored": true,
+    "pycache_directories_removed": true
+  },
+  "push_policy": {
+    "push_master_allowed_after_validation": true,
+    "force_push_allowed": false,
+    "selective_staging_only": true
+  },
+  "remote_verification": {
+    "status": "pending_push",
+    "command": "git ls-remote --heads origin master"
+  },
+  "final_git_status": "pending_push"
+}
