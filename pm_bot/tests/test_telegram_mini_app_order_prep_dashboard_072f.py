@@ -80,7 +80,7 @@ def test_072f_order_prep_section_is_static_ru_first_and_visible() -> None:
     assert "Подготовка запуска" in html
     assert "order-prep-card" in html
     assert "order-prep-list" in css
-    assert "grid-template-columns: repeat(9" in css
+    assert "grid-template-columns: repeat(10" in css
 
     for phrase in (
         "Рынок",

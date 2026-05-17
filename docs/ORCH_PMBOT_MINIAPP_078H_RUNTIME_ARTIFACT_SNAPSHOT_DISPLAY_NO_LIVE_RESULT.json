@@ -1,0 +1,154 @@
+{
+  "task_id": "ORCH-PMBOT-MINIAPP-078H-RUNTIME-ARTIFACT-SNAPSHOT-DISPLAY-NO-LIVE",
+  "status": "validated_pending_commit_push_verify",
+  "generated_at": "2026-05-17T06:58:05.5444834+04:00",
+  "repository": "https://github.com/FlockyBlack/AI-Orchestrator.git",
+  "worktree": "C:/oc078h_miniapp_runtime_artifact_snapshot_display_no_live",
+  "branch": "pmbot/miniapp-078h-runtime-artifact-snapshot-display-no-live",
+  "base": "origin/master",
+  "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+  "head_before_note": "Initial clean task worktree head before edits. origin/master advanced during validation, so the task changes were rebased onto the current origin/master before final validation.",
+  "rebased_base_head": "1a2fcae9c1e3e09e5418e4686177bfebe8bfd011",
+  "head_after": "recorded_in_final_response_after_commit_push_verify",
+  "head_after_note": "The committed result JSON cannot contain its own final commit SHA without changing that SHA. The final response records the pushed and remotely verified feature branch HEAD.",
+  "changed_files": [
+    "docs/ORCH_PMBOT_MINIAPP_078H_RUNTIME_ARTIFACT_SNAPSHOT_DISPLAY_NO_LIVE_RESULT.json",
+    "pm_bot/telegram_mini_app/index.html",
+    "pm_bot/telegram_mini_app/styles.css",
+    "pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py",
+    "pm_bot/tests/test_miniapp_runtime_artifact_snapshot_078h.py",
+    "pm_bot/tests/test_telegram_mini_app_order_prep_dashboard_072f.py"
+  ],
+  "implementation_summary": [
+    "Updated the static Mini App dashboard hero and Connection card to state that dashboard data comes from local diagnostic artifacts.",
+    "Changed Connection to surface credential visibility and funder/wallet context artifact statuses without collecting or exposing secret values.",
+    "Changed Balance copy to distinguish SDK unavailable, missing account artifact, and real-artifact-only display behavior without fake balances or PnL.",
+    "Changed Launch to show the readiness packet, top blockers, and no-live-start status without any live start control.",
+    "Changed Readiness to mirror selected token, signer diagnostic, payload readiness, risk engine, and final blocker artifact-based statuses.",
+    "Added a static Help / Run commands card listing the runtime credential diagnostic, funder wallet diagnostic, live account readonly probe, and first supervised tiny order readiness packet commands.",
+    "Expanded Mini App navigation from nine to ten static anchors to include the Help / Commands card."
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_miniapp_runtime_artifact_snapshot_078h.py",
+      "result": "passed",
+      "summary": "4 passed in 0.12s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_miniapp_connection_balance_readiness_077h.py",
+      "result": "passed",
+      "summary": "4 passed in 0.12s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_product_ux_076t.py",
+      "result": "passed",
+      "summary": "14 passed in 2.34s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_forbidden_live_controls_063a.py",
+      "result": "passed",
+      "summary": "3 passed in 0.24s"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "result": "passed",
+      "summary": "9 passed in 31.29s"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "result": "passed",
+      "summary": "2305 passed in 703.37s (0:11:43)"
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "result": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "result": "passed",
+      "summary": "No compile errors."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "result": "passed",
+      "summary": "ready_to_start_runtime=true; review_only_safety_flags_ok=true; network_check_requested=false; live_trading_enabled=false; real_orders_submitted=false; wallet_integration_added=false."
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "result": "passed",
+      "summary": "Scanned files: 384; critical findings: 0; warnings: 7; live execution, order submission, signing, and wallet blocked."
+    },
+    {
+      "command": "rg -n -i \"<form|<input|<textarea|<script|<button|onclick|fetch\\(|xmlhttprequest|connect wallet|wallet connect|secret form|submit order|cancel order|sign transaction|fake balances?|fake pnl|\\$0|0\\.00|realized_pnl|unrealized_pnl|profit:|loss:\" pm_bot/telegram_mini_app",
+      "result": "passed",
+      "summary": "No matches in Mini App HTML/CSS."
+    },
+    {
+      "command": "rg -n -i \"sign|signature|wallet|pnl|submit|cancel\" pm_bot/telegram_mini_app/index.html",
+      "result": "passed_with_expected_contextual_matches",
+      "summary": "Matches are static safety meta text, funder/wallet diagnostic labels, Signature type, Signer diagnostic status, and no-PnL placeholders. No submit/cancel/sign controls were present."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "summary": "No whitespace errors."
+    }
+  ],
+  "manual_scan_summary": {
+    "fetch_added": false,
+    "xmlhttprequest_added": false,
+    "scripts_calling_apis_added": false,
+    "wallet_connect_added": false,
+    "secret_forms_added": false,
+    "submit_cancel_sign_controls_added": false,
+    "fake_balances_added": false,
+    "fake_pnl_added": false,
+    "contextual_status_terms_reviewed": [
+      "pmbot-safety meta no-wallet-connect/no-signing",
+      "Funder / wallet context",
+      "Signature type",
+      "Signer diagnostic",
+      "no-PnL placeholders",
+      "Funder wallet diagnostic command label"
+    ]
+  },
+  "safety_flags": {
+    "static_no_live_only": true,
+    "network_fetch_added": false,
+    "javascript_added": false,
+    "api_calling_script_added": false,
+    "wallet_connect_ui_added": false,
+    "secret_input_added": false,
+    "secret_form_added": false,
+    "live_start_control_added": false,
+    "submit_control_added": false,
+    "cancel_control_added": false,
+    "sign_control_added": false,
+    "fake_balance_or_pnl_added": false,
+    "raw_wallet_or_token_display_added": false,
+    "allowed_for_live_true_added": false,
+    "trading_requested_true_added": false,
+    "browser_automation_added": false,
+    "scheduler_daemon_background_loop_added": false
+  },
+  "validation_side_effect_cleanup": {
+    "tracked_generated_artifact_changes_restored": true,
+    "pycache_directories_removed": true,
+    "final_worktree_contains_only_intended_changes": true
+  },
+  "remaining_risks": [
+    "The Mini App remains static and does not read live artifacts itself; operators must run the listed CLI diagnostics separately.",
+    "The static safety invariant report still reports 7 warnings with 0 critical findings; those warnings did not enable live execution, order submission, signing, or wallet usage."
+  ],
+  "push_policy": {
+    "push_feature_branch_allowed_after_validation": true,
+    "force_push_allowed": false,
+    "selective_staging_only": true
+  },
+  "remote_verification": {
+    "status": "pending_push",
+    "command": "git ls-remote origin refs/heads/pmbot/miniapp-078h-runtime-artifact-snapshot-display-no-live"
+  },
+  "final_git_status": "pending_push"
+}

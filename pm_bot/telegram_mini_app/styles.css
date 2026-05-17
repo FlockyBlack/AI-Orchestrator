@@ -110,7 +110,7 @@ body {
   top: 0;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   gap: 7px;
   padding: 9px 0 12px;
   background: rgba(11, 17, 16, 0.94);
@@ -228,7 +228,8 @@ body {
 
 .analytics-card,
 .launch-card,
-.readiness-card {
+.readiness-card,
+.help-card {
   grid-column: span 8;
 }
 
@@ -383,6 +384,28 @@ body {
   font: 0.82rem/1.35 Consolas, "Liberation Mono", monospace;
 }
 
+.command-list {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.command-list li {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.command-list strong {
+  color: var(--silver);
+  line-height: 1.25;
+}
+
 .safe-placeholder {
   max-width: 760px;
 }
@@ -529,7 +552,7 @@ body {
   bottom: 10px;
   z-index: 4;
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   gap: 6px;
   width: min(calc(100% - 20px), 1080px);
   padding: 8px;
@@ -553,7 +576,7 @@ body {
   }
 
   .tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .connection-card,
@@ -571,7 +594,8 @@ body {
 
   .analytics-card,
   .launch-card,
-  .readiness-card {
+  .readiness-card,
+  .help-card {
     grid-column: 1 / -1;
   }
 
@@ -601,7 +625,7 @@ body {
   }
 
   .bottom-nav {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -649,6 +673,6 @@ body {
 
   .bottom-nav,
   .tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

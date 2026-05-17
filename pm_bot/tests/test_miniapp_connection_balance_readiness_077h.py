@@ -21,8 +21,12 @@ def test_077h_connection_balance_analytics_launch_readiness_and_stop_panels_are_
         "Passphrase",
         "Кошелёк",
         "Funder",
+        "Credential visibility",
+        "данные берутся из локальных диагностических артефактов",
         "Проверяется в Telegram / CLI",
         "Баланс unavailable до read-only проверки аккаунта",
+        "SDK unavailable",
+        "account artifact missing",
         "Сегодня",
         "7 дней",
         "30 дней",
@@ -37,12 +41,17 @@ def test_077h_connection_balance_analytics_launch_readiness_and_stop_panels_are_
         "Payload readiness",
         "Риск-статус",
         "Финальная готовность",
+        "Run commands",
+        "runtime_credential_visibility_diagnostic",
+        "funder_wallet_context_diagnostic",
+        "live_account_readonly_state_probe",
+        "first_supervised_tiny_order_readiness_packet",
         "No-live stop marker",
         "Остановка показывает локальный статус",
     ):
         assert phrase in html
 
-    for section_id in ("connection", "balance", "analytics", "launch-stop", "readiness", "stop"):
+    for section_id in ("connection", "balance", "analytics", "launch-stop", "readiness", "help", "stop"):
         assert f'id="{section_id}"' in html
 
 
@@ -99,6 +108,8 @@ def test_077h_styles_define_product_cards_without_expanding_navigation_contract(
         "readiness-list",
         "stop-marker",
         "stop-list",
+        "help-card",
+        "command-list",
     ):
         assert class_name in css
-    assert "grid-template-columns: repeat(9" in css
+    assert "grid-template-columns: repeat(10" in css

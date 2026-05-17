@@ -32,6 +32,7 @@
       <a href="#order-prep">Подготовка</a>
       <a href="#limits">Лимиты</a>
       <a href="#launch-stop">Запуск</a>
+      <a href="#help">Команды</a>
     </nav>
 
     <main>
@@ -41,7 +42,8 @@
           <h2 id="dashboard-title">Панель управления PMBOT</h2>
           <p>
             Здесь собраны подключение, баланс, аналитика, запуск, готовность и безопасная остановка.
-            Панель остаётся статической: данные появляются только после read-only проверок в Telegram / CLI.
+            Панель остаётся статической: данные берутся из локальных диагностических артефактов и
+            появляются только после read-only проверок в Telegram / CLI.
           </p>
         </div>
         <div class="hero-status" aria-label="Risk review status">
@@ -62,33 +64,33 @@
           </div>
           <dl class="status-list real-check-list" aria-label="Статус подключения">
             <div>
+              <dt>Credential visibility</dt>
+              <dd><span class="badge warning">ожидает артефакт</span><small>runtime_credential_visibility_077c</small></dd>
+            </div>
+            <div>
               <dt>API Key</dt>
-              <dd><span class="badge muted">статус ожидается</span><small>Проверяется в Telegram / CLI</small></dd>
+              <dd><span class="badge muted">redacted status</span><small>Проверяется в Telegram / CLI</small></dd>
             </div>
             <div>
               <dt>API Secret</dt>
-              <dd><span class="badge muted">статус ожидается</span><small>секретное значение не отображается</small></dd>
+              <dd><span class="badge muted">redacted status</span><small>секретное значение не отображается</small></dd>
             </div>
             <div>
               <dt>Passphrase</dt>
-              <dd><span class="badge muted">статус ожидается</span><small>значение не вводится в Mini App</small></dd>
+              <dd><span class="badge muted">redacted status</span><small>значение не вводится в Mini App</small></dd>
             </div>
             <div>
-              <dt>Кошелёк</dt>
-              <dd><span class="badge muted">placeholder</span><small>без подключения кошелька в интерфейсе</small></dd>
+              <dt>Funder / wallet context</dt>
+              <dd><span class="badge warning">ожидает артефакт</span><small>Кошелёк и Funder проверяются через funder_wallet_context_077g</small></dd>
             </div>
             <div>
               <dt>Signature type</dt>
-              <dd><span class="badge muted">placeholder</span><small>только диагностический статус</small></dd>
-            </div>
-            <div>
-              <dt>Funder</dt>
-              <dd><span class="badge muted">placeholder</span><small>адрес не подставляется без read-only проверки</small></dd>
+              <dd><span class="badge muted">только статус</span><small>только диагностический статус</small></dd>
             </div>
           </dl>
           <div class="empty-state artifact-empty-note">
             <strong>Ключи должны быть доступны процессу Telegram-бота</strong>
-            <p>В Mini App нет полей для ввода секретов, подключения кошелька или запуска подписи. Статусы показываются только как безопасные placeholders.</p>
+            <p>Данные берутся из локальных диагностических артефактов. В Mini App нет полей для ввода секретов, подключения кошелька или запуска подписи.</p>
           </div>
         </article>
 
@@ -102,8 +104,10 @@
           </div>
           <div class="empty-state">
             <strong>Баланс недоступен</strong>
-            <p>Баланс unavailable до read-only проверки аккаунта в Telegram / CLI. Значения не имитируются и не подставляются вручную.</p>
+            <p>Баланс unavailable до read-only проверки аккаунта в Telegram / CLI. SDK unavailable или account artifact missing блокируют отображение средств. Значения не имитируются и не подставляются вручную.</p>
+            <span class="badge muted">real artifact only</span>
             <span class="badge muted">данные не подставляются</span>
+            <small>Данные показываются только из последнего read-only account artifact.</small>
           </div>
         </article>
 
@@ -244,10 +248,18 @@
               <dt>Статус</dt>
               <dd><span class="badge warning">финальная проверка требуется</span><small>требуется финальная проверка и подтверждение</small></dd>
             </div>
+            <div>
+              <dt>Readiness packet</dt>
+              <dd><span class="badge warning">ожидает 077A</span><small>first supervised tiny order readiness packet</small></dd>
+            </div>
+            <div>
+              <dt>Top blockers</dt>
+              <dd><span class="badge danger">не сняты</span><small>локальные блокеры показываются из artifact snapshot</small></dd>
+            </div>
           </dl>
           <div class="empty-state">
             <strong>Запуск пока недоступен</strong>
-            <p>Карточка показывает только product-style summary. Здесь нет live-кнопок, отправки заявок или подписи.</p>
+            <p>Карточка показывает только product-style summary и no live start. Здесь нет live-кнопок, отправки заявок или подписи.</p>
           </div>
         </article>
 
@@ -265,25 +277,57 @@
               <dd><span class="badge neutral">проверен</span><small>selected token verified, raw ID скрыт</small></dd>
             </div>
             <div>
-              <dt>Диагностика подписи</dt>
-              <dd><span class="badge muted">требуется проверка</span><small>статус приходит из CLI</small></dd>
+              <dt>Диагностика подписи / Signer diagnostic</dt>
+              <dd><span class="badge muted">требуется проверка</span><small>signer diagnostic status приходит из локального артефакта</small></dd>
             </div>
             <div>
               <dt>Payload readiness</dt>
               <dd><span class="badge muted">не готов</span><small>ожидает локальный dry-run</small></dd>
             </div>
             <div>
-              <dt>Риск-статус</dt>
-              <dd><span class="badge warning">требуется проверка</span><small>risk status без торгового сигнала</small></dd>
+              <dt>Риск-статус / Risk engine</dt>
+              <dd><span class="badge warning">требуется проверка</span><small>risk engine без торгового сигнала</small></dd>
             </div>
             <div>
-              <dt>Финальная готовность</dt>
-              <dd><span class="badge danger">заблокировано</span><small>final readiness: review required</small></dd>
+              <dt>Финальная готовность / Final blocker</dt>
+              <dd><span class="badge danger">заблокировано</span><small>final blocker: explicit separate authorization absent</small></dd>
             </div>
           </dl>
           <div class="empty-state safe-placeholder">
             <strong>Готовность отображается без live-действий</strong>
             <p>Панель не строит рекомендацию, не выбирает сторону и не включает исполнение.</p>
+          </div>
+        </article>
+
+        <article class="card help-card" id="help">
+          <div class="card-header">
+            <span class="card-icon" aria-hidden="true">?</span>
+            <div>
+              <p class="card-label">Help</p>
+              <h3>Run commands</h3>
+            </div>
+          </div>
+          <ul class="command-list" aria-label="Локальные команды диагностики">
+            <li>
+              <strong>Runtime credential diagnostic</strong>
+              <code class="command-line">python -m pm_bot.operator_runner.runtime_credential_visibility_diagnostic --market BTC --strategy tiny-momentum --dry-run</code>
+            </li>
+            <li>
+              <strong>Funder wallet diagnostic</strong>
+              <code class="command-line">python -m pm_bot.operator_runner.funder_wallet_context_diagnostic --market BTC --strategy tiny-momentum --dry-run</code>
+            </li>
+            <li>
+              <strong>Live account readonly probe</strong>
+              <code class="command-line">python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run</code>
+            </li>
+            <li>
+              <strong>First supervised tiny order readiness packet</strong>
+              <code class="command-line">python -m pm_bot.operator_runner.first_supervised_tiny_order_readiness_packet --market BTC --strategy tiny-momentum --dry-run</code>
+            </li>
+          </ul>
+          <div class="empty-state safe-placeholder">
+            <strong>Команды создают локальные артефакты для просмотра</strong>
+            <p>Mini App не запускает эти команды и не вызывает API. Оператор выполняет их отдельно в CLI.</p>
           </div>
         </article>
 
@@ -324,6 +368,7 @@
       <a href="#order-prep">Подготовка</a>
       <a href="#limits">Лимиты</a>
       <a href="#launch-stop">Запуск</a>
+      <a href="#help">Команды</a>
     </nav>
   </div>
 </body>
