@@ -246,10 +246,11 @@ def test_blocked_sdk_unavailable_is_distinct_from_missing_account_artifact(tmp_p
     assert status["account_expected_sdk_module"] == EXPECTED_SDK_MODULE
     assert status["account_expected_install_command"] == EXPECTED_SDK_INSTALL_COMMAND
     assert status["account_python_executable"] == "C:/safe/python.exe"
-    assert "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен" in reply.text
+    assert "Проверка баланса недоступна: не найден Polymarket CLOB SDK в текущем Python." in reply.text
     assert "Баланс не прочитан; фейковые значения не показываются." in reply.text
     assert f"Ожидаемый SDK: {EXPECTED_SDK_MODULE}" in reply.text
-    assert f"Безопасная команда установки: {EXPECTED_SDK_INSTALL_COMMAND}" in reply.text
+    assert "Безопасные команды:" in reply.text
+    assert EXPECTED_SDK_INSTALL_COMMAND in reply.text
     assert "Python: C:/safe/python.exe" in reply.text
     assert "Ключи видны, но проверка аккаунта ещё не выполнена." not in reply.text
     assert SAFE_ACCOUNT_PROBE_COMMAND in reply.text

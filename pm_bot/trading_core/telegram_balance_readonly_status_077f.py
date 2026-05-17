@@ -311,14 +311,14 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
             return "\n".join(
                 [
                     "💰 Баланс",
-                    "Проверка аккаунта заблокирована: официальный Polymarket CLOB SDK недоступен в этом окружении.",
+                    "Проверка баланса недоступна: не найден Polymarket CLOB SDK в текущем Python.",
                     "Баланс не прочитан; фейковые значения не показываются.",
                     f"Ожидаемый SDK: {value['account_expected_sdk_module'] or EXPECTED_SDK_MODULE}",
-                    f"Безопасная команда установки: {value['account_expected_install_command'] or EXPECTED_SDK_INSTALL_COMMAND}",
+                    "Безопасные команды:",
+                    value["account_expected_install_command"] or EXPECTED_SDK_INSTALL_COMMAND,
+                    value["safe_account_probe_command"],
                     f"Python: {value['account_python_executable'] or 'нет данных'}",
                     f"Статус проверки: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
-                    "Безопасная команда:",
-                    value["safe_account_probe_command"],
                 ]
             )
         return "\n".join(
@@ -362,14 +362,14 @@ def render_telegram_balance_readonly_status_text(status: Mapping[str, Any], *, l
         return "\n".join(
             [
                 "💰 Balance",
-                "Account check is blocked: the official Polymarket CLOB SDK is unavailable in this environment.",
+                "Balance check is unavailable: Polymarket CLOB SDK was not found in the current Python.",
                 "Balance was not read; fake values are not shown.",
                 f"Expected SDK: {value['account_expected_sdk_module'] or EXPECTED_SDK_MODULE}",
-                f"Safe install command: {value['account_expected_install_command'] or EXPECTED_SDK_INSTALL_COMMAND}",
+                "Safe commands:",
+                value["account_expected_install_command"] or EXPECTED_SDK_INSTALL_COMMAND,
+                value["safe_account_probe_command"],
                 f"Python: {value['account_python_executable'] or 'no data'}",
                 f"Check status: {value['account_probe_status'] or 'blocked_sdk_unavailable'}",
-                "Safe command:",
-                value["safe_account_probe_command"],
             ]
         )
     return "\n".join(

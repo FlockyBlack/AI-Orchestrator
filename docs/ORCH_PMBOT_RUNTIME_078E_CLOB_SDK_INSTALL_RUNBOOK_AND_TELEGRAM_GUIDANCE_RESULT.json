@@ -1,0 +1,125 @@
+{
+  "task_id": "ORCH-PMBOT-RUNTIME-078E-CLOB-SDK-INSTALL-RUNBOOK-AND-TELEGRAM-GUIDANCE-NO-LIVE",
+  "status": "completed",
+  "branch": "pmbot/runtime-078e-clob-sdk-install-runbook-telegram-guidance-no-live",
+  "base": "origin/master",
+  "head_before": "0144f6a74cfa408f23858a060078c392088073b0",
+  "head_after": "POST_PUSH_HEAD_REPORTED_IN_FINAL_RESPONSE",
+  "included_dependency_changes": [],
+  "base_update_note": "At task start, pm_bot/tests/test_clob_sdk_detection_078c.py was not present on origin/master in this worktree. During validation, origin/master advanced to include 078C; the final branch was rebased onto that updated origin/master and carries only the 078E delta.",
+  "changed_files": [
+    "docs/PMBOT_CLOB_SDK_INSTALL_AND_READONLY_BALANCE_RUNBOOK_078E.md",
+    "docs/ORCH_PMBOT_RUNTIME_078E_CLOB_SDK_INSTALL_RUNBOOK_AND_TELEGRAM_GUIDANCE_RESULT.json",
+    "pm_bot/tests/test_clob_sdk_install_guidance_078e.py",
+    "pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+    "pm_bot/trading_core/telegram_balance_readonly_status_077f.py"
+  ],
+  "implementation_summary": [
+    "Added a no-live SDK installation and verification runbook for the Polymarket CLOB read-only balance path.",
+    "Runbook covers Python identity checks, pip package checks, manual installation commands, PowerShell here-string import verification, rerun command, wrong-Python avoidance, and no-secret terminal-output guidance.",
+    "Updated Telegram Balance SDK-missing guidance to show the required Russian copy plus the safe manual install and read-only probe commands.",
+    "Added focused 078E tests for runbook command coverage, Telegram SDK-missing copy, and no-live command constants."
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_sdk_install_guidance_078e.py",
+      "status": "passed",
+      "summary": "3 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_clob_sdk_detection_078c.py",
+      "status": "passed",
+      "summary": "6 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_telegram_balance_readonly_account_077f.py",
+      "status": "passed",
+      "summary": "8 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_live_account_readonly_state_probe_070c.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -m pytest pm_bot/tests/test_static_safety_invariant_report_060q.py",
+      "status": "passed",
+      "summary": "9 passed"
+    },
+    {
+      "command": "python -B -m pytest pm_bot/tests",
+      "status": "passed",
+      "summary": "2304 passed in 697.87s on the final rebased branch",
+      "note": "An earlier pre-rebase 10-minute attempt timed out before completion; the same command was rerun with a longer timeout and passed before rebase, then passed again after rebase."
+    },
+    {
+      "command": "python -m compileall -q pm_bot",
+      "status": "passed"
+    },
+    {
+      "command": "python -m compileall -q ai_orchestrator",
+      "status": "passed"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run",
+      "status": "passed",
+      "safety_note": "Credential-related environment variables were cleared inside the child PowerShell process before invocation.",
+      "summary": "blocked_missing_l2_credentials; allowed_for_live false; signer instantiated false; order submission/cancellation/wallet connection blocked; SDK status dependency_missing with install guidance shown"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.telegram_runtime_smoke --json",
+      "status": "passed",
+      "safety_note": "Credential-related environment variables were cleared inside the child PowerShell process before invocation.",
+      "summary": "network_check_requested false; review_only_safety_flags_ok true; missing token/operator IDs reported as config errors"
+    },
+    {
+      "command": "python -m pm_bot.operator_runner.static_safety_invariant_report --scope pm_bot --dry-run",
+      "status": "passed",
+      "safety_note": "Credential-related environment variables were cleared inside the child PowerShell process before invocation.",
+      "summary": "0 critical findings; 7 warnings; live execution, order submission, signing, and wallet blocked"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "status": "passed"
+    }
+  ],
+  "runbook_summary": [
+    "Manual-only install guidance: python -m pip install py-clob-client.",
+    "Optional v2 note is explicitly scoped to a separate operator decision and the same no-live read-only path.",
+    "Import verification uses a PowerShell here-string piped to python - and prints only import status and Python executable.",
+    "Rerun command remains python -m pm_bot.operator_runner.live_account_readonly_state_probe --market BTC --strategy tiny-momentum --dry-run."
+  ],
+  "telegram_guidance_summary": [
+    "SDK-missing Russian copy now starts with: balance check unavailable because Polymarket CLOB SDK was not found in current Python.",
+    "Telegram Balance shows python -m pip install py-clob-client and the read-only probe rerun command as safe text-only commands.",
+    "No Telegram button or callback was added for package installation or live execution."
+  ],
+  "safety_flags": {
+    "live_trading_added": false,
+    "order_submission_added": false,
+    "order_cancellation_added": false,
+    "trading_write_endpoint_added": false,
+    "signer_instantiated_by_default": false,
+    "wallet_connect_ui_added": false,
+    "private_key_read": false,
+    "raw_secret_output_added": false,
+    "fake_balances_emitted": false,
+    "fake_pnl_emitted": false,
+    "fake_orders_emitted": false,
+    "package_install_side_effect_added": false,
+    "allowed_for_live": false,
+    "trading_requested": false,
+    "browser_automation_added": false,
+    "scheduler_or_daemon_added": false,
+    "background_loop_added": false
+  },
+  "remaining_risks": [
+    "Actual read-only balance probing still depends on the operator manually installing a compatible SDK into the exact Python that runs PMBOT.",
+    "If multiple Python installations exist, the operator must verify interpreter and pip alignment before running the probe.",
+    "The SDK import check imports installed third-party packages for diagnostics; no package installation, signing, wallet connection, or order action is performed by this task."
+  ]
+}
